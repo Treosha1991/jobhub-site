@@ -1,0 +1,93 @@
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JobHub — FAQ</title>
+  <meta name="description" content="FAQ JobHub: регистрация, модерация, жалобы, безопасность и работа с вакансиями.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script defer src="/assets/app.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="badge">FAQ</span>
+      <h1><span class="lang-ru">Частые вопросы</span><span class="lang-en">Frequently asked questions</span><span class="lang-pl">Najczęstsze pytania</span><span class="lang-uk">Поширені запитання</span></h1>
+      <p><span class="lang-ru">Если вы не нашли ответ, напишите в поддержку: support@jobhub.today.</span><span class="lang-en">If your question is not listed here, contact support: support@jobhub.today.</span><span class="lang-pl">Jeśli nie ma tu odpowiedzi, napisz do wsparcia: support@jobhub.today.</span><span class="lang-uk">Якщо тут немає відповіді, зверніться в підтримку: support@jobhub.today.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">1) Как зарегистрироваться?</span><span class="lang-en">1) How do I register?</span><span class="lang-pl">1) Jak się zarejestrować?</span><span class="lang-uk">1) Як зареєструватися?</span></h2>
+      <p><span class="lang-ru">Создайте аккаунт по email, затем подтвердите телефон кодом из SMS. После этого доступны функции публикации и жалоб.</span><span class="lang-en">Create an account by email, then verify your phone with an SMS code. After that, publishing and complaint features become available.</span><span class="lang-pl">Utwórz konto przez email, potem potwierdź telefon kodem SMS. Po tym dostępne będą publikacja i zgłoszenia.</span><span class="lang-uk">Створіть акаунт через email, потім підтвердьте телефон SMS-кодом. Після цього доступні публікація і скарги.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">2) Почему вакансия не сразу в ленте?</span><span class="lang-en">2) Why is my vacancy not visible immediately?</span><span class="lang-pl">2) Dlaczego oferta nie pojawia się od razu?</span><span class="lang-uk">2) Чому вакансія не з'являється одразу?</span></h2>
+      <p><span class="lang-ru">Каждая новая или отредактированная вакансия проходит модерацию. До одобрения она не показывается в публичной ленте.</span><span class="lang-en">Every new or edited vacancy goes through moderation. It is not shown in the public feed until approved.</span><span class="lang-pl">Każda nowa lub edytowana oferta przechodzi moderację. Nie jest widoczna w feedzie przed zatwierdzeniem.</span><span class="lang-uk">Кожна нова або відредагована вакансія проходить модерацію. До схвалення вона не відображається у стрічці.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">3) Что происходит после жалобы?</span><span class="lang-en">3) What happens after a complaint is submitted?</span><span class="lang-pl">3) Co dzieje się po zgłoszeniu?</span><span class="lang-uk">3) Що відбувається після скарги?</span></h2>
+      <p><span class="lang-ru">Жалоба сохраняется в системе, попадает модераторам и учитывается в решении по карточке. До решения жалоба видна только команде модерации.</span><span class="lang-en">The complaint is stored in the system, sent to moderators, and used in decisions about the listing. It is visible only to the moderation team.</span><span class="lang-pl">Zgłoszenie jest zapisywane w systemie, trafia do moderatorów i wpływa na decyzję o ofercie. Jest widoczne tylko dla zespołu moderacji.</span><span class="lang-uk">Скарга зберігається в системі, надходить модераторам і використовується для рішення щодо картки. Вона видима лише команді модерації.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">4) Можно ли восстановить удалённую вакансию?</span><span class="lang-en">4) Can a deleted vacancy be restored?</span><span class="lang-pl">4) Czy usuniętą ofertę można przywrócić?</span><span class="lang-uk">4) Чи можна відновити видалену вакансію?</span></h2>
+      <p><span class="lang-ru">Да, действие "Удалить навсегда" может отменить только модератор. Обычные пользователи восстановить такую карточку не могут.</span><span class="lang-en">Yes, a "Delete permanently" action can be reverted only by a moderator. Regular users cannot restore such listing.</span><span class="lang-pl">Tak, akcję "Usuń na stałe" może cofnąć tylko moderator. Zwykły użytkownik nie przywróci takiej oferty.</span><span class="lang-uk">Так, дію "Видалити назавжди" може скасувати лише модератор. Звичайний користувач не може відновити таку вакансію.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">5) Как удалить аккаунт и данные?</span><span class="lang-en">5) How do I delete my account and data?</span><span class="lang-pl">5) Jak usunąć konto i dane?</span><span class="lang-uk">5) Як видалити акаунт і дані?</span></h2>
+      <p><span class="lang-ru">Смотрите страницу <a href="/data-deletion.html">Удаление данных</a>. Запрос отправляется на privacy@jobhub.today.</span><span class="lang-en">See the <a href="/data-deletion.html">Data deletion</a> page. Requests are sent to privacy@jobhub.today.</span><span class="lang-pl">Zobacz stronę <a href="/data-deletion.html">Usuwanie danych</a>. Wnioski wysyłaj na privacy@jobhub.today.</span><span class="lang-uk">Дивіться сторінку <a href="/data-deletion.html">Видалення даних</a>. Запити надсилайте на privacy@jobhub.today.</span></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div><span class="lang-ru">Контакты: support@jobhub.today • privacy@jobhub.today</span><span class="lang-en">Contacts: support@jobhub.today • privacy@jobhub.today</span><span class="lang-pl">Kontakt: support@jobhub.today • privacy@jobhub.today</span><span class="lang-uk">Контакти: support@jobhub.today • privacy@jobhub.today</span></div>
+    </div>
+  </footer>
+</body>
+</html>

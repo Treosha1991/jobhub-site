@@ -1,40 +1,112 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Terms — JobHub</title>
-  <meta name="description" content="Terms of use for JobHub app and website.">
+  <title>JobHub — условия использования</title>
+  <meta name="description" content="Условия использования JobHub: правила аккаунта, публикации вакансий, модерация и ответственность.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1><span class="lang-en">Terms of Use</span><span class="lang-ru">Условия использования</span></h1>
-    <div class="card">
-      <p><span class="lang-en">By using JobHub you agree to lawful use, respectful moderation actions, and account security rules.</span><span class="lang-ru">Используя JobHub, вы соглашаетесь с законным использованием, корректной модерацией и правилами безопасности аккаунта.</span></p>
-      <p><span class="lang-en">We may restrict access for abuse, fraud, or policy violations.</span><span class="lang-ru">Мы можем ограничить доступ при злоупотреблениях, мошенничестве или нарушении правил.</span></p>
-      <p><span class="lang-en">Legal contact: legal@jobhub.today.</span><span class="lang-ru">Юридический контакт: legal@jobhub.today.</span></p>
-      <p class="muted"><span class="lang-en">Legal review required before production release.</span><span class="lang-ru">Требуется юридическая проверка перед production-релизом.</span></p>
-    </div>
+    <section class="hero">
+      <span class="badge"><span class="lang-ru">Условия использования</span><span class="lang-en">Terms of use</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови використання</span></span>
+      <h1><span class="lang-ru">Правила использования JobHub</span><span class="lang-en">Rules for using JobHub</span><span class="lang-pl">Zasady korzystania z JobHub</span><span class="lang-uk">Правила використання JobHub</span></h1>
+      <p><span class="lang-ru">Дата вступления в силу: 15 февраля 2026 года.</span><span class="lang-en">Effective date: February 15, 2026.</span><span class="lang-pl">Data wejścia w życie: 15 lutego 2026.</span><span class="lang-uk">Дата набрання чинності: 15 лютого 2026 року.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">1. Принятие условий</span><span class="lang-en">1. Acceptance of terms</span><span class="lang-pl">1. Akceptacja regulaminu</span><span class="lang-uk">1. Прийняття умов</span></h2>
+      <p><span class="lang-ru">Используя приложение и сайт JobHub, вы подтверждаете, что ознакомились с этими условиями и принимаете их.</span><span class="lang-en">By using JobHub app and website you confirm that you have read and accepted these terms.</span><span class="lang-pl">Korzystając z aplikacji i strony JobHub, potwierdzasz, że zapoznałeś się z regulaminem i go akceptujesz.</span><span class="lang-uk">Використовуючи застосунок і сайт JobHub, ви підтверджуєте, що ознайомилися з цими умовами та приймаєте їх.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">2. Требования к пользователю</span><span class="lang-en">2. User eligibility</span><span class="lang-pl">2. Wymagania wobec użytkownika</span><span class="lang-uk">2. Вимоги до користувача</span></h2>
+      <ul>
+        <li><span class="lang-ru">Минимальный возраст — 16 лет.</span><span class="lang-en">Minimum age is 16.</span><span class="lang-pl">Minimalny wiek to 16 lat.</span><span class="lang-uk">Мінімальний вік — 16 років.</span></li>
+        <li><span class="lang-ru">Вы обязаны предоставлять достоверные данные аккаунта.</span><span class="lang-en">You must provide accurate account information.</span><span class="lang-pl">Masz obowiązek podawać prawidłowe dane konta.</span><span class="lang-uk">Ви зобов'язані надавати достовірні дані акаунта.</span></li>
+        <li><span class="lang-ru">Вы несёте ответственность за действия под своим аккаунтом.</span><span class="lang-en">You are responsible for activity under your account.</span><span class="lang-pl">Odpowiadasz za działania wykonane z Twojego konta.</span><span class="lang-uk">Ви несете відповідальність за дії у своєму акаунті.</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">3. Правила публикации вакансий</span><span class="lang-en">3. Vacancy publishing rules</span><span class="lang-pl">3. Zasady publikacji ofert</span><span class="lang-uk">3. Правила публікації вакансій</span></h2>
+      <ul>
+        <li><span class="lang-ru">Запрещены мошеннические, дискриминационные и незаконные объявления.</span><span class="lang-en">Fraudulent, discriminatory or illegal listings are prohibited.</span><span class="lang-pl">Zabronione są oferty oszukańcze, dyskryminujące lub nielegalne.</span><span class="lang-uk">Заборонені шахрайські, дискримінаційні або незаконні оголошення.</span></li>
+        <li><span class="lang-ru">Вакансии должны содержать точную и актуальную информацию.</span><span class="lang-en">Vacancies must contain accurate and up-to-date information.</span><span class="lang-pl">Oferty muszą zawierać dokładne i aktualne informacje.</span><span class="lang-uk">Вакансії мають містити точну й актуальну інформацію.</span></li>
+        <li><span class="lang-ru">Администратор и модераторы могут отклонять, скрывать или удалять карточки.</span><span class="lang-en">Administrators and moderators may reject, hide or remove listings.</span><span class="lang-pl">Administratorzy i moderatorzy mogą odrzucać, ukrywać lub usuwać oferty.</span><span class="lang-uk">Адміністратори й модератори можуть відхиляти, приховувати або видаляти картки.</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">4. Жалобы и модерация</span><span class="lang-en">4. Complaints and moderation</span><span class="lang-pl">4. Zgłoszenia i moderacja</span><span class="lang-uk">4. Скарги і модерація</span></h2>
+      <p><span class="lang-ru">Пользователи могут отправлять жалобы на вакансии. Жалобы рассматриваются модераторами. По итогам карточка может быть одобрена, отклонена, скрыта или удалена.</span><span class="lang-en">Users can submit complaints on vacancies. Complaints are reviewed by moderators. Listing can be approved, rejected, hidden or removed based on review.</span><span class="lang-pl">Użytkownicy mogą zgłaszać oferty. Zgłoszenia rozpatrują moderatorzy. Oferta może zostać zatwierdzona, odrzucona, ukryta lub usunięta.</span><span class="lang-uk">Користувачі можуть надсилати скарги на вакансії. Скарги розглядають модератори. За результатом картку можуть схвалити, відхилити, приховати або видалити.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">5. Ограничение ответственности</span><span class="lang-en">5. Limitation of liability</span><span class="lang-pl">5. Ograniczenie odpowiedzialności</span><span class="lang-uk">5. Обмеження відповідальності</span></h2>
+      <p><span class="lang-ru">JobHub предоставляет платформу для публикации и поиска вакансий. Мы не гарантируем трудоустройство и не являемся стороной трудового договора между пользователями.</span><span class="lang-en">JobHub provides a platform for vacancy publishing and search. We do not guarantee employment and are not a party to agreements between users.</span><span class="lang-pl">JobHub jest platformą do publikowania i wyszukiwania ofert. Nie gwarantujemy zatrudnienia i nie jesteśmy stroną umów między użytkownikami.</span><span class="lang-uk">JobHub надає платформу для публікації та пошуку вакансій. Ми не гарантуємо працевлаштування і не є стороною угод між користувачами.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">6. Прекращение доступа</span><span class="lang-en">6. Suspension and termination</span><span class="lang-pl">6. Zawieszenie i zakończenie dostępu</span><span class="lang-uk">6. Призупинення і припинення доступу</span></h2>
+      <p><span class="lang-ru">Мы можем ограничить или прекратить доступ к сервису при нарушении условий, попытках злоупотребления, мошенничестве или угрозе безопасности.</span><span class="lang-en">We may restrict or terminate service access for terms violations, abuse attempts, fraud, or security threats.</span><span class="lang-pl">Możemy ograniczyć lub zakończyć dostęp do usługi w przypadku naruszeń regulaminu, nadużyć, oszustw lub zagrożeń bezpieczeństwa.</span><span class="lang-uk">Ми можемо обмежити або припинити доступ до сервісу у разі порушення умов, зловживань, шахрайства або загроз безпеці.</span></p>
+    </section>
+
+    <section class="section-card ok">
+      <h2><span class="lang-ru">7. Контакты</span><span class="lang-en">7. Contacts</span><span class="lang-pl">7. Kontakt</span><span class="lang-uk">7. Контакти</span></h2>
+      <p>legal@jobhub.today • support@jobhub.today • privacy@jobhub.today</p>
+      <p class="note"><span class="lang-ru">Актуальная версия условий всегда доступна на этой странице.</span><span class="lang-en">The current version of these terms is always available on this page.</span><span class="lang-pl">Aktualna wersja regulaminu jest zawsze dostępna na tej stronie.</span><span class="lang-uk">Актуальна версія цих умов завжди доступна на цій сторінці.</span></p>
+    </section>
   </main>
 
-  <footer><div class="wrap muted">© JobHub</div></footer>
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div><span class="lang-ru">© 2026 JobHub.</span><span class="lang-en">© 2026 JobHub.</span><span class="lang-pl">© 2026 JobHub.</span><span class="lang-uk">© 2026 JobHub.</span></div>
+    </div>
+  </footer>
 </body>
 </html>
-

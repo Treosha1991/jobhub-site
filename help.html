@@ -1,55 +1,109 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Help / FAQ - JobHub</title>
-  <meta name="description" content="Help and FAQ page for JobHub app.">
+  <title>JobHub — руководство пользователя</title>
+  <meta name="description" content="Руководство JobHub: регистрация, поиск вакансий, публикация, жалобы и модерация.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/help.html">Help</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1>
-      <span class="lang-en">Help / FAQ</span>
-      <span class="lang-ru">Pomoshch / FAQ</span>
-    </h1>
+    <section class="hero">
+      <span class="badge"><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></span>
+      <h1><span class="lang-ru">Как пользоваться JobHub</span><span class="lang-en">How to use JobHub</span><span class="lang-pl">Jak korzystać z JobHub</span><span class="lang-uk">Як користуватися JobHub</span></h1>
+      <p><span class="lang-ru">Краткая инструкция для соискателей, работодателей и модераторов.</span><span class="lang-en">Quick instruction for job seekers, employers and moderators.</span><span class="lang-pl">Krótka instrukcja dla kandydatów, pracodawców i moderatorów.</span><span class="lang-uk">Коротка інструкція для кандидатів, роботодавців і модераторів.</span></p>
+    </section>
 
-    <div class="card">
-      <p>
-        <span class="lang-en">This page is a placeholder. We will fill it with full help content later.</span>
-        <span class="lang-ru">Eto vremennaya zaglushka. Pozzhe dobavim polnyy razdel pomoshchi.</span>
-      </p>
-    </div>
+    <section class="section-card">
+      <h2><span class="lang-ru">Шаг 1. Регистрация и вход</span><span class="lang-en">Step 1. Registration and sign-in</span><span class="lang-pl">Krok 1. Rejestracja i logowanie</span><span class="lang-uk">Крок 1. Реєстрація і вхід</span></h2>
+      <ol>
+        <li><span class="lang-ru">Создайте аккаунт по email и задайте пароль.</span><span class="lang-en">Create an account by email and set a password.</span><span class="lang-pl">Załóż konto przez email i ustaw hasło.</span><span class="lang-uk">Створіть акаунт через email і задайте пароль.</span></li>
+        <li><span class="lang-ru">Подтвердите номер телефона через SMS-код.</span><span class="lang-en">Verify your phone number using an SMS code.</span><span class="lang-pl">Potwierdź numer telefonu kodem SMS.</span><span class="lang-uk">Підтвердьте номер телефону SMS-кодом.</span></li>
+        <li><span class="lang-ru">После подтверждения доступны публикации и жалобы.</span><span class="lang-en">After verification, posting and complaint actions are enabled.</span><span class="lang-pl">Po weryfikacji aktywują się publikacje i zgłoszenia.</span><span class="lang-uk">Після підтвердження стають доступні публікації і скарги.</span></li>
+      </ol>
+    </section>
 
-    <div class="card">
-      <h3><span class="lang-en">Planned sections</span><span class="lang-ru">Planiruemye razdely</span></h3>
-      <ul>
-        <li><span class="lang-en">Registration and login</span><span class="lang-ru">Registratsiya i vkhod</span></li>
-        <li><span class="lang-en">Phone verification (SMS)</span><span class="lang-ru">Podtverzhdenie nomera (SMS)</span></li>
-        <li><span class="lang-en">Create vacancy and moderation</span><span class="lang-ru">Sozdanie vakansii i moderatsiya</span></li>
-        <li><span class="lang-en">Bookmarks and my vacancies</span><span class="lang-ru">Zakladki i moi vakansii</span></li>
-      </ul>
-      <p><span class="lang-en">Support: support@jobhub.today</span><span class="lang-ru">Podderzhka: support@jobhub.today</span></p>
-    </div>
+    <section class="section-card">
+      <h2><span class="lang-ru">Шаг 2. Поиск вакансий</span><span class="lang-en">Step 2. Job search</span><span class="lang-pl">Krok 2. Wyszukiwanie ofert</span><span class="lang-uk">Крок 2. Пошук вакансій</span></h2>
+      <ol>
+        <li><span class="lang-ru">Откройте ленту и примените фильтры.</span><span class="lang-en">Open the feed and apply filters.</span><span class="lang-pl">Otwórz feed i zastosuj filtry.</span><span class="lang-uk">Відкрийте стрічку і застосуйте фільтри.</span></li>
+        <li><span class="lang-ru">Перейдите в детали вакансии для полной информации.</span><span class="lang-en">Open vacancy details for full information.</span><span class="lang-pl">Przejdź do szczegółów oferty po pełne informacje.</span><span class="lang-uk">Відкрийте деталі вакансії для повної інформації.</span></li>
+        <li><span class="lang-ru">Сохраните вакансию в закладки, если хотите вернуться позже.</span><span class="lang-en">Save listing to bookmarks if you want to return later.</span><span class="lang-pl">Zapisz ofertę do zakładek, jeśli chcesz wrócić później.</span><span class="lang-uk">Збережіть вакансію в закладки, якщо хочете повернутися пізніше.</span></li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">Шаг 3. Публикация вакансии</span><span class="lang-en">Step 3. Publishing a vacancy</span><span class="lang-pl">Krok 3. Publikacja oferty</span><span class="lang-uk">Крок 3. Публікація вакансії</span></h2>
+      <ol>
+        <li><span class="lang-ru">Заполните обязательные поля в форме "Создать вакансию".</span><span class="lang-en">Fill required fields in the "Create vacancy" form.</span><span class="lang-pl">Wypełnij wymagane pola w formularzu "Dodaj ofertę".</span><span class="lang-uk">Заповніть обов'язкові поля у формі "Створити вакансію".</span></li>
+        <li><span class="lang-ru">Отправьте карточку на модерацию.</span><span class="lang-en">Submit the card for moderation.</span><span class="lang-pl">Wyślij kartę do moderacji.</span><span class="lang-uk">Надішліть картку на модерацію.</span></li>
+        <li><span class="lang-ru">При отклонении исправьте поля и отправьте повторно.</span><span class="lang-en">If rejected, edit the fields and submit again.</span><span class="lang-pl">W przypadku odrzucenia popraw pola i wyślij ponownie.</span><span class="lang-uk">У разі відхилення виправте поля і надішліть повторно.</span></li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">Шаг 4. Жалобы и безопасность ленты</span><span class="lang-en">Step 4. Complaints and feed safety</span><span class="lang-pl">Krok 4. Zgłoszenia i bezpieczeństwo feedu</span><span class="lang-uk">Крок 4. Скарги та безпека стрічки</span></h2>
+      <ol>
+        <li><span class="lang-ru">Жалобу может отправить только авторизованный пользователь.</span><span class="lang-en">Only authenticated users can submit complaints.</span><span class="lang-pl">Zgłoszenia mogą wysyłać tylko zalogowani użytkownicy.</span><span class="lang-uk">Скарги можуть надсилати лише авторизовані користувачі.</span></li>
+        <li><span class="lang-ru">Карточка с жалобой скрывается у автора жалобы до повторной проверки.</span><span class="lang-en">The complained listing is hidden for that reporter until re-check.</span><span class="lang-pl">Zgłoszona oferta jest ukryta dla zgłaszającego do ponownej weryfikacji.</span><span class="lang-uk">Поскаржена картка ховається для скаржника до повторної перевірки.</span></li>
+        <li><span class="lang-ru">Модераторы принимают решение и фиксируют действие в истории.</span><span class="lang-en">Moderators review and record all actions in moderation history.</span><span class="lang-pl">Moderatorzy podejmują decyzję i zapisują działanie w historii.</span><span class="lang-uk">Модератори ухвалюють рішення і фіксують дію в історії.</span></li>
+      </ol>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">Нужна помощь?</span><span class="lang-en">Need help?</span><span class="lang-pl">Potrzebujesz pomocy?</span><span class="lang-uk">Потрібна допомога?</span></h2>
+      <p><span class="lang-ru">Напишите в поддержку: support@jobhub.today.</span><span class="lang-en">Contact support: support@jobhub.today.</span><span class="lang-pl">Napisz do wsparcia: support@jobhub.today.</span><span class="lang-uk">Напишіть у підтримку: support@jobhub.today.</span></p>
+    </section>
   </main>
 
-  <footer><div class="wrap muted">&copy; JobHub</div></footer>
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div><span class="lang-ru">© 2026 JobHub.</span><span class="lang-en">© 2026 JobHub.</span><span class="lang-pl">© 2026 JobHub.</span><span class="lang-uk">© 2026 JobHub.</span></div>
+    </div>
+  </footer>
 </body>
 </html>

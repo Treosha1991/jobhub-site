@@ -1,56 +1,136 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JobHub Today</title>
-  <meta name="description" content="JobHub mobile app: vacancies, bookmarks, my jobs.">
+  <title>JobHub — работа и вакансии</title>
+  <meta name="description" content="JobHub: лента вакансий, закладки, мои вакансии, модерация и безопасная работа с объявлениями.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav>
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>JobHub</span>
+      </a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline">
+          <button type="button" class="lang-btn" data-set-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+          <button type="button" class="lang-btn" data-set-lang="pl">PL</button>
+          <button type="button" class="lang-btn" data-set-lang="uk">UK</button>
+        </div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head">
+        <div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div>
+        <button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button>
+      </div>
+      <div class="lang-row">
+        <button type="button" class="lang-btn" data-set-lang="ru">RU</button>
+        <button type="button" class="lang-btn" data-set-lang="en">EN</button>
+        <button type="button" class="lang-btn" data-set-lang="pl">PL</button>
+        <button type="button" class="lang-btn" data-set-lang="uk">UK</button>
+      </div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1>
-      <span class="lang-en">JobHub — vacancies in one app</span>
-      <span class="lang-ru">JobHub — вакансии в одном приложении</span>
-    </h1>
-    <p class="muted">
-      <span class="lang-en">Feed, details, bookmarks, my vacancies, moderation.</span>
-      <span class="lang-ru">Лента, детали, закладки, мои вакансии, модерация.</span>
-    </p>
-    <div class="card">
-      <p>
-        <span class="lang-en">Google Play: [coming soon]</span>
-        <span class="lang-ru">Google Play: [скоро]</span>
-      </p>
-      <p class="muted">
-        <span class="lang-en">Owner: Andrei Trakaila (Poland)</span>
-        <span class="lang-ru">Владелец: Андрей Трекайло (Польша)</span>
-      </p>
-    </div>
+    <section class="hero">
+      <span class="badge">JobHub MVP</span>
+      <h1><span class="lang-ru">JobHub — вакансии и управление откликами в одном приложении</span><span class="lang-en">JobHub — jobs and response management in one app</span><span class="lang-pl">JobHub — oferty pracy i zarządzanie odpowiedziami w jednej aplikacji</span><span class="lang-uk">JobHub — вакансії та керування відгуками в одному застосунку</span></h1>
+      <p><span class="lang-ru">Сервис помогает искать вакансии, сохранять нужные карточки, размещать свои объявления и поддерживать качество ленты через модерацию и жалобы.</span><span class="lang-en">The service helps users discover jobs, bookmark important listings, publish vacancies and keep feed quality via moderation and complaints.</span><span class="lang-pl">Serwis pomaga szukać ofert, zapisywać ważne ogłoszenia, publikować własne wakaty i utrzymywać jakość feedu przez moderację oraz zgłoszenia.</span><span class="lang-uk">Сервіс допомагає шукати вакансії, зберігати важливі оголошення, публікувати власні вакансії та підтримувати якість стрічки через модерацію і скарги.</span></p>
+      <div class="pill-row">
+        <span class="pill"><span class="lang-ru">Лента вакансий</span><span class="lang-en">Job feed</span><span class="lang-pl">Feed ofert</span><span class="lang-uk">Стрічка вакансій</span></span>
+        <span class="pill"><span class="lang-ru">Закладки</span><span class="lang-en">Bookmarks</span><span class="lang-pl">Zakładki</span><span class="lang-uk">Закладки</span></span>
+        <span class="pill"><span class="lang-ru">Мои вакансии</span><span class="lang-en">My vacancies</span><span class="lang-pl">Moje oferty</span><span class="lang-uk">Мої вакансії</span></span>
+        <span class="pill"><span class="lang-ru">Модерация</span><span class="lang-en">Moderation</span><span class="lang-pl">Moderacja</span><span class="lang-uk">Модерація</span></span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="mailto:support@jobhub.today"><span class="lang-ru">Связаться с поддержкой</span><span class="lang-en">Contact support</span><span class="lang-pl">Skontaktuj wsparcie</span><span class="lang-uk">Зв'язатися з підтримкою</span></a>
+        <a class="btn btn-secondary" href="/privacy.html"><span class="lang-ru">Политика конфиденциальности</span><span class="lang-en">Privacy policy</span><span class="lang-pl">Polityka prywatności</span><span class="lang-uk">Політика конфіденційності</span></a>
+      </div>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h3><span class="lang-ru">Для соискателей</span><span class="lang-en">For job seekers</span><span class="lang-pl">Dla kandydatów</span><span class="lang-uk">Для кандидатів</span></h3>
+        <p><span class="lang-ru">Просматривайте ленту, открывайте детали вакансии, добавляйте в закладки и управляйте откликами в одном профиле.</span><span class="lang-en">Browse feed, open vacancy details, add bookmarks and manage responses in one profile.</span><span class="lang-pl">Przeglądaj feed, otwieraj szczegóły oferty, dodawaj zakładki i zarządzaj odpowiedziami w jednym profilu.</span><span class="lang-uk">Переглядайте стрічку, відкривайте деталі вакансій, додавайте в закладки та керуйте відгуками в одному профілі.</span></p>
+      </article>
+      <article class="card">
+        <h3><span class="lang-ru">Для работодателей</span><span class="lang-en">For employers</span><span class="lang-pl">Dla pracodawców</span><span class="lang-uk">Для роботодавців</span></h3>
+        <p><span class="lang-ru">Создавайте вакансии, отправляйте на модерацию, редактируйте и повторно публикуйте после правок.</span><span class="lang-en">Create vacancies, send them to moderation, edit and re-submit after fixes.</span><span class="lang-pl">Twórz oferty, wysyłaj do moderacji, edytuj i publikuj ponownie po poprawkach.</span><span class="lang-uk">Створюйте вакансії, надсилайте на модерацію, редагуйте та публікуйте повторно після виправлень.</span></p>
+      </article>
+      <article class="card">
+        <h3><span class="lang-ru">Безопасность аккаунта</span><span class="lang-en">Account security</span><span class="lang-pl">Bezpieczeństwo konta</span><span class="lang-uk">Безпека акаунта</span></h3>
+        <p><span class="lang-ru">Авторизация поддерживает email и подтверждение телефона по SMS через Twilio Verify.</span><span class="lang-en">Authentication supports email and phone verification by SMS via Twilio Verify.</span><span class="lang-pl">Logowanie obsługuje email i weryfikację telefonu SMS przez Twilio Verify.</span><span class="lang-uk">Авторизація підтримує email і підтвердження телефону SMS через Twilio Verify.</span></p>
+      </article>
+      <article class="card">
+        <h3><span class="lang-ru">Работа с жалобами</span><span class="lang-en">Complaint workflow</span><span class="lang-pl">Obsługa zgłoszeń</span><span class="lang-uk">Робота зі скаргами</span></h3>
+        <p><span class="lang-ru">Жалобы фиксируются в системе, доступны модераторам и используются для принятия решений по карточкам.</span><span class="lang-en">Complaints are stored in the system, available to moderators and used for vacancy decisions.</span><span class="lang-pl">Zgłoszenia są zapisywane w systemie, dostępne dla moderatorów i używane do decyzji o ofertach.</span><span class="lang-uk">Скарги зберігаються в системі, доступні модераторам і використовуються для рішень щодо вакансій.</span></p>
+      </article>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">Основные ссылки</span><span class="lang-en">Key links</span><span class="lang-pl">Najważniejsze linki</span><span class="lang-uk">Основні посилання</span></h2>
+      <div class="meta-list">
+        <div class="meta-item"><strong><span class="lang-ru">Политика конфиденциальности:</span><span class="lang-en">Privacy policy:</span><span class="lang-pl">Polityka prywatności:</span><span class="lang-uk">Політика конфіденційності:</span></strong> <a href="/privacy.html">jobhub.today/privacy.html</a></div>
+        <div class="meta-item"><strong><span class="lang-ru">Условия использования:</span><span class="lang-en">Terms of use:</span><span class="lang-pl">Regulamin:</span><span class="lang-uk">Умови використання:</span></strong> <a href="/terms.html">jobhub.today/terms.html</a></div>
+        <div class="meta-item"><strong><span class="lang-ru">Удаление данных:</span><span class="lang-en">Data deletion:</span><span class="lang-pl">Usuwanie danych:</span><span class="lang-uk">Видалення даних:</span></strong> <a href="/data-deletion.html">jobhub.today/data-deletion.html</a></div>
+        <div class="meta-item"><strong><span class="lang-ru">Поддержка:</span><span class="lang-en">Support:</span><span class="lang-pl">Wsparcie:</span><span class="lang-uk">Підтримка:</span></strong> support@jobhub.today</div>
+      </div>
+      <p class="note"><span class="lang-ru">Владелец сервиса: Андрей Тракайло, Польша.</span><span class="lang-en">Service owner: Andrei Trakaila, Poland.</span><span class="lang-pl">Właściciel serwisu: Andrei Trakaila, Polska.</span><span class="lang-uk">Власник сервісу: Андрій Тракайло, Польща.</span></p>
+    </section>
   </main>
 
   <footer>
-    <div class="wrap muted">
-      <span class="lang-en">Contact: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
-      <span class="lang-ru">Контакты: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div>
+        <span class="lang-ru">Контакты: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
+        <span class="lang-en">Contacts: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
+        <span class="lang-pl">Kontakt: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
+        <span class="lang-uk">Контакти: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span>
+      </div>
+      <div>
+        <span class="lang-ru">© 2026 JobHub. Все права защищены.</span>
+        <span class="lang-en">© 2026 JobHub. All rights reserved.</span>
+        <span class="lang-pl">© 2026 JobHub. Wszelkie prawa zastrzeżone.</span>
+        <span class="lang-uk">© 2026 JobHub. Усі права захищено.</span>
+      </div>
     </div>
   </footer>
 </body>
 </html>
-

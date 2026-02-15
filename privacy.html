@@ -1,41 +1,161 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy — JobHub</title>
-  <meta name="description" content="Privacy policy for JobHub app and website.">
+  <title>JobHub — политика конфиденциальности</title>
+  <meta name="description" content="Политика конфиденциальности JobHub: какие данные мы собираем, как используем и как запросить удаление.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1><span class="lang-en">Privacy Policy</span><span class="lang-ru">Политика конфиденциальности</span></h1>
-    <div class="card">
-      <p><span class="lang-en">Controller: Andrei Trakaila, Poland.</span><span class="lang-ru">Оператор: Андрей Трекайло, Польша.</span></p>
-      <p><span class="lang-en">Data we process: email, phone number, WhatsApp verification metadata, app activity (vacancies, bookmarks, moderation actions), support requests.</span><span class="lang-ru">Обрабатываемые данные: email, номер телефона, метаданные WhatsApp-верификации, активность в приложении (вакансии, закладки, модерация), обращения в поддержку.</span></p>
-      <p><span class="lang-en">Processors: Twilio (verification), Render (backend hosting).</span><span class="lang-ru">Обработчики: Twilio (верификация), Render (хостинг backend).</span></p>
-      <p><span class="lang-en">Privacy contact: privacy@jobhub.today.</span><span class="lang-ru">Контакт по приватности: privacy@jobhub.today.</span></p>
-      <p class="muted"><span class="lang-en">Legal review required before production release.</span><span class="lang-ru">Требуется юридическая проверка перед production-релизом.</span></p>
-    </div>
+    <section class="hero">
+      <span class="badge"><span class="lang-ru">Политика конфиденциальности</span><span class="lang-en">Privacy policy</span><span class="lang-pl">Polityka prywatności</span><span class="lang-uk">Політика конфіденційності</span></span>
+      <h1><span class="lang-ru">Как JobHub обрабатывает персональные данные</span><span class="lang-en">How JobHub processes personal data</span><span class="lang-pl">Jak JobHub przetwarza dane osobowe</span><span class="lang-uk">Як JobHub обробляє персональні дані</span></h1>
+      <p><span class="lang-ru">Дата вступления в силу: 15 февраля 2026 года.</span><span class="lang-en">Effective date: February 15, 2026.</span><span class="lang-pl">Data wejścia w życie: 15 lutego 2026.</span><span class="lang-uk">Дата набрання чинності: 15 лютого 2026 року.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">1. Кто контролирует данные</span><span class="lang-en">1. Data controller</span><span class="lang-pl">1. Administrator danych</span><span class="lang-uk">1. Хто контролює дані</span></h2>
+      <p><span class="lang-ru">Сервис JobHub управляется владельцем: Андрей Тракайло (Польша).</span><span class="lang-en">JobHub is operated by the service owner: Andrei Trakaila (Poland).</span><span class="lang-pl">Serwis JobHub jest prowadzony przez właściciela: Andrei Trakaila (Polska).</span><span class="lang-uk">Сервісом JobHub керує власник: Андрій Тракайло (Польща).</span></p>
+      <p><span class="lang-ru">Контакты по персональным данным: privacy@jobhub.today</span><span class="lang-en">Privacy contact: privacy@jobhub.today</span><span class="lang-pl">Kontakt ds. prywatności: privacy@jobhub.today</span><span class="lang-uk">Контакт щодо персональних даних: privacy@jobhub.today</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">2. Какие данные мы собираем</span><span class="lang-en">2. Data we collect</span><span class="lang-pl">2. Jakie dane zbieramy</span><span class="lang-uk">2. Які дані ми збираємо</span></h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><span class="lang-ru">Категория</span><span class="lang-en">Category</span><span class="lang-pl">Kategoria</span><span class="lang-uk">Категорія</span></th>
+              <th><span class="lang-ru">Примеры</span><span class="lang-en">Examples</span><span class="lang-pl">Przykłady</span><span class="lang-uk">Приклади</span></th>
+              <th><span class="lang-ru">Для чего</span><span class="lang-en">Purpose</span><span class="lang-pl">Cel</span><span class="lang-uk">Мета</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="lang-ru">Данные аккаунта</span><span class="lang-en">Account data</span><span class="lang-pl">Dane konta</span><span class="lang-uk">Дані акаунта</span></td>
+              <td>Email, пароль (в хешированном виде), статус подтверждения</td>
+              <td><span class="lang-ru">Авторизация и защита аккаунта</span><span class="lang-en">Authentication and account security</span><span class="lang-pl">Logowanie i bezpieczeństwo konta</span><span class="lang-uk">Авторизація та безпека акаунта</span></td>
+            </tr>
+            <tr>
+              <td><span class="lang-ru">Телефон и верификация</span><span class="lang-en">Phone and verification</span><span class="lang-pl">Telefon i weryfikacja</span><span class="lang-uk">Телефон і верифікація</span></td>
+              <td>Номер телефона, события отправки/проверки кода SMS</td>
+              <td><span class="lang-ru">Подтверждение личности, защита от злоупотреблений</span><span class="lang-en">Identity verification and anti-abuse</span><span class="lang-pl">Weryfikacja tożsamości i ochrona przed nadużyciami</span><span class="lang-uk">Підтвердження особи та захист від зловживань</span></td>
+            </tr>
+            <tr>
+              <td><span class="lang-ru">Контент приложения</span><span class="lang-en">App content</span><span class="lang-pl">Treść aplikacji</span><span class="lang-uk">Контент застосунку</span></td>
+              <td>Вакансии, закладки, жалобы, действия модерации</td>
+              <td><span class="lang-ru">Работа функций продукта и качество ленты</span><span class="lang-en">Product functionality and feed quality</span><span class="lang-pl">Działanie produktu i jakość feedu</span><span class="lang-uk">Робота продукту і якість стрічки</span></td>
+            </tr>
+            <tr>
+              <td><span class="lang-ru">Технические данные</span><span class="lang-en">Technical data</span><span class="lang-pl">Dane techniczne</span><span class="lang-uk">Технічні дані</span></td>
+              <td>IP, user-agent, время запросов, журналы ошибок</td>
+              <td><span class="lang-ru">Безопасность, диагностика и стабильность сервиса</span><span class="lang-en">Security, diagnostics and service stability</span><span class="lang-pl">Bezpieczeństwo, diagnostyka i stabilność usługi</span><span class="lang-uk">Безпека, діагностика та стабільність сервісу</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">3. Правовые основания</span><span class="lang-en">3. Legal basis</span><span class="lang-pl">3. Podstawa prawna</span><span class="lang-uk">3. Правова підстава</span></h2>
+      <ul>
+        <li><span class="lang-ru">Исполнение договора: работа аккаунта, ленты, публикаций и модерации.</span><span class="lang-en">Contract performance: account, feed, publishing and moderation operations.</span><span class="lang-pl">Wykonanie umowy: konto, feed, publikacja i moderacja.</span><span class="lang-uk">Виконання договору: акаунт, стрічка, публікація і модерація.</span></li>
+        <li><span class="lang-ru">Законный интерес: предотвращение мошенничества, спама и нарушений.</span><span class="lang-en">Legitimate interest: fraud, spam and abuse prevention.</span><span class="lang-pl">Uzasadniony interes: zapobieganie oszustwom, spamowi i nadużyciom.</span><span class="lang-uk">Законний інтерес: запобігання шахрайству, спаму та зловживанням.</span></li>
+        <li><span class="lang-ru">Согласие: когда требуется для отдельных функций.</span><span class="lang-en">Consent: where required for specific features.</span><span class="lang-pl">Zgoda: gdy wymagana dla konkretnych funkcji.</span><span class="lang-uk">Згода: коли потрібна для окремих функцій.</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">4. Кому мы передаём данные</span><span class="lang-en">4. Data sharing</span><span class="lang-pl">4. Komu udostępniamy dane</span><span class="lang-uk">4. Кому ми передаємо дані</span></h2>
+      <ul>
+        <li>Twilio (SMS verification via Verify API)</li>
+        <li>Render (backend hosting and infrastructure)</li>
+        <li>Cloudflare Pages (website hosting)</li>
+        <li>Google Workspace (support/legal email processing)</li>
+      </ul>
+      <p><span class="lang-ru">Мы не продаем персональные данные третьим лицам.</span><span class="lang-en">We do not sell personal data to third parties.</span><span class="lang-pl">Nie sprzedajemy danych osobowych podmiotom trzecim.</span><span class="lang-uk">Ми не продаємо персональні дані третім особам.</span></p>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">5. Сроки хранения</span><span class="lang-en">5. Retention periods</span><span class="lang-pl">5. Okresy przechowywania</span><span class="lang-uk">5. Строки зберігання</span></h2>
+      <ul>
+        <li><span class="lang-ru">Аккаунт: пока аккаунт активен или до запроса на удаление.</span><span class="lang-en">Account: while the account remains active or until deletion request.</span><span class="lang-pl">Konto: dopóki konto jest aktywne lub do wniosku o usunięcie.</span><span class="lang-uk">Акаунт: поки акаунт активний або до запиту на видалення.</span></li>
+        <li><span class="lang-ru">Логи безопасности: до 12 месяцев.</span><span class="lang-en">Security logs: up to 12 months.</span><span class="lang-pl">Logi bezpieczeństwa: do 12 miesięcy.</span><span class="lang-uk">Логи безпеки: до 12 місяців.</span></li>
+        <li><span class="lang-ru">Запросы в поддержку: до 24 месяцев.</span><span class="lang-en">Support requests: up to 24 months.</span><span class="lang-pl">Zgłoszenia do wsparcia: do 24 miesięcy.</span><span class="lang-uk">Запити в підтримку: до 24 місяців.</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">6. Права пользователя</span><span class="lang-en">6. Your rights</span><span class="lang-pl">6. Twoje prawa</span><span class="lang-uk">6. Ваші права</span></h2>
+      <ul>
+        <li><span class="lang-ru">Запросить доступ к своим данным.</span><span class="lang-en">Request access to your data.</span><span class="lang-pl">Poprosić o dostęp do danych.</span><span class="lang-uk">Запросити доступ до своїх даних.</span></li>
+        <li><span class="lang-ru">Исправить неточные данные.</span><span class="lang-en">Correct inaccurate data.</span><span class="lang-pl">Poprawić nieprawidłowe dane.</span><span class="lang-uk">Виправити неточні дані.</span></li>
+        <li><span class="lang-ru">Ограничить обработку в предусмотренных законом случаях.</span><span class="lang-en">Restrict processing where legally applicable.</span><span class="lang-pl">Ograniczyć przetwarzanie w przypadkach przewidzianych prawem.</span><span class="lang-uk">Обмежити обробку у випадках, передбачених законом.</span></li>
+        <li><span class="lang-ru">Запросить удаление (см. страницу удаления данных).</span><span class="lang-en">Request deletion (see data deletion page).</span><span class="lang-pl">Zażądać usunięcia (zobacz stronę usuwania danych).</span><span class="lang-uk">Запросити видалення (див. сторінку видалення даних).</span></li>
+      </ul>
+    </section>
+
+    <section class="section-card">
+      <h2><span class="lang-ru">7. Дети и возрастные ограничения</span><span class="lang-en">7. Children and age limits</span><span class="lang-pl">7. Dzieci i ograniczenia wiekowe</span><span class="lang-uk">7. Діти та вікові обмеження</span></h2>
+      <p><span class="lang-ru">Сервис не предназначен для лиц младше 16 лет. Если вы считаете, что ребенок предоставил нам данные, напишите privacy@jobhub.today.</span><span class="lang-en">The service is not intended for users under 16. If you believe a child submitted data, contact privacy@jobhub.today.</span><span class="lang-pl">Usługa nie jest przeznaczona dla osób poniżej 16 lat. Jeśli dziecko przekazało dane, napisz na privacy@jobhub.today.</span><span class="lang-uk">Сервіс не призначений для осіб молодше 16 років. Якщо дитина надала дані, напишіть на privacy@jobhub.today.</span></p>
+    </section>
+
+    <section class="section-card ok">
+      <h2><span class="lang-ru">8. Связь с нами</span><span class="lang-en">8. Contact us</span><span class="lang-pl">8. Kontakt z nami</span><span class="lang-uk">8. Зв'язок з нами</span></h2>
+      <p>privacy@jobhub.today • support@jobhub.today • legal@jobhub.today</p>
+      <p class="note"><span class="lang-ru">Если политика будет обновлена, новая версия публикуется на этой странице с новой датой вступления в силу.</span><span class="lang-en">If this policy is updated, the new version will be published on this page with a new effective date.</span><span class="lang-pl">Jeśli polityka zostanie zaktualizowana, nowa wersja zostanie opublikowana na tej stronie z nową datą wejścia w życie.</span><span class="lang-uk">Якщо політику оновлено, нова версія публікується на цій сторінці з новою датою набрання чинності.</span></p>
+    </section>
   </main>
 
-  <footer><div class="wrap muted">© JobHub</div></footer>
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div><span class="lang-ru">© 2026 JobHub.</span><span class="lang-en">© 2026 JobHub.</span><span class="lang-pl">© 2026 JobHub.</span><span class="lang-uk">© 2026 JobHub.</span></div>
+    </div>
+  </footer>
 </body>
 </html>
-

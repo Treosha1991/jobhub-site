@@ -1,39 +1,99 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Support — JobHub</title>
-  <meta name="description" content="Support contacts for JobHub app.">
+  <title>JobHub — поддержка и контакты</title>
+  <meta name="description" content="Контакты поддержки JobHub: support, privacy, legal и жалобы.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1><span class="lang-en">Support</span><span class="lang-ru">Поддержка</span></h1>
-    <div class="card">
-      <p><span class="lang-en">Support: support@jobhub.today</span><span class="lang-ru">Поддержка: support@jobhub.today</span></p>
-      <p><span class="lang-en">Privacy: privacy@jobhub.today</span><span class="lang-ru">Приватность: privacy@jobhub.today</span></p>
-      <p><span class="lang-en">Legal: legal@jobhub.today</span><span class="lang-ru">Юридические вопросы: legal@jobhub.today</span></p>
-    </div>
+    <section class="hero">
+      <span class="badge"><span class="lang-ru">Контакты</span><span class="lang-en">Contacts</span><span class="lang-pl">Kontakt</span><span class="lang-uk">Контакти</span></span>
+      <h1><span class="lang-ru">Поддержка JobHub</span><span class="lang-en">JobHub support</span><span class="lang-pl">Wsparcie JobHub</span><span class="lang-uk">Підтримка JobHub</span></h1>
+      <p><span class="lang-ru">Для быстрого ответа указывайте тему письма, дату и краткое описание ситуации.</span><span class="lang-en">For a faster response include email subject, date and a short issue description.</span><span class="lang-pl">Aby szybciej uzyskać odpowiedź, podaj temat, datę i krótki opis problemu.</span><span class="lang-uk">Для швидкої відповіді вкажіть тему листа, дату та короткий опис ситуації.</span></p>
+    </section>
+
+    <section class="grid cols-2">
+      <article class="card">
+        <h3><span class="lang-ru">Поддержка пользователей</span><span class="lang-en">User support</span><span class="lang-pl">Wsparcie użytkowników</span><span class="lang-uk">Підтримка користувачів</span></h3>
+        <p>support@jobhub.today</p>
+        <div class="cta-row"><a class="btn btn-primary" href="mailto:support@jobhub.today">Email</a></div>
+      </article>
+
+      <article class="card">
+        <h3><span class="lang-ru">Конфиденциальность и данные</span><span class="lang-en">Privacy and data</span><span class="lang-pl">Prywatność i dane</span><span class="lang-uk">Конфіденційність і дані</span></h3>
+        <p>privacy@jobhub.today</p>
+        <div class="cta-row"><a class="btn btn-primary" href="mailto:privacy@jobhub.today">Email</a></div>
+      </article>
+
+      <article class="card">
+        <h3><span class="lang-ru">Юридические вопросы</span><span class="lang-en">Legal questions</span><span class="lang-pl">Pytania prawne</span><span class="lang-uk">Юридичні питання</span></h3>
+        <p>legal@jobhub.today</p>
+        <div class="cta-row"><a class="btn btn-primary" href="mailto:legal@jobhub.today">Email</a></div>
+      </article>
+
+      <article class="card">
+        <h3><span class="lang-ru">Жалобы на вакансии</span><span class="lang-en">Vacancy complaints</span><span class="lang-pl">Zgłoszenia ofert</span><span class="lang-uk">Скарги на вакансії</span></h3>
+        <p>complaint@jobhub.today</p>
+        <div class="cta-row"><a class="btn btn-primary" href="mailto:complaint@jobhub.today">Email</a></div>
+      </article>
+    </section>
+
+    <section class="section-card warning">
+      <p class="note-strong"><span class="lang-ru">Важно:</span><span class="lang-en">Important:</span><span class="lang-pl">Ważne:</span><span class="lang-uk">Важливо:</span></p>
+      <p><span class="lang-ru">Мы не запрашиваем пароль от аккаунта по email. Если вам пришёл такой запрос, не отвечайте и отправьте письмо в support@jobhub.today.</span><span class="lang-en">We never ask for your account password by email. If you get such request, do not reply and forward it to support@jobhub.today.</span><span class="lang-pl">Nigdy nie prosimy o hasło do konta przez email. Jeśli otrzymasz taką prośbę, nie odpowiadaj i prześlij ją na support@jobhub.today.</span><span class="lang-uk">Ми ніколи не запитуємо пароль від акаунта через email. Якщо отримали такий запит, не відповідайте і перешліть його на support@jobhub.today.</span></p>
+    </section>
   </main>
 
-  <footer><div class="wrap muted">© JobHub</div></footer>
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+      </div>
+      <div><span class="lang-ru">© 2026 JobHub.</span><span class="lang-en">© 2026 JobHub.</span><span class="lang-pl">© 2026 JobHub.</span><span class="lang-uk">© 2026 JobHub.</span></div>
+    </div>
+  </footer>
 </body>
 </html>
-

@@ -1,38 +1,102 @@
-<!doctype html>
-<html lang="en" data-lang="en">
+﻿<!doctype html>
+<html lang="ru" data-lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>News — JobHub</title>
-  <meta name="description" content="Product news and updates for JobHub.">
+  <title>JobHub — новости и обновления</title>
+  <meta name="description" content="Новости JobHub: релизы, изменения модерации, безопасность и обновления приложения.">
+  <meta name="theme-color" content="#241b2e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
   <script defer src="/assets/app.js"></script>
 </head>
 <body>
-  <header>
-    <div class="wrap top">
-      <a class="brand" href="/index.html">JobHub</a>
-      <nav>
-        <a href="/index.html">Home</a>
-        <a href="/news.html">News</a>
-        <a href="/contact.html">Support</a>
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a class="brand" href="/index.html" data-nav><span class="brand-dot" aria-hidden="true"></span><span>JobHub</span></a>
+      <nav class="quick-nav" aria-label="Quick navigation">
+        <a class="quick-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="quick-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="quick-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
       </nav>
-      <button id="langToggle" class="lang-btn">RU/EN</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="lang-inline"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+        <button id="menuToggle" class="menu-btn" type="button"><span class="lang-ru">Меню</span><span class="lang-en">Menu</span><span class="lang-pl">Menu</span><span class="lang-uk">Меню</span></button>
+      </div>
     </div>
   </header>
 
+  <div class="overlay" id="menuOverlay" hidden>
+    <aside class="drawer" role="dialog" aria-modal="true" aria-label="Site menu">
+      <div class="drawer-head"><div class="drawer-title"><span class="lang-ru">Навигация</span><span class="lang-en">Navigation</span><span class="lang-pl">Nawigacja</span><span class="lang-uk">Навігація</span></div><button id="menuClose" class="icon-btn" type="button" aria-label="Close">✕</button></div>
+      <div class="lang-row"><button type="button" class="lang-btn" data-set-lang="ru">RU</button><button type="button" class="lang-btn" data-set-lang="en">EN</button><button type="button" class="lang-btn" data-set-lang="pl">PL</button><button type="button" class="lang-btn" data-set-lang="uk">UK</button></div>
+      <nav class="drawer-links" aria-label="Main menu">
+        <a class="drawer-link" href="/index.html" data-nav><span class="lang-ru">Главная</span><span class="lang-en">Home</span><span class="lang-pl">Start</span><span class="lang-uk">Головна</span></a>
+        <a class="drawer-link" href="/news.html" data-nav><span class="lang-ru">Новости</span><span class="lang-en">News</span><span class="lang-pl">Aktualności</span><span class="lang-uk">Новини</span></a>
+        <a class="drawer-link" href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a class="drawer-link" href="/help.html" data-nav><span class="lang-ru">Руководство</span><span class="lang-en">Guide</span><span class="lang-pl">Przewodnik</span><span class="lang-uk">Інструкція</span></a>
+        <a class="drawer-link" href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a class="drawer-link" href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a class="drawer-link" href="/data-deletion.html" data-nav><span class="lang-ru">Удаление данных</span><span class="lang-en">Data deletion</span><span class="lang-pl">Usuwanie danych</span><span class="lang-uk">Видалення даних</span></a>
+        <a class="drawer-link" href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </nav>
+    </aside>
+  </div>
+
   <main class="wrap">
-    <h1><span class="lang-en">News</span><span class="lang-ru">Новости</span></h1>
-    <div class="card">
-      <p><strong>2026-02-13</strong> — <span class="lang-en">Website launched (MVP)</span><span class="lang-ru">Запуск сайта (MVP)</span></p>
-      <p class="muted"><span class="lang-en">Next: publish app updates and release notes here.</span><span class="lang-ru">Дальше: публиковать обновления приложения и release notes.</span></p>
-    </div>
+    <section class="hero">
+      <span class="badge"><span class="lang-ru">Новости продукта</span><span class="lang-en">Product updates</span><span class="lang-pl">Aktualizacje produktu</span><span class="lang-uk">Оновлення продукту</span></span>
+      <h1><span class="lang-ru">Новости и changelog JobHub</span><span class="lang-en">JobHub news and changelog</span><span class="lang-pl">Aktualności i changelog JobHub</span><span class="lang-uk">Новини та changelog JobHub</span></h1>
+      <p><span class="lang-ru">На этой странице публикуются функциональные обновления, изменения в модерации и важные изменения политики безопасности.</span><span class="lang-en">This page contains feature updates, moderation changes and important security policy updates.</span><span class="lang-pl">Na tej stronie publikujemy aktualizacje funkcji, zmiany moderacyjne i ważne aktualizacje bezpieczeństwa.</span><span class="lang-uk">На цій сторінці публікуються оновлення функцій, зміни модерації та важливі оновлення безпеки.</span></p>
+    </section>
+
+    <section class="grid">
+      <article class="news-item">
+        <div class="date">2026-02-15</div>
+        <h3><span class="lang-ru">Обновлён официальный сайт JobHub</span><span class="lang-en">Official JobHub website refreshed</span><span class="lang-pl">Odświeżono oficjalną stronę JobHub</span><span class="lang-uk">Оновлено офіційний сайт JobHub</span></h3>
+        <p><span class="lang-ru">Запущена новая версия сайта с мобильной навигацией, FAQ, руководством пользователя и страницами для политики и удаления данных.</span><span class="lang-en">A new website version is live with mobile navigation, FAQ, user guide and dedicated policy/data deletion pages.</span><span class="lang-pl">Uruchomiono nową wersję strony z nawigacją mobilną, FAQ, przewodnikiem oraz stronami polityki i usuwania danych.</span><span class="lang-uk">Запущено нову версію сайту з мобільною навігацією, FAQ, інструкцією та сторінками політики і видалення даних.</span></p>
+      </article>
+
+      <article class="news-item">
+        <div class="date">2026-02-15</div>
+        <h3><span class="lang-ru">Обновлён процесс жалоб и модерации</span><span class="lang-en">Complaint and moderation flow updated</span><span class="lang-pl">Zaktualizowano proces zgłoszeń i moderacji</span><span class="lang-uk">Оновлено процес скарг і модерації</span></h3>
+        <p><span class="lang-ru">Жалобы доступны только авторизованным пользователям. Для модераторов расширены действия с карточками и уведомления владельцев вакансий.</span><span class="lang-en">Complaints are now available only for authenticated users. Moderator actions and vacancy-owner notifications were expanded.</span><span class="lang-pl">Zgłoszenia są dostępne tylko dla zalogowanych użytkowników. Rozszerzono działania moderatorów i powiadomienia właścicieli ofert.</span><span class="lang-uk">Скарги тепер доступні лише для авторизованих користувачів. Розширено дії модераторів і сповіщення власників вакансій.</span></p>
+      </article>
+
+      <article class="news-item">
+        <div class="date">2026-02-14</div>
+        <h3><span class="lang-ru">Подтверждение телефона переведено на SMS</span><span class="lang-en">Phone verification switched to SMS</span><span class="lang-pl">Weryfikacja telefonu przeniesiona na SMS</span><span class="lang-uk">Підтвердження телефону переведено на SMS</span></h3>
+        <p><span class="lang-ru">Временный сценарий верификации телефона работает через Twilio Verify (SMS). Это стабилизирует регистрацию до запуска WhatsApp Business шаблонов.</span><span class="lang-en">Temporary phone verification uses Twilio Verify (SMS), stabilizing onboarding while WhatsApp Business template approval is pending.</span><span class="lang-pl">Tymczasowa weryfikacja telefonu działa przez Twilio Verify (SMS), co stabilizuje onboarding do czasu zatwierdzenia szablonów WhatsApp Business.</span><span class="lang-uk">Тимчасова верифікація телефону працює через Twilio Verify (SMS), що стабілізує реєстрацію до затвердження шаблонів WhatsApp Business.</span></p>
+      </article>
+
+      <article class="news-item">
+        <div class="date">2026-02-13</div>
+        <h3><span class="lang-ru">Синхронизация профиля между разделами</span><span class="lang-en">Profile sync across app sections</span><span class="lang-pl">Synchronizacja profilu między sekcjami</span><span class="lang-uk">Синхронізація профілю між розділами</span></h3>
+        <p><span class="lang-ru">После авторизации данные пользователя сразу доступны в профиле, ленте, закладках и моих вакансиях без повторного входа.</span><span class="lang-en">After sign-in, user data is now immediately available in profile, feed, bookmarks and my vacancies without re-authentication.</span><span class="lang-pl">Po logowaniu dane użytkownika są od razu dostępne w profilu, feedzie, zakładkach i moich ofertach bez ponownego logowania.</span><span class="lang-uk">Після входу дані користувача одразу доступні в профілі, стрічці, закладках і моїх вакансіях без повторної авторизації.</span></p>
+      </article>
+
+      <article class="news-item">
+        <div class="date">2026-02-12</div>
+        <h3><span class="lang-ru">Исправлено разделение закладок по аккаунтам</span><span class="lang-en">Bookmark cache now isolated per account</span><span class="lang-pl">Zakładki są teraz odseparowane per konto</span><span class="lang-uk">Кеш закладок розділено за акаунтами</span></h3>
+        <p><span class="lang-ru">Исправлен баг, при котором закладки на одном устройстве могли пересекаться между разными аккаунтами.</span><span class="lang-en">Fixed an issue where bookmarks on one device could leak across different accounts.</span><span class="lang-pl">Naprawiono błąd, przez który zakładki na jednym urządzeniu mogły mieszać się między kontami.</span><span class="lang-uk">Виправлено помилку, через яку закладки на одному пристрої могли перетинатися між акаунтами.</span></p>
+      </article>
+    </section>
   </main>
 
-  <footer><div class="wrap muted">© JobHub</div></footer>
+  <footer>
+    <div class="wrap footer-row">
+      <div class="footer-links">
+        <a href="/privacy.html" data-nav><span class="lang-ru">Политика</span><span class="lang-en">Privacy</span><span class="lang-pl">Prywatność</span><span class="lang-uk">Політика</span></a>
+        <a href="/terms.html" data-nav><span class="lang-ru">Условия</span><span class="lang-en">Terms</span><span class="lang-pl">Regulamin</span><span class="lang-uk">Умови</span></a>
+        <a href="/faq.html" data-nav><span class="lang-ru">FAQ</span><span class="lang-en">FAQ</span><span class="lang-pl">FAQ</span><span class="lang-uk">FAQ</span></a>
+        <a href="/contact.html" data-nav><span class="lang-ru">Поддержка</span><span class="lang-en">Support</span><span class="lang-pl">Wsparcie</span><span class="lang-uk">Підтримка</span></a>
+      </div>
+      <div><span class="lang-ru">Контакты: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span><span class="lang-en">Contacts: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span><span class="lang-pl">Kontakt: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span><span class="lang-uk">Контакти: support@jobhub.today • privacy@jobhub.today • legal@jobhub.today</span></div>
+      <div><span class="lang-ru">© 2026 JobHub.</span><span class="lang-en">© 2026 JobHub.</span><span class="lang-pl">© 2026 JobHub.</span><span class="lang-uk">© 2026 JobHub.</span></div>
+    </div>
+  </footer>
 </body>
 </html>
-
