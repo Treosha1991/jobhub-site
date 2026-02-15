@@ -35,7 +35,7 @@
   function markActiveLinks() {
     const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
     document.querySelectorAll("a[data-nav]").forEach((link) => {
-      const href = (link.getAttribute("href") || "").replace(/^\\//, "").toLowerCase();
+      const href = (link.getAttribute("href") || "").replace(/^\//, "").toLowerCase();
       const active = href === path;
       link.classList.toggle("active", active);
       if (active) {
