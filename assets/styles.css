@@ -91,27 +91,26 @@ a:focus-visible {
 }
 
 .quick-link {
-  padding: 6px 9px;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  padding: 8px 8px 6px;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px solid transparent;
   color: var(--text-muted);
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 500;
   white-space: nowrap;
 }
 
 .quick-link:hover,
 .quick-link:focus-visible {
   color: var(--text);
-  border-color: var(--line);
-  background: rgba(242, 242, 242, 0.06);
 }
 
 .quick-link.active,
 .quick-link[aria-current="page"] {
   color: var(--text);
-  border-color: rgba(22, 217, 90, 0.6);
-  background: rgba(22, 217, 90, 0.12);
+  border-bottom-color: var(--accent);
+  font-weight: 600;
 }
 
 .header-actions {
@@ -122,12 +121,13 @@ a:focus-visible {
 
 .menu-btn {
   border: 1px solid var(--accent);
-  border-radius: 8px;
+  border-radius: 7px;
   background: transparent;
   color: var(--accent);
-  padding: 7px 10px;
-  font-size: 0.82rem;
-  font-weight: 600;
+  min-height: 32px;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
   letter-spacing: 0;
   cursor: pointer;
 }
@@ -152,13 +152,13 @@ a:focus-visible {
   border-color: rgba(242, 242, 242, 0.28);
   color: rgba(242, 242, 242, 0.72);
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 500;
+  background: transparent;
 }
 
 .lang-inline .lang-btn.active {
   color: var(--text);
   border-color: var(--accent);
-  background: rgba(22, 217, 90, 0.14);
 }
 
 .overlay {
@@ -234,16 +234,21 @@ a:focus-visible {
 
 .drawer-link {
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 8px;
+  border-left-width: 1px;
+  border-left-color: transparent;
   background: transparent;
-  padding: 10px 12px;
-  font-weight: 600;
+  padding: 9px 11px;
+  font-weight: 500;
 }
 
 .drawer-link.active,
 .drawer-link[aria-current="page"] {
-  border-color: var(--accent);
-  background: rgba(22, 217, 90, 0.2);
+  border-color: var(--line);
+  border-left-width: 2px;
+  border-left-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
 }
 
 main {
