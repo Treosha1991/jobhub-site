@@ -72,12 +72,12 @@ a {
   font-weight: 800;
 }
 
-.brand-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--brand);
-  box-shadow: 0 0 14px var(--brand);
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 0 12px rgba(15, 196, 79, 0.45);
 }
 
 .quick-nav {
