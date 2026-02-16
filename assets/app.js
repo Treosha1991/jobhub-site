@@ -33,10 +33,31 @@
   }
 
   function markActiveLinks() {
-    const path = (window.location.pathname.split("/").pop() || "index.html").toLowerCase();
+    const normalizeRoute = (value) => {
+      let route = String(value || "")
+        .trim()
+        .toLowerCase()
+        .split("#")[0]
+        .split("?")[0];
+
+      // Skip non-page links.
+      if (route.startsWith("mailto:") || route.startsWith("tel:")) return "";
+
+      // Handle absolute URLs.
+      route = route.replace(/^https?:\/\/[^/]+/i, "");
+
+      route = route.replace(/^\/+/, "").replace(/\/+$/, "");
+
+      if (!route || route === "index" || route === "index.html") return "index";
+      if (route.endsWith(".html")) route = route.slice(0, -5);
+      return route;
+    };
+
+    const currentRoute = normalizeRoute(window.location.pathname);
+
     document.querySelectorAll("a[data-nav]").forEach((link) => {
-      const href = (link.getAttribute("href") || "").replace(/^\//, "").toLowerCase();
-      const active = href === path;
+      const href = normalizeRoute(link.getAttribute("href") || "");
+      const active = href && href === currentRoute;
       link.classList.toggle("active", active);
       if (active) {
         link.setAttribute("aria-current", "page");
