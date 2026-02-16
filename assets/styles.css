@@ -58,10 +58,10 @@ a:focus-visible {
 }
 
 .header-row {
-  min-height: 64px;
+  min-height: 58px;
   display: grid;
   grid-template-columns: auto 1fr auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
 }
 
@@ -69,9 +69,9 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   font-family: "Manrope", "Inter", sans-serif;
-  font-size: 1.08rem;
+  font-size: 1.2rem;
   font-weight: 800;
-  letter-spacing: 0.01em;
+  letter-spacing: 0;
 }
 
 .brand-o {
@@ -81,7 +81,7 @@ a:focus-visible {
 .quick-nav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -91,40 +91,74 @@ a:focus-visible {
 }
 
 .quick-link {
-  padding: 8px 10px;
-  border-radius: 10px;
+  padding: 6px 9px;
+  border-radius: 8px;
   border: 1px solid transparent;
-  color: var(--text);
-  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
+.quick-link:hover,
+.quick-link:focus-visible {
+  color: var(--text);
+  border-color: var(--line);
+  background: rgba(242, 242, 242, 0.06);
+}
+
 .quick-link.active,
 .quick-link[aria-current="page"] {
-  border-color: var(--accent);
-  background: rgba(22, 217, 90, 0.18);
+  color: var(--text);
+  border-color: rgba(22, 217, 90, 0.6);
+  background: rgba(22, 217, 90, 0.12);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .menu-btn {
   border: 1px solid var(--accent);
-  border-radius: 10px;
-  background: var(--accent);
-  color: var(--text);
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  font-weight: 700;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--accent);
+  padding: 7px 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0;
   cursor: pointer;
+}
+
+.menu-btn:hover {
+  background: rgba(22, 217, 90, 0.12);
+}
+
+.menu-btn:focus-visible {
+  outline: 2px solid #F2F2F2;
+  outline-offset: 2px;
 }
 
 .lang-inline {
   display: none;
+}
+
+.lang-inline .lang-btn {
+  min-width: 32px;
+  padding: 4px 6px;
+  border-radius: 7px;
+  border-color: rgba(242, 242, 242, 0.28);
+  color: rgba(242, 242, 242, 0.72);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.lang-inline .lang-btn.active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(22, 217, 90, 0.14);
 }
 
 .overlay {
