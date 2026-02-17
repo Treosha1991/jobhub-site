@@ -308,10 +308,11 @@ main > section + section {
 .hero {
   max-width: 100%;
   margin: 0;
-  border: none;
-  border-radius: var(--radius);
-  background: linear-gradient(135deg, #173B5F 0%, #1B446B 100%);
-  box-shadow: none;
+  border: none !important;
+  outline: none;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none !important;
   padding: 44px 20px 38px;
 }
 
