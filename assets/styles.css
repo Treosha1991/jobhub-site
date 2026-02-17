@@ -316,6 +316,14 @@ main > section + section {
   padding: 44px 20px 38px;
 }
 
+main > section:first-of-type {
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
 .hero-title {
   font-size: var(--hero-title-size);
   font-weight: 800;
