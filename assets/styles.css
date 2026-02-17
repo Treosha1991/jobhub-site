@@ -285,12 +285,12 @@ main {
 }
 
 .hero {
-  max-width: 960px;
+  max-width: 100%;
   margin: 0;
-  border: 1px solid rgba(242, 242, 242, 0.24);
-  border-radius: calc(var(--radius) + 2px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
   background: linear-gradient(135deg, #173B5F 0%, #1B446B 100%);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: none;
   padding: 44px 20px 38px;
 }
 
