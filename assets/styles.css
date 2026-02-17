@@ -493,6 +493,41 @@ ol {
   padding: 14px;
 }
 
+.card-link {
+  display: block;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.2s ease-in-out, background 0.2s ease-in-out;
+}
+
+.card-link:hover,
+.card-link:focus-visible {
+  color: var(--text);
+  border-color: rgba(22, 217, 90, 0.58);
+  background: rgba(22, 217, 90, 0.1);
+}
+
+.card-link:focus-visible {
+  outline: 2px solid rgba(22, 217, 90, 0.45);
+  outline-offset: 2px;
+}
+
+.guide-entry {
+  scroll-margin-top: 78px;
+}
+
+.guide-entry h3 {
+  margin-top: 0;
+}
+
+.guide-entry ul {
+  margin-top: 8px;
+}
+
+.guide-entry li:last-child {
+  margin-bottom: 0;
+}
+
 .meta-list {
   display: grid;
   gap: 8px;
