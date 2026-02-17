@@ -539,6 +539,13 @@ ol {
   scroll-margin-top: 78px;
 }
 
+#guide-job-seekers,
+#guide-employers,
+#guide-account-security,
+#guide-complaints {
+  scroll-margin-top: clamp(140px, 34vh, 280px);
+}
+
 .guide-entry h3 {
   margin-top: 0;
 }
