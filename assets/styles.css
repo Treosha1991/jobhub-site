@@ -91,14 +91,29 @@ a:focus-visible {
 }
 
 .quick-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
   padding: 8px 8px 6px;
-  border-radius: 0;
   border: none;
-  border-bottom: 2px solid transparent;
-  color: var(--text-muted);
+  color: rgba(242, 242, 242, 0.65);
   font-size: 0.82rem;
   font-weight: 500;
   white-space: nowrap;
+  transition: color 0.2s ease-in-out;
+}
+
+.quick-link::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease-in-out;
 }
 
 .quick-link:hover,
@@ -109,8 +124,15 @@ a:focus-visible {
 .quick-link.active,
 .quick-link[aria-current="page"] {
   color: var(--text);
-  border-bottom-color: var(--accent);
+  letter-spacing: 0.3px;
   font-weight: 600;
+}
+
+.quick-link:hover::after,
+.quick-link:focus-visible::after,
+.quick-link.active::after,
+.quick-link[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 .header-actions {
@@ -130,6 +152,7 @@ a:focus-visible {
   font-weight: 500;
   letter-spacing: 0;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .menu-btn:hover {
@@ -149,16 +172,8 @@ a:focus-visible {
   min-width: 32px;
   padding: 4px 6px;
   border-radius: 7px;
-  border-color: rgba(242, 242, 242, 0.28);
-  color: rgba(242, 242, 242, 0.72);
   font-size: 0.72rem;
   font-weight: 500;
-  background: transparent;
-}
-
-.lang-inline .lang-btn.active {
-  color: var(--text);
-  border-color: var(--accent);
 }
 
 .overlay {
@@ -204,6 +219,7 @@ a:focus-visible {
   color: var(--text);
   padding: 7px 10px;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .lang-row {
@@ -213,35 +229,34 @@ a:focus-visible {
 }
 
 .lang-btn {
-  border: 1px solid var(--line-strong);
+  border: 1px solid rgba(242, 242, 242, 0.3);
   border-radius: 10px;
   background: transparent;
-  color: var(--text);
+  color: rgba(242, 242, 242, 0.6);
   padding: 8px 6px;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .lang-btn.active {
   border-color: var(--accent);
-  background: rgba(22, 217, 90, 0.2);
+  background: transparent;
+  color: var(--accent);
+}
+
+.lang-btn:hover,
+.lang-btn:focus-visible {
+  border-color: var(--accent);
+  color: var(--text);
 }
 
 .drawer .lang-btn {
   min-width: 0;
   padding: 3px 4px;
   border-radius: 7px;
-  border-color: rgba(242, 242, 242, 0.28);
-  color: rgba(242, 242, 242, 0.78);
   font-size: 0.68rem;
   font-weight: 500;
-  background: transparent;
-}
-
-.drawer .lang-btn.active {
-  color: var(--text);
-  border-color: var(--accent);
-  background: transparent;
 }
 
 .drawer-links {
@@ -252,17 +267,20 @@ a:focus-visible {
 .drawer-link {
   border: 1px solid rgba(242, 242, 242, 0.22);
   border-radius: 8px;
-  border-left: 1px solid transparent;
+  border-left: 3px solid transparent;
   background: transparent;
   padding: 8px 9px;
   font-weight: 500;
+  color: rgba(242, 242, 242, 0.75);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: all 0.2s ease-in-out;
 }
 
 .drawer-link:hover {
-  border-color: rgba(242, 242, 242, 0.4);
+  border-color: rgba(242, 242, 242, 0.32);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .drawer-link:focus-visible {
@@ -273,9 +291,8 @@ a:focus-visible {
 .drawer-link.active,
 .drawer-link[aria-current="page"] {
   border-color: rgba(242, 242, 242, 0.24);
-  border-left-width: 3px;
   border-left-color: var(--accent);
-  background: rgba(22, 217, 90, 0.08);
+  background: rgba(22, 217, 90, 0.15);
   color: var(--text);
   font-weight: 600;
 }
