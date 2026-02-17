@@ -301,6 +301,10 @@ main {
   padding: 16px 0 20px;
 }
 
+main > section + section {
+  margin-top: 14px;
+}
+
 .hero {
   max-width: 100%;
   margin: 0;
@@ -457,7 +461,7 @@ ol {
 }
 
 .grid {
-  margin-top: 14px;
+  margin-top: 0;
   display: grid;
   gap: 10px;
 }
@@ -468,10 +472,6 @@ ol {
   border-radius: var(--radius);
   background: var(--surface);
   padding: 14px;
-}
-
-.section-card + .section-card {
-  margin-top: 10px;
 }
 
 .meta-list {
