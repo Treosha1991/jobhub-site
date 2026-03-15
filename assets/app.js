@@ -15,13 +15,26 @@
 
   const normalize = (v) => {
     const lang = (v || "").toLowerCase();
-    return supported.includes(lang) ? lang : "ru";
+    return supported.includes(lang) ? lang : "en";
+  };
+
+  const getBrowserLang = () => {
+    const candidates = Array.isArray(navigator.languages) && navigator.languages.length
+      ? navigator.languages
+      : [navigator.language, navigator.userLanguage];
+    for (const value of candidates) {
+      const code = String(value || "").trim().toLowerCase().split("-")[0];
+      if (supported.includes(code)) return code;
+    }
+    return "en";
   };
 
   const getLang = () => {
     const qp = new URLSearchParams(window.location.search).get("lang");
     if (qp) return normalize(qp);
-    return normalize(localStorage.getItem(storageKey));
+    const stored = localStorage.getItem(storageKey);
+    if (stored) return normalize(stored);
+    return getBrowserLang();
   };
 
   function setLang(lang) {
