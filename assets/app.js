@@ -3,6 +3,16 @@
   const storageKey = "jobhub_lang";
   const supported = ["ru", "en", "pl", "uk"];
 
+  const withLang = (raw, lang) => {
+    const safe = normalize(lang);
+    const url = new URL(raw, window.location.origin);
+    url.searchParams.set("lang", safe);
+    if (url.origin === window.location.origin) {
+      return `${url.pathname}${url.search}${url.hash}`;
+    }
+    return url.toString();
+  };
+
   const normalize = (v) => {
     const lang = (v || "").toLowerCase();
     return supported.includes(lang) ? lang : "ru";
@@ -23,6 +33,24 @@
       const active = btn.getAttribute("data-set-lang") === safe;
       btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    syncLangLinks(safe);
+    const localizedCurrent = withLang(window.location.href, safe);
+    const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    if (localizedCurrent !== current) {
+      window.history.replaceState({}, "", localizedCurrent);
+    }
+  }
+
+  function syncLangLinks(lang) {
+    const safe = normalize(lang);
+    document.querySelectorAll('a[href]').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      const localizedHref = withLang(href, safe);
+      if (localizedHref !== href) {
+        link.setAttribute('href', localizedHref);
+      }
     });
   }
 
