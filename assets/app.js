@@ -59,7 +59,7 @@
     const safe = normalize(lang);
     document.querySelectorAll('a[href]').forEach((link) => {
       const href = link.getAttribute('href');
-      if (!href || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+      if (!href || link.hasAttribute('data-no-lang') || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
       const localizedHref = withLang(href, safe);
       if (localizedHref !== href) {
         link.setAttribute('href', localizedHref);
