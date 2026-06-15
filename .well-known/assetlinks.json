@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "today.jobhub.app",
+      "sha256_cert_fingerprints": [
+        "11:9B:C4:37:1C:D9:1F:F5:AB:D7:1A:6C:D2:75:93:D1:5B:EE:CF:61:83:65:E3:26:F5:8C:0F:3A:8F:BD:65:52",
+        "37:02:A4:4B:DC:29:4C:D4:FF:05:70:EB:0B:38:8E:74:D0:8F:D0:69:DD:13:A1:97:EA:56:4A:04:2D:AC:CF:BB"
+      ]
+    }
+  }
+]
