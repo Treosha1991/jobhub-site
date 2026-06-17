@@ -8,8 +8,12 @@
         ],
         "components": [
           {
-            "/": "/vacancy.html",
+            "/": "/vacancy",
             "comment": "JobHub vacancy smart links"
+          },
+          {
+            "/": "/vacancy.html",
+            "comment": "Legacy JobHub vacancy smart links"
           }
         ]
       }

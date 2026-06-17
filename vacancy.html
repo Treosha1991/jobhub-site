@@ -92,7 +92,7 @@
       const isAndroid = /Android/i.test(ua);
       const isIOS = /iPhone|iPad|iPod/i.test(ua);
       const storeUrl = isIOS ? iosStore : (isAndroid ? androidStore : 'https://jobhub.today/');
-      const currentUrl = id ? `https://jobhub.today/vacancy.html?id=${id}&noredirect=1` : 'https://jobhub.today/';
+      const currentUrl = id ? `https://jobhub.today/vacancy?id=${id}&noredirect=1` : 'https://jobhub.today/';
       document.getElementById('openAppLink').href = currentUrl;
       document.getElementById('storeLink').href = storeUrl;
       document.getElementById('vacancyText').textContent = id

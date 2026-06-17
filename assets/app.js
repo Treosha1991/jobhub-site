@@ -10,7 +10,7 @@
     const id = String(legacyId).replace(/[^0-9]/g, "");
     if (!id) return;
     const lang = params.get("lang");
-    const next = new URL("/vacancy.html", window.location.origin);
+    const next = new URL("/vacancy", window.location.origin);
     next.searchParams.set("id", id);
     if (lang) next.searchParams.set("lang", lang);
     window.location.replace(next.toString());
