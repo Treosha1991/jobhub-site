@@ -3,6 +3,19 @@
   const storageKey = "jobhub_lang";
   const supported = ["ru", "en", "pl", "uk"];
 
+  const redirectLegacyVacancyLink = () => {
+    const params = new URLSearchParams(window.location.search);
+    const legacyId = params.get("vacancy_id");
+    if (!legacyId || window.location.pathname !== "/") return;
+    const id = String(legacyId).replace(/[^0-9]/g, "");
+    if (!id) return;
+    const lang = params.get("lang");
+    const next = new URL("/vacancy.html", window.location.origin);
+    next.searchParams.set("id", id);
+    if (lang) next.searchParams.set("lang", lang);
+    window.location.replace(next.toString());
+  };
+
   const withLang = (raw, lang) => {
     const safe = normalize(lang);
     const url = new URL(raw, window.location.origin);
@@ -138,6 +151,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    redirectLegacyVacancyLink();
     setLang(getLang());
     bindLang();
     markActiveLinks();
