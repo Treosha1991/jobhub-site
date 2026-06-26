@@ -92,12 +92,17 @@
       const isAndroid = /Android/i.test(ua);
       const isIOS = /iPhone|iPad|iPod/i.test(ua);
       const storeUrl = isIOS ? iosStore : (isAndroid ? androidStore : 'https://jobhub.today/');
-      const currentUrl = id ? `https://jobhub.today/vacancy?id=${id}&noredirect=1` : 'https://jobhub.today/';
-      document.getElementById('openAppLink').href = currentUrl;
+      const appUrl = id ? `jobhub://vacancy/${id}` : 'jobhub://';
+      document.getElementById('openAppLink').href = appUrl;
       document.getElementById('storeLink').href = storeUrl;
       document.getElementById('vacancyText').textContent = id
         ? `Vacancy #${id} can open directly in the app when JobHub is installed.`
         : 'Install JobHub to browse vacancies and contact employers directly.';
+      if ((isAndroid || isIOS) && id && !params.has('noapp')) {
+        window.setTimeout(() => {
+          window.location.href = appUrl;
+        }, 250);
+      }
     })();
   </script>
 </body>
