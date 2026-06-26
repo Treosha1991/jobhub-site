@@ -1,0 +1,104 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open vacancy in JobHub</title>
+  <meta name="description" content="Open this JobHub vacancy in the app or install JobHub from the store.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JobHub vacancy">
+  <meta property="og:description" content="Open this vacancy in JobHub or install the app.">
+  <meta property="og:image" content="https://jobhub.today/assets/og-image.svg">
+  <meta name="theme-color" content="#0E2F55">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png?v=20260217logo2">
+  <link rel="stylesheet" href="/assets/styles.css?v=20260615a">
+  <style>
+    .smart-link-page {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: radial-gradient(circle at top left, rgba(22,217,90,.18), transparent 34%), #0E2F55;
+    }
+    .smart-link-card {
+      width: min(100%, 520px);
+      padding: 28px;
+      border: 1px solid rgba(242,242,242,.22);
+      border-radius: 28px;
+      background: rgba(7,22,38,.78);
+      box-shadow: 0 28px 80px rgba(0,0,0,.32);
+      text-align: center;
+    }
+    .smart-link-logo {
+      width: 86px;
+      height: 86px;
+      border-radius: 24px;
+      margin-bottom: 18px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.28);
+    }
+    .smart-link-card h1 {
+      margin: 0 0 10px;
+      font-family: "Manrope", "Inter", sans-serif;
+      font-size: clamp(1.8rem, 8vw, 2.6rem);
+      line-height: 1.05;
+    }
+    .smart-link-card p {
+      margin: 0 auto 18px;
+      color: rgba(242,242,242,.78);
+      max-width: 34rem;
+    }
+    .smart-link-actions {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .smart-link-actions a {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 48px;
+      border-radius: 14px;
+      font-weight: 800;
+    }
+    .smart-link-primary {
+      background: #16D95A;
+      color: #0E2F55;
+    }
+    .smart-link-secondary {
+      border: 1px solid rgba(242,242,242,.24);
+      color: #F2F2F2;
+    }
+  </style>
+</head>
+<body>
+  <main class="smart-link-page">
+    <section class="smart-link-card">
+      <img class="smart-link-logo" src="/assets/favicon-144.png?v=20260217logo2" alt="JobHub">
+      <h1>Open this vacancy in JobHub</h1>
+      <p id="vacancyText">We are preparing the vacancy link for you.</p>
+      <div class="smart-link-actions">
+        <a class="smart-link-primary" id="openAppLink" href="#">Open in JobHub</a>
+        <a class="smart-link-secondary" id="storeLink" href="https://jobhub.today/">Install JobHub</a>
+      </div>
+    </section>
+  </main>
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const id = (params.get('id') || params.get('vacancy_id') || '').replace(/[^0-9]/g, '');
+      const androidStore = 'https://play.google.com/store/apps/details?id=today.jobhub.app';
+      const iosStore = 'https://apps.apple.com/app/jobhub-work-in-europe/id6761860677';
+      const ua = navigator.userAgent || '';
+      const isAndroid = /Android/i.test(ua);
+      const isIOS = /iPhone|iPad|iPod/i.test(ua);
+      const storeUrl = isIOS ? iosStore : (isAndroid ? androidStore : 'https://jobhub.today/');
+      const appUrl = id ? `jobhub://vacancy/${id}` : 'jobhub://';
+      document.getElementById('openAppLink').href = appUrl;
+      document.getElementById('storeLink').href = storeUrl;
+      document.getElementById('vacancyText').textContent = id
+        ? `Vacancy #${id} can open directly in the app when JobHub is installed.`
+        : 'Install JobHub to browse vacancies and contact employers directly.';
+    })();
+  </script>
+</body>
+</html>
