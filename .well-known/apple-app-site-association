@@ -1,22 +1,6 @@
 {
   "applinks": {
     "apps": [],
-    "details": [
-      {
-        "appIDs": [
-          "3NS36Q693T.today.jobhub.app"
-        ],
-        "components": [
-          {
-            "/": "/vacancy",
-            "comment": "JobHub vacancy smart links"
-          },
-          {
-            "/": "/vacancy.html",
-            "comment": "Legacy JobHub vacancy smart links"
-          }
-        ]
-      }
-    ]
+    "details": []
   }
 }
