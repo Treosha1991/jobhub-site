@@ -499,6 +499,20 @@ main > section:first-of-type {
   border-bottom-color: #16D95A;
 }
 
+.employer-portal-link {
+  color: var(--accent);
+  border-bottom-color: rgba(22, 217, 90, 0.48);
+  font-weight: 700;
+}
+
+.employer-portal-nav {
+  color: rgba(242, 242, 242, 0.9);
+}
+
+.employer-portal-drawer-link {
+  color: var(--accent);
+}
+
 .hero-pill-row {
   display: flex;
   flex-wrap: wrap;
@@ -637,6 +651,31 @@ ol {
 .card-link:focus-visible {
   outline: 2px solid rgba(22, 217, 90, 0.45);
   outline-offset: 2px;
+}
+
+.employer-portal-card {
+  position: relative;
+  padding-right: 30px;
+  padding-bottom: 42px;
+  border-color: rgba(22, 217, 90, 0.34);
+  background: linear-gradient(135deg, rgba(22, 217, 90, 0.12), rgba(242, 242, 242, 0.05));
+}
+
+.employer-portal-card-action {
+  position: absolute;
+  left: 14px;
+  bottom: 13px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--accent);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.employer-portal-card:hover .employer-portal-card-action,
+.employer-portal-card:focus-visible .employer-portal-card-action {
+  transform: translateX(3px);
 }
 
 .guide-entry {
