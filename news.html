@@ -56,93 +56,6 @@
 
   <main class="wrap">
 
-<style>
-.jh104-feature{max-width:1120px;margin:38px auto 72px;padding:0 20px;color:#eef8ff;font-family:"Manrope","Segoe UI",sans-serif}
-.jh104-hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);gap:30px;align-items:stretch;padding:42px;border:1px solid rgba(102,196,255,.28);border-radius:30px;background:linear-gradient(135deg,#082d4d 0%,#0d466d 54%,#063336 100%);box-shadow:0 24px 56px rgba(0,18,39,.26);overflow:hidden}
-.jh104-kicker{margin:0 0 14px;color:#6bf19a;font-size:12px;font-weight:800;letter-spacing:.13em}
-.jh104-hero h1{max-width:650px;margin:0;color:#fff;font-size:clamp(34px,5vw,61px);line-height:1.03;letter-spacing:-.045em}
-.jh104-lead{max-width:610px;margin:20px 0 0;color:#c9dfef;font-size:18px;line-height:1.65}
-.jh104-highlight{display:inline-flex;align-items:center;gap:10px;margin-top:26px;padding:11px 15px;border:1px solid rgba(52,229,129,.44);border-radius:999px;background:rgba(13,79,76,.5);color:#dbffe7;font-size:14px;font-weight:700}
-.jh104-highlight:before{width:9px;height:9px;border-radius:50%;background:#20db6d;box-shadow:0 0 0 5px rgba(32,219,109,.14);content:""}
-.jh104-visual{position:relative;min-height:390px;border:1px solid rgba(164,221,255,.22);border-radius:24px;background:linear-gradient(160deg,rgba(5,25,54,.72),rgba(15,82,79,.5));overflow:hidden}
-.jh104-orb{position:absolute;border-radius:50%;filter:blur(2px);opacity:.88}
-.jh104-orb-a{top:-55px;right:-45px;width:220px;height:220px;background:radial-gradient(circle,#2bf785 0%,rgba(43,247,133,0) 69%)}
-.jh104-orb-b{bottom:-105px;left:-85px;width:250px;height:250px;background:radial-gradient(circle,#2988ff 0%,rgba(41,136,255,0) 70%)}
-.jh104-phone{position:absolute;inset:28px 24px 24px 70px;padding:18px;border:1px solid rgba(199,238,255,.3);border-radius:23px;background:linear-gradient(155deg,rgba(11,48,79,.94),rgba(7,31,57,.92));box-shadow:0 20px 40px rgba(0,0,0,.28);transform:rotate(2deg)}
-.jh104-phone-top{display:flex;align-items:center;gap:8px;color:#effbff;font-size:13px;font-weight:800}
-.jh104-dot{width:10px;height:10px;border-radius:50%;background:#1ee36b}
-.jh104-chat-row{height:58px;margin-top:16px;border:1px solid rgba(160,215,255,.2);border-radius:14px}
-.jh104-chat-row--light{width:83%;background:linear-gradient(100deg,rgba(43,128,194,.52),rgba(43,128,194,.16))}
-.jh104-chat-row--green{width:68%;margin-left:auto;background:linear-gradient(100deg,rgba(18,159,79,.4),rgba(33,232,112,.62))}
-.jh104-mini-card{position:absolute;left:22px;right:28px;bottom:18px;padding:15px 18px;border:1px solid rgba(86,244,151,.42);border-radius:16px;background:rgba(9,69,67,.79);backdrop-filter:blur(10px)}
-.jh104-mini-card strong{display:block;color:#f4fff7;font-size:15px}
-.jh104-mini-card span{display:block;margin-top:4px;color:#c1e4d1;font-size:12px;line-height:1.45}
-.jh104-body{margin-top:48px}
-.jh104-section-head{max-width:680px;margin:0 auto 24px;text-align:center}
-.jh104-section-head h2{margin:0;color:#0b304d;font-size:clamp(28px,4vw,43px);letter-spacing:-.035em}
-.jh104-section-head p{margin:11px 0 0;color:#557185;font-size:16px;line-height:1.6}
-.jh104-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.jh104-card{min-height:200px;padding:25px;border:1px solid #d7e8ec;border-radius:21px;background:linear-gradient(145deg,#fff,#f1faf7);box-shadow:0 14px 32px rgba(14,55,73,.08)}
-.jh104-card-number{display:inline-flex;align-items:center;justify-content:center;width:34px;height:25px;border-radius:999px;background:#d8f7e6;color:#08733f;font-size:11px;font-weight:900;letter-spacing:.07em}
-.jh104-card h3{margin:20px 0 9px;color:#123d58;font-size:20px;line-height:1.2}
-.jh104-card p{margin:0;color:#5c7180;font-size:14px;line-height:1.62}
-.jh104-cta{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:28px;padding:30px 34px;border-radius:25px;background:linear-gradient(120deg,#0b385a,#0f715d);box-shadow:0 16px 35px rgba(4,47,51,.2)}
-.jh104-cta h2{margin:0;color:#fff;font-size:27px}
-.jh104-cta p{max-width:520px;margin:7px 0 0;color:#c9f5df;line-height:1.55}
-.jh104-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
-.jh104-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:0 15px;border:1px solid rgba(255,255,255,.36);border-radius:12px;color:#fff!important;font-size:13px;font-weight:800;text-decoration:none!important;white-space:nowrap}
-.jh104-actions a:first-child{border-color:#3ef18a;background:#1ad866;color:#062a1a!important}
-@media (max-width:880px){.jh104-hero{grid-template-columns:1fr}.jh104-visual{min-height:330px}.jh104-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.jh104-cta{align-items:flex-start;flex-direction:column}.jh104-actions{justify-content:flex-start}}
-@media (max-width:560px){.jh104-feature{margin-top:22px;padding:0 13px}.jh104-hero{gap:20px;padding:25px 20px;border-radius:23px}.jh104-lead{font-size:16px}.jh104-visual{min-height:290px}.jh104-phone{inset:22px 14px 15px 37px}.jh104-grid{grid-template-columns:1fr}.jh104-card{min-height:0;padding:21px}.jh104-cta{padding:25px 21px;border-radius:21px}.jh104-cta h2{font-size:24px}.jh104-actions{width:100%}.jh104-actions a{flex:1}}
-</style>
-<article class="jh104-feature">
-  <section class="jh104-hero">
-    <div class="jh104-copy">
-      <p class="jh104-kicker">ОБНОВЛЕНИЕ 1.0.4 / 15 ИЮЛЯ 2026</p>
-      <h1>ЙобХуб 1.0.4: больше ясности, меньше лишних шагов</h1>
-      <p class="jh104-lead">Мы собрали важные улучшения, чтобы поиск работы, общение и управление вакансиями стали просче и удобнее.</p>
-      <div class="jh104-highlight">Маленькие улучшения, которые решают большие ежедневные задачи.</div>
-    </div>
-    <div class="jh104-visual" aria-label="Вакансия, контакты и переписка - в одном понятном месте.">
-      <div class="jh104-orb jh104-orb-a"></div><div class="jh104-orb jh104-orb-b"></div>
-      <div class="jh104-phone">
-        <div class="jh104-phone-top"><span class="jh104-dot"></span><span>JobHub</span></div>
-        <div class="jh104-chat-row jh104-chat-row--light"></div>
-        <div class="jh104-chat-row jh104-chat-row--green"></div>
-        <div class="jh104-chat-row jh104-chat-row--light"></div>
-        <div class="jh104-mini-card"><strong>Чат</strong><span>Новые сообщения, быстрые ответы и все диалоги в одном месте.</span></div>
-      </div>
-    </div>
-  </section>
-  <section class="jh104-body">
-    <div class="jh104-section-head"><h2>Что стало лучше</h2><p>Обновление 1.0.4 помогает быстрее наыти нужную информацию, связаться и договориться о работе.</p></div>
-    <div class="jh104-grid"><article class="jh104-card"><span class="jh104-card-number">01</span><h3>Чат без лишних переходов</h3><p>Теперь можно написать работодателю прямо в ЙобХуб. Диалогы собраны в одном разделе, а новые сообщения не потеряюця.</p></article>
-<article class="jh104-card"><span class="jh104-card-number">02</span><h3>Больше стран и городов</h3><p>Расширили списки стран и городов, чтобы выбираь вакансии и создаваь свои, не приходилось подстраиваться под короткиы список.</p></article>
-<article class="jh104-card"><span class="jh104-card-number">03</span><h3>Понятные контакты</h3><p>Контакты работодателя теперь выгльадят проще: сразу видно, как связаться и сколько стоит их открыть.</p></article>
-<article class="jh104-card"><span class="jh104-card-number">04</span><h3>Больше доверия</h3><p>Появился значок проверенного работодателя. Он помогает быстрее заметить профили, которые прошли проверку.</p></article>
-<article class="jh104-card"><span class="jh104-card-number">05</span><h3>Условия без догадок</h3><p>Валюта, стоимость жиля и другие важные детали показываюця понятнее, чтобы проще сравнить предложения.</p></article>
-<article class="jh104-card"><span class="jh104-card-number">06</span><h3>Кабинет работодателя</h3><p>Работо-датели могут управлять вакансиями через браузер: создавать, редактировать, сохранять черновики и общаться с кандидатами.</p></article></div>
-    <section class="jh104-cta">
-      <div><h2>Обновление уже доступно</h2><p>Установите или обновите ЙобХуб, чтобы пользоваться новыми возможностями уже сегодня.</p></div>
-      <div class="jh104-actions"><a href="https://apps.apple.com/app/jobhub-work-in-europe/id6761860677" target="_blank" rel="noopener">Открыть в Апп Сторе</a><a href="https://play.google.com/store/apps/details?id=today.jobhub.app" target="_blank" rel="noopener">Открыть в Гоогле Плаы</a></div>
-    </section>
-  </section>
-</article>
-    <article class="jh104-card"><span class="jh104-number">02</span><h3>?????? ????? ? ???????</h3><p>????????? ?????? ???????????, ? ????? ??????, ?????? ? ??????? ???? ????????. ?????? ?????????? ???????? ?????? ???????.</p></article>
-    <article class="jh104-card"><span class="jh104-number">03</span><h3>????????, ??????? ????????</h3><p>? ???????? ????? ??????? ?? ???? Telegram-?????????. ????????? ????? ??????? ?????? ??????? ? ????? ?????? ????????.</p></article>
-    <article class="jh104-card"><span class="jh104-number">04</span><h3>???????? ???????</h3><p>???????? ?????? ????? ??? ???????? ? ?????. ???? ?????????? ?????? ???????????? ?????? ? ???????? ??????: ?? ????, ?????? ??? ?????.</p></article>
-    <article class="jh104-card"><span class="jh104-number">05</span><h3>?????? ???????</h3><p>??????? ????????????? ? ???????? ???????? ????? ?????????. ? ??????????? ????????????? ?????????? ??????????? ????, ? ?????? ?????????? ????? ????????.</p></article>
-    <article class="jh104-card"><span class="jh104-number">06</span><h3>??????? ??? ?????????????</h3><p>? ???-???????? ????? ???????? ? ??????????, ???????????, ???????? ? ??????. ????????? ???????????? ????? ??????? ? ? ??????????, ? ? ????????.</p></article>
-  </section>
-  <section class="jh104-story">
-    <div><h3>??? ?????????? ? ??????? ??????</h3><p>????? ?????????? ???????? ? ????? ????? ???????? ?????? ? ????. ????? ???????? ??????????? ? ???????, ????? ? ???????? ???????? ????????. ? ???????????? ?? ?????????? ?????? ?????: ??? ??? ?????? ? ?????????? ??????? ? ?????? ????????.</p></div>
-    <ul class="jh104-list"><li>?????????? ??? ?? ???????? ??? ??????? ????????????.</li><li>?????????? ? ??????? Telegram-???????? ? ???? ???.</li><li>??????? ???????? ???????? ?? ???????, ??????? ? ????????.</li><li>???????? ?????? ??????? ????? ?? ???????? ????????.</li></ul>
-  </section>
-  <section class="jh104-permission"><h3>?????? ? ???????????? ? ?????? ? ?????????? ????????????</h3><p>???????????? ????? ????????? JobHub ???????? ? ??????????? ???????? ?? ??? ?????. ????? ???? ?? ????? ???????, ???????????? ??????? ? ???????? ?????? ???. ?????????? ????? ???????? ? ????? ?????? ? ????? ?????????? ????? ???????????.</p></section>
-  <section class="jh104-final"><h3>?????????? ??? ?????</h3><p>JobHub 1.0.4 ?????????? ?????????? ? App Store ? Google Play. ????????? ??????? ??????????, ????? ???????????? ?????? ????????????? ? ??????? ????? ?????? ????????? ? ???????.</p></section>
-</article>
-
-
     <section class="hero">
       <span class="badge"><span class="lang-ru">Новости продукта</span><span class="lang-en">Product updates</span><span class="lang-pl">Aktualizacje produktu</span><span class="lang-uk">Оновлення продукту</span></span>
       <h1><span class="lang-ru">Новости и changelog JobHub</span><span class="lang-en">JobHub news and changelog</span><span class="lang-pl">Aktualności i changelog JobHub</span><span class="lang-uk">Новини та changelog JobHub</span></h1>
@@ -150,6 +63,69 @@
     </section>
 
     <section class="grid">
+
+      <article class="news-item">
+        <div class="date">15.07.2026</div>
+        <h3>
+          <span class="lang-ru">JobHub 1.0.4: меньше лишних шагов, больше ясности</span>
+          <span class="lang-en">JobHub 1.0.4: fewer steps, more clarity</span>
+          <span class="lang-pl">JobHub 1.0.4: mniej zbędnych kroków, więcej jasności</span>
+          <span class="lang-uk">JobHub 1.0.4: менше зайвих кроків, більше ясності</span>
+        </h3>
+        <p>
+          <span class="lang-ru">Собрали важные улучшения, чтобы искать работу, общаться и управлять вакансиями было проще и удобнее.</span>
+          <span class="lang-en">We have made important improvements to make job searching, communication and vacancy management simpler and more convenient.</span>
+          <span class="lang-pl">Wprowadziliśmy ważne ulepszenia, aby szukanie pracy, komunikacja i zarządzanie ofertami były prostsze i wygodniejsze.</span>
+          <span class="lang-uk">Ми додали важливі покращення, щоб пошук роботи, спілкування та керування вакансіями були простішими й зручнішими.</span>
+        </p>
+        <ul>
+          <li>
+            <strong><span class="lang-ru">Чат в приложении.</span><span class="lang-en">In-app chat.</span><span class="lang-pl">Czat w aplikacji.</span><span class="lang-uk">Чат у застосунку.</span></strong>
+            <span class="lang-ru"> Можно написать работодателю прямо в JobHub; все диалоги и новые сообщения собраны в одном месте.</span>
+            <span class="lang-en"> Message employers directly in JobHub; all conversations and new messages are collected in one place.</span>
+            <span class="lang-pl"> Możesz napisać do pracodawcy bezpośrednio w JobHub; wszystkie rozmowy i nowe wiadomości są w jednym miejscu.</span>
+            <span class="lang-uk"> Можна написати роботодавцю безпосередньо в JobHub; усі діалоги й нові повідомлення зібрані в одному місці.</span>
+          </li>
+          <li>
+            <strong><span class="lang-ru">Больше стран и городов.</span><span class="lang-en">More countries and cities.</span><span class="lang-pl">Więcej krajów i miast.</span><span class="lang-uk">Більше країн і міст.</span></strong>
+            <span class="lang-ru"> Расширили списки для поиска и создания вакансий.</span>
+            <span class="lang-en"> We expanded the lists available when searching for and creating vacancies.</span>
+            <span class="lang-pl"> Rozszerzyliśmy listy dostępne podczas wyszukiwania i tworzenia ofert.</span>
+            <span class="lang-uk"> Ми розширили списки для пошуку та створення вакансій.</span>
+          </li>
+          <li>
+            <strong><span class="lang-ru">Понятные контакты.</span><span class="lang-en">Clearer contacts.</span><span class="lang-pl">Czytelniejsze kontakty.</span><span class="lang-uk">Зрозуміліші контакти.</span></strong>
+            <span class="lang-ru"> Стало проще увидеть способ связи с работодателем и стоимость открытия контактов.</span>
+            <span class="lang-en"> It is now easier to see how to contact an employer and the cost of opening contacts.</span>
+            <span class="lang-pl"> Łatwiej sprawdzić sposób kontaktu z pracodawcą i koszt odblokowania kontaktów.</span>
+            <span class="lang-uk"> Тепер простіше побачити спосіб зв’язку з роботодавцем і вартість відкриття контактів.</span>
+          </li>
+          <li>
+            <strong><span class="lang-ru">Проверенные работодатели.</span><span class="lang-en">Verified employers.</span><span class="lang-pl">Zweryfikowani pracodawcy.</span><span class="lang-uk">Перевірені роботодавці.</span></strong>
+            <span class="lang-ru"> Значок проверки помогает быстрее заметить профили, которые прошли проверку.</span>
+            <span class="lang-en"> A verification badge makes profiles that passed review easier to spot.</span>
+            <span class="lang-pl"> Odznaka weryfikacji ułatwia zauważenie profili, które przeszły kontrolę.</span>
+            <span class="lang-uk"> Значок верифікації допомагає швидше помітити профілі, які пройшли перевірку.</span>
+          </li>
+          <li>
+            <strong><span class="lang-ru">Больше деталей в условиях.</span><span class="lang-en">More details in job conditions.</span><span class="lang-pl">Więcej szczegółów w warunkach pracy.</span><span class="lang-uk">Більше деталей в умовах роботи.</span></strong>
+            <span class="lang-ru"> Валюта, стоимость жилья и другие важные условия показываются понятнее, чтобы было легче сравнивать предложения.</span>
+            <span class="lang-en"> Currency, accommodation costs and other key conditions are clearer, making offers easier to compare.</span>
+            <span class="lang-pl"> Waluta, koszt zakwaterowania i inne ważne warunki są pokazane czytelniej, aby łatwiej porównywać oferty.</span>
+            <span class="lang-uk"> Валюта, вартість житла та інші важливі умови показані зрозуміліше, щоб легше порівнювати пропозиції.</span>
+          </li>
+          <li>
+            <strong><span class="lang-ru">Веб-кабинет работодателя.</span><span class="lang-en">Employer web portal.</span><span class="lang-pl">Panel internetowy pracodawcy.</span><span class="lang-uk">Вебкабінет роботодавця.</span></strong>
+            <span class="lang-ru"> Работодатели могут создавать и редактировать вакансии, сохранять черновики и общаться с кандидатами через браузер.</span>
+            <span class="lang-en"> Employers can create and edit vacancies, save drafts and communicate with candidates in a browser.</span>
+            <span class="lang-pl"> Pracodawcy mogą tworzyć i edytować oferty, zapisywać wersje robocze oraz komunikować się z kandydatami w przeglądarce.</span>
+            <span class="lang-uk"> Роботодавці можуть створювати й редагувати вакансії, зберігати чернетки та спілкуватися з кандидатами через браузер.</span>
+          </li>
+        </ul>
+        <p>
+          <span class="lang-ru">Обновление уже доступно в </span><span class="lang-en">The update is now available on </span><span class="lang-pl">Aktualizacja jest już dostępna w </span><span class="lang-uk">Оновлення вже доступне в </span><a href="https://apps.apple.com/app/jobhub-work-in-europe/id6761860677" target="_blank" rel="noopener" data-no-lang>App Store</a><span class="lang-ru"> и </span><span class="lang-en"> and </span><span class="lang-pl"> i </span><span class="lang-uk"> та </span><a href="https://play.google.com/store/apps/details?id=today.jobhub.app" target="_blank" rel="noopener" data-no-lang>Google Play</a><span class="lang-ru">.</span><span class="lang-en">.</span><span class="lang-pl">.</span><span class="lang-uk">.</span>
+        </p>
+      </article>
 
       <article class="news-item launch-news">
         <div class="launch-glow" aria-hidden="true"></div>
