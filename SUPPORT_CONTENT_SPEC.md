@@ -147,8 +147,9 @@ JobHub сам по себе не отдельное юридическое ли�
 - Панель Render показывает действующий `jobapp-backend`, его PostgreSQL,
   staging-сервисы и оба задания очистки в регионе Frankfurt. Это подтверждает
   регион Render, но не регион R2, SMS/почты, переводов или резервных копий.
-- В production Environment видны настройки SMTP, Firebase, Cloudflare R2 и
-  Twilio; секретные значения не копировались и не публиковались. В staging
+- В production Environment SMTP настроен на `smtp.gmail.com`, push — на
+  `fcm_v1`; также видны настройки Cloudflare R2 и Twilio. Значения ключей и
+  токенов не копировались и не публиковались. В staging
   подтверждены Support, демо-документы, FCM и перевод опубликованного контента
   через Google Cloud; перевод личных чатов выключен. Наличие переменной
   само по себе не доказывает фактическое использование интеграции.
@@ -158,11 +159,27 @@ JobHub сам по себе не отдельное юридическое ли�
   созданный экспорт 7 дней. Для Hobby
   [журналы Render](https://render.com/docs/logging) доступны 7 дней.
   Это не покрывает копии вне Render или сроки хранения отдельных записей.
-- Production и staging используют обычные R2 endpoints без признака
-  ограниченной EU jurisdiction. По
+- В Render production `R2_BUCKET=jobhub-avatars`; endpoint относится к тому же
+  Cloudflare-аккаунту, что открыт в Dashboard. Staging использует этот bucket
+  для аватаров и отдельный `jobhub-support-chat-media` для приватных изображений
+  чата. Cloudflare Dashboard 28.09.2026 показывает для `jobhub-avatars`
+  Location: Eastern Europe (EEUR), включённый публичный `r2.dev` URL и
+  отсутствие custom domain; для `jobhub-support-chat-media` — Western Europe
+  (WEUR), без публичного URL и custom domain. Оба Render endpoints обычные,
+  без `.eu.r2.cloudflarestorage.com`. По
   [документации Cloudflare](https://developers.cloudflare.com/r2/reference/data-location/)
-  обычное размещение и location hint не гарантируют юрисдикцию EU; фактические
-  параметры каждого bucket остаётся сверить в Cloudflare Dashboard.
+  EEUR/WEUR — location hints, а не гарантия EU jurisdiction; утверждать
+  обязательное хранение R2 только в ЕС нельзя.
+- У обоих JobHub R2 bucket'ов единственное Object Lifecycle Rule — стандартное
+  прекращение незавершённой multipart-загрузки через 7 дней. Правил истечения
+  срока уже загруженных объектов и bucket-lock нет; Data Access Logs выключены.
+  Поэтому фактическое удаление аватаров и изображений чата зависит от кода и
+  заданий очистки, а не от автоматического срока хранения R2. Настройки не
+  менялись, содержимое объектов и ключи не открывались.
+- Staging `SUPPORT_DOCUMENT_STORAGE_BUCKET` указывает на отдельный тестовый
+  S3 bucket, не перечисленный в Cloudflare R2; `AWS_DEFAULT_REGION=eu-north-1`,
+  настроен KMS key ID. Это подтверждает конфигурацию staging, но не фактическое
+  размещение/политику AWS bucket и не production-активацию документов.
 - Задание `purge-support-chat-images` связано со staging-веткой, запускается
   ежедневно в 02:17 UTC; последние запланированные запуски успешны, включая
   28.09. Это не доказывает наличие тех же изображений или очистки в production.
@@ -186,7 +203,9 @@ JobHub сам по себе не отдельное юридическое ли�
 - До юридической публикации проверить без выгрузки секретов: включённые
   production-поставщики (SMTP, Render, Cloudflare/R2, FCM/APNs, SMS,
   перевод), категории передаваемых им данных, регионы и гарантии передачи;
-  внешние копии и фактическое размещение R2; исправление удаления аккаунтов
-  с рабочими связями и production-порядок очистки chat media; статус
-  защищённых документов и сроки хранения рабочих записей.
+  внешние копии, при необходимости решение о гарантированной EU jurisdiction
+  для новых R2 bucket'ов и фактические настройки тестового AWS bucket;
+  исправление удаления аккаунтов с рабочими связями и production-порядок
+  очистки chat media;
+  статус защищённых документов и сроки хранения рабочих записей.
   Код, staging и успешный Pages-preview не подтверждают эти факты.
