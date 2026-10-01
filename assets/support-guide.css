@@ -1,0 +1,37 @@
+.support-guide { padding-bottom: 32px; }
+.support-guide section { scroll-margin-top: 76px; }
+.guide-hero { border-bottom: 1px solid var(--line); }
+.guide-hero .hero-title { max-width: 850px; }
+.guide-caveat { max-width: 790px; margin: 20px 0 0; color: var(--text-muted); font-size: .92rem; }
+.guide-jump { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 26px; }
+.guide-jump a { padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); font-size: .9rem; }
+.guide-jump a:hover, .guide-jump a:focus-visible { border-color: var(--accent); }
+.guide-flow { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 10px; padding: 0; list-style: none; counter-reset: guide-flow; }
+.guide-flow li { position: relative; padding: 30px 12px 12px; min-height: 130px; border: 1px solid var(--line); border-radius: 12px; background: rgba(22,217,90,.055); font-size: .86rem; }
+.guide-flow li::before { counter-increment: guide-flow; content: counter(guide-flow); position: absolute; top: 9px; left: 12px; color: var(--accent); font-weight: 800; }
+.guide-flow strong { display: block; margin-bottom: 6px; color: var(--accent); }
+.guide-section { margin: 34px 0; }
+.guide-section-heading { display: flex; align-items: center; gap: 14px; margin-bottom: 15px; }
+.guide-section-heading h2 { margin: 0 0 4px; }
+.guide-section-heading p { margin: 0; color: var(--text-muted); }
+.guide-role { display: grid; place-items: center; flex: none; width: 52px; height: 52px; border: 1px solid var(--accent); border-radius: 50%; color: var(--accent); font-weight: 800; }
+.guide-process-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.guide-process { position: relative; display: flex; flex-direction: column; gap: 9px; padding: 18px 18px 18px 58px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.guide-number { position: absolute; top: 18px; left: 18px; display: grid; place-items: center; width: 27px; height: 27px; border-radius: 50%; background: var(--accent); color: var(--bg); font-weight: 800; }
+.guide-process h3, .guide-process p { margin: 0; }
+.guide-process p { color: var(--text-muted); }
+.guide-process small { display: block; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); color: var(--accent); font-size: .88rem; }
+.guide-screens { margin-top: 34px; }
+.guide-screen-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; align-items: start; margin-top: 18px; }
+.guide-screen-card { margin: 0; min-width: 0; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: rgba(0,0,0,.16); }
+.guide-screen-wrap { position: relative; background: #082744; }
+.guide-screen-wrap img { display: block; width: 100%; height: auto; }
+.guide-pin { position: absolute; display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid white; border-radius: 50%; background: var(--accent); color: #07301d; font-size: 14px; font-weight: 800; box-shadow: 0 2px 10px #061a32; }
+.pin-manager-people { top: 18%; left: 86%; } .pin-manager-projects { top: 26%; left: 86%; } .pin-manager-hours { top: 78%; left: 86%; }
+.pin-worker-new { top: 25%; left: 86%; } .pin-worker-list { top: 42%; left: 82%; }
+.pin-dates-status { top: 43%; left: 82%; } .pin-dates-cancel { top: 52%; left: 84%; }
+.guide-screen-card figcaption { display: grid; gap: 7px; padding: 14px; color: var(--text-muted); font-size: .88rem; }
+.guide-screen-card figcaption strong { color: var(--text); font-size: 1rem; }
+.guide-close { margin-top: 30px; border-color: rgba(22,217,90,.44); background: linear-gradient(135deg,rgba(22,217,90,.13),var(--surface)); }
+@media (max-width: 760px) { .guide-flow { grid-template-columns: repeat(2,minmax(0,1fr)); } .guide-screen-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 560px) { .guide-flow, .guide-process-grid, .guide-screen-grid { grid-template-columns: 1fr; } .guide-flow li { min-height: 0; } .guide-screen-card { max-width: 360px; margin-inline: auto; } .guide-process { padding-right: 14px; } }
