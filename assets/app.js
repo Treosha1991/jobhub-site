@@ -55,6 +55,11 @@
     html.dataset.lang = safe;
     html.lang = safe;
     localStorage.setItem(storageKey, safe);
+    const localizedHeading = document.querySelector(`h1 > .lang-${safe}`);
+    if (localizedHeading) {
+      const title = localizedHeading.textContent.trim();
+      document.title = title.includes("JobHub") ? title : `${title} — JobHub`;
+    }
     document.querySelectorAll("[data-set-lang]").forEach((btn) => {
       const active = btn.getAttribute("data-set-lang") === safe;
       btn.classList.toggle("active", active);

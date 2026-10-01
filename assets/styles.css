@@ -345,6 +345,14 @@ main > section:first-of-type {
   margin: 0 0 14px;
 }
 
+.hero-demo-cta {
+  margin: 8px 0 22px;
+}
+
+.hero-demo-cta .btn {
+  min-height: 46px;
+}
+
 .store-badges {
   display: flex;
   flex-wrap: wrap;
