@@ -22,7 +22,7 @@
 .guide-process p { color: var(--text-muted); }
 .guide-process small { display: block; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); color: var(--accent); font-size: .88rem; }
 .guide-screens { margin-top: 34px; }
-.guide-screen-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; align-items: start; margin-top: 18px; }
+.guide-screen-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; align-items: start; margin-top: 18px; }
 .guide-screen-card { margin: 0; min-width: 0; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: rgba(0,0,0,.16); }
 .guide-screen-wrap { position: relative; background: #082744; }
 .guide-screen-wrap img { display: block; width: 100%; height: auto; }
@@ -30,6 +30,8 @@
 .pin-manager-people { top: 18%; left: 86%; } .pin-manager-projects { top: 26%; left: 86%; } .pin-manager-hours { top: 78%; left: 86%; }
 .pin-worker-new { top: 25%; left: 86%; } .pin-worker-list { top: 42%; left: 82%; }
 .pin-dates-status { top: 43%; left: 82%; } .pin-dates-cancel { top: 52%; left: 84%; }
+.pin-web-workers { top: 11%; left: 11%; } .pin-web-projects { top: 11%; left: 27%; } .pin-web-timesheet { top: 78%; left: 34%; }
+.pin-invite-email { top: 35%; left: 86%; } .pin-invite-name { top: 47%; left: 86%; } .pin-invite-manager { top: 60%; left: 86%; } .pin-invite-send { top: 82%; left: 72%; }
 .guide-screen-card figcaption { display: grid; gap: 7px; padding: 14px; color: var(--text-muted); font-size: .88rem; }
 .guide-screen-card figcaption strong { color: var(--text); font-size: 1rem; }
 .guide-close { margin-top: 30px; border-color: rgba(22,217,90,.44); background: linear-gradient(135deg,rgba(22,217,90,.13),var(--surface)); }
