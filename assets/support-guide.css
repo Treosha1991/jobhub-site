@@ -35,6 +35,7 @@
 .pin-project-crew { top: 47%; left: 24%; } .pin-project-worker { top: 68%; left: 16%; } .pin-project-shift { top: 75%; left: 73%; }
 .pin-housing-room { top: 56%; left: 22%; } .pin-housing-occupied { top: 70%; left: 64%; } .pin-housing-available { top: 80%; left: 65%; }
 .pin-fleet-vehicle { top: 78%; left: 17%; } .pin-fleet-seats { top: 78%; left: 36%; } .pin-fleet-add { top: 29%; left: 91%; }
+.pin-task-new { top: 59%; left: 39%; } .pin-task-sent { top: 75%; left: 84%; }
 .guide-screen-card figcaption { display: grid; gap: 7px; padding: 14px; color: var(--text-muted); font-size: .88rem; }
 .guide-screen-card figcaption strong { color: var(--text); font-size: 1rem; }
 .guide-close { margin-top: 30px; border-color: rgba(22,217,90,.44); background: linear-gradient(135deg,rgba(22,217,90,.13),var(--surface)); }

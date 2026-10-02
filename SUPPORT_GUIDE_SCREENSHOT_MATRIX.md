@@ -17,7 +17,7 @@ screen, action and resulting state against the installed build and backend.
 | Project / crew / dated shift | `assets/support-demo-project-crew.jpg` — project, crew, passenger and published dated shift in an isolated local fictional database. | Worker Today view for the same fictional shift. |
 | Housing / transport | `assets/support-demo-housing.jpg` and `assets/support-demo-fleet.jpg` — local fictional housing with occupied/free place and vehicle with available seats. | Driver and route assignment to a fictional worker; worker-side view. |
 | Actual hours / correction | No screenshot yet. | Worker submission, employer review and returned correction on the same demo shift. |
-| Tasks / announcements / chats | No screenshot yet. | Clean task review states and a synthetic announcement or chat; avoid real message content. |
+| Tasks / announcements / chats | `assets/support-demo-task-sent.jpg` — local fictional task in the employer web Sent list at narrow-screen width. | Clean task review and completion states, plus synthetic announcement or chat; avoid real message content. |
 | Documents and offboarding | No screenshot yet. | Only synthetic document status screens after checking environment flag and legal copy; never show a real HR file. |
 
 The images now on the page are examples, not evidence that all flows have been
@@ -37,5 +37,5 @@ alter production records as a side effect of documenting the guide.
 
 The project, housing and fleet captures were made on 2 October 2026 with
 `seed_support_demo` in a separate local SQLite database. The added project,
-crew, dated shift, vehicle and housing records are fictional. These captures
+crew, dated shift, vehicle, housing and task records are fictional. These captures
 show the web interface and do not replace device acceptance evidence.
