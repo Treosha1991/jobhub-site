@@ -14,8 +14,8 @@ screen, action and resulting state against the installed build and backend.
 | Several request dates | `assets/support-request-dates-example.jpg` — owner-provided test screenshot. | Capture the post-decision state as well. |
 | Invitation and access | `assets/support-worker-invite-form.jpg` — real production web form with fictional review company and empty fields; no invitation was sent. | Capture the accepted worker invitation in a fictional account. |
 | Employer web entry points | `assets/support-employer-web-home.jpg` — real production web workspace for the fictional review company. | Replace the narrow capture with a wider browser capture when available, keeping the same fictional data. |
-| Project / crew / dated shift | No screenshot yet. | Employer project schedule and worker Today view for the same fictional shift. |
-| Housing / transport | No screenshot yet. | Unoccupied and occupied demo room, vehicle assignment to a demo driver. |
+| Project / crew / dated shift | `assets/support-demo-project-crew.jpg` — project, crew, passenger and published dated shift in an isolated local fictional database. | Worker Today view for the same fictional shift. |
+| Housing / transport | `assets/support-demo-housing.jpg` and `assets/support-demo-fleet.jpg` — local fictional housing with occupied/free place and vehicle with available seats. | Driver and route assignment to a fictional worker; worker-side view. |
 | Actual hours / correction | No screenshot yet. | Worker submission, employer review and returned correction on the same demo shift. |
 | Tasks / announcements / chats | No screenshot yet. | Clean task review states and a synthetic announcement or chat; avoid real message content. |
 | Documents and offboarding | No screenshot yet. | Only synthetic document status screens after checking environment flag and legal copy; never show a real HR file. |
@@ -34,3 +34,8 @@ only the explicitly fictional review-company label and an empty invitation form.
 For the remaining process screenshots, first prepare an isolated fictional
 fixture or confirm and replace every identifiable value before capture; do not
 alter production records as a side effect of documenting the guide.
+
+The project, housing and fleet captures were made on 2 October 2026 with
+`seed_support_demo` in a separate local SQLite database. The added project,
+crew, dated shift, vehicle and housing records are fictional. These captures
+show the web interface and do not replace device acceptance evidence.
