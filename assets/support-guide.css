@@ -22,17 +22,17 @@
 .guide-process p { color: var(--text-muted); }
 .guide-process small { display: block; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); color: var(--accent); font-size: .88rem; }
 .guide-screens { margin-top: 34px; }
-.guide-screen-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; align-items: start; margin-top: 18px; }
+.guide-screen-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; max-width: 980px; margin-top: 18px; }
 .guide-screen-card { margin: 0; min-width: 0; border: 1px solid var(--line); border-radius: 15px; overflow: hidden; background: rgba(0,0,0,.16); }
 .guide-screen-wrap { position: relative; background: #082744; }
 .guide-screen-wrap img { display: block; width: 100%; height: auto; }
 .guide-pin { position: absolute; display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid white; border-radius: 50%; background: var(--accent); color: #07301d; font-size: 14px; font-weight: 800; box-shadow: 0 2px 10px #061a32; }
 .pin-manager-people { top: 18%; left: 86%; } .pin-manager-projects { top: 26%; left: 86%; } .pin-manager-hours { top: 78%; left: 86%; }
 .pin-web-workers { top: 11%; left: 11%; } .pin-web-projects { top: 11%; left: 27%; } .pin-web-timesheet { top: 78%; left: 34%; }
-.pin-invite-email { top: 35%; left: 86%; } .pin-invite-name { top: 47%; left: 86%; } .pin-invite-manager { top: 60%; left: 86%; } .pin-invite-send { top: 82%; left: 72%; }
-.pin-project-crew { top: 47%; left: 24%; } .pin-project-worker { top: 68%; left: 16%; } .pin-project-shift { top: 75%; left: 73%; }
-.pin-housing-room { top: 56%; left: 22%; } .pin-housing-occupied { top: 70%; left: 64%; } .pin-housing-available { top: 80%; left: 65%; }
-.pin-fleet-vehicle { top: 78%; left: 17%; } .pin-fleet-seats { top: 78%; left: 36%; } .pin-fleet-add { top: 29%; left: 91%; }
+.pin-invite-email { top: 50%; left: 31%; } .pin-invite-name { top: 50%; left: 66%; } .pin-invite-manager { top: 59%; left: 35%; } .pin-invite-send { top: 67%; left: 55%; }
+.pin-project-crew { top: 47%; left: 24%; } .pin-project-worker { top: 61%; left: 16%; } .pin-project-shift { top: 75%; left: 73%; }
+.pin-housing-room { top: 50%; left: 18%; } .pin-housing-occupied { top: 63%; left: 26%; } .pin-housing-available { top: 73%; left: 23%; }
+.pin-fleet-vehicle { top: 63%; left: 13%; } .pin-fleet-seats { top: 63%; left: 34%; } .pin-fleet-add { top: 24%; left: 91%; }
 .pin-task-new { top: 59%; left: 39%; } .pin-task-sent { top: 75%; left: 84%; }
 .guide-screen-card figcaption { display: grid; gap: 7px; padding: 14px; color: var(--text-muted); font-size: .88rem; }
 .guide-screen-card figcaption strong { color: var(--text); font-size: 1rem; }
@@ -65,7 +65,7 @@
 .guide-pin-f { top:57%; left:17%; } .guide-pin-g { top:85%; left:31%; }
 .guide-pin-h { top:46%; left:10%; } .guide-pin-i { top:62%; left:14%; } .guide-pin-j { top:68%; left:68%; }
 .guide-pin-k { top:29%; left:42%; } .guide-pin-l { top:55%; left:22%; } .guide-pin-m { top:69%; left:22%; }
-.guide-pin-n { top:10%; left:86%; } .guide-pin-o { top:23%; left:17%; } .guide-pin-p { top:24%; left:38%; } .guide-pin-q { top:32%; left:53%; }
+.guide-pin-n { top:25%; left:89%; } .guide-pin-o { top:57%; left:14%; } .guide-pin-p { top:60%; left:39%; } .guide-pin-q { top:75%; left:54%; }
 .guide-pin-r { top:46%; left:20%; }
 .guide-pin-s { top:33%; left:12%; } .guide-pin-t { top:40%; left:27%; } .guide-pin-u { top:53%; left:23%; }
 .guide-pin-v { top:43%; left:18%; } .guide-pin-w { top:68%; left:19%; } .guide-pin-x { top:82%; left:12%; }

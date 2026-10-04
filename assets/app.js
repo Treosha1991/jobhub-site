@@ -65,12 +65,25 @@
       btn.classList.toggle("active", active);
       btn.setAttribute("aria-pressed", active ? "true" : "false");
     });
+    syncGuideImages(safe);
     syncLangLinks(safe);
     const localizedCurrent = withLang(window.location.href, safe);
     const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
     if (localizedCurrent !== current) {
       window.history.replaceState({}, "", localizedCurrent);
     }
+  }
+
+  function syncGuideImages(lang) {
+    document.querySelectorAll('img[data-guide-shot]').forEach((img) => {
+      const shot = img.getAttribute('data-guide-shot');
+      const path = `/assets/support-guide/${lang}/${shot}.jpg`;
+      img.setAttribute('src', path);
+      const link = img.closest('a');
+      if (link) link.setAttribute('href', path);
+      const alt = img.getAttribute(`data-alt-${lang}`);
+      if (alt) img.setAttribute('alt', alt);
+    });
   }
 
   function syncLangLinks(lang) {

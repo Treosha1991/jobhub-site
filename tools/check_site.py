@@ -13,10 +13,13 @@ class Page(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.ids = set()
         self.links = []
+        self.guide_shots = set()
         self.errors = []
 
     def handle_starttag(self, tag, attrs):
         values = dict(attrs)
+        if tag == "img" and values.get("data-guide-shot"):
+            self.guide_shots.add(values["data-guide-shot"])
         anchor = values.get("id")
         if anchor:
             if anchor in self.ids:
@@ -37,6 +40,8 @@ def main():
     for path in ROOT.glob("*.html"):
         page = Page()
         source = path.read_text(encoding="utf-8")
+        if source.count("<script") != source.count("</script>"):
+            page.errors.append("unclosed script tag")
         page.feed(source)
         counts = {lang: source.count(f'lang-{lang}"') for lang in ("ru", "en", "pl", "uk")}
         if len(set(counts.values())) != 1:
@@ -64,6 +69,11 @@ def main():
                 destination = pages.get(target.name)
                 if destination and parsed.fragment not in destination.ids:
                     errors.append(f"{name}: missing anchor {link}")
+        for shot in page.guide_shots:
+            for lang in ("ru", "en", "pl", "uk"):
+                image = ROOT / "assets" / "support-guide" / lang / f"{shot}.jpg"
+                if not image.is_file():
+                    errors.append(f"{name}: missing {lang} guide image {shot}")
     if errors:
         raise SystemExit("\n".join(errors))
     print(f"Checked {len(pages)} pages: local links, assets and anchors OK")
