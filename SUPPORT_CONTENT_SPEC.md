@@ -11,10 +11,10 @@ JobHub — одно приложение с рабочим пространст�
 
 | Язык | Заголовок первого экрана | Подзаголовок | Основное действие |
 |---|---|---|---|
-| RU | JobHub Support — работа команды в одном пространстве | Приглашайте работников, планируйте проекты и смены, проверяйте часы и оставайтесь на связи. Поиск вакансий и рекрутинг доступны в том же JobHub. | Запросить бесплатный показ |
-| EN | JobHub Support — your team’s work in one place | Invite workers, plan projects and shifts, review hours and stay in touch. Job search and recruiting remain part of the same JobHub app. | Request a free demo |
-| PL | JobHub Support — praca zespołu w jednym miejscu | Zapraszaj pracowników, planuj projekty i zmiany, sprawdzaj godziny i pozostań w kontakcie. Oferty pracy i rekrutacja pozostają w tej samej aplikacji JobHub. | Poproś o bezpłatny pokaz |
-| UK | JobHub Support — робота команди в одному просторі | Запрошуйте працівників, плануйте проєкти та зміни, перевіряйте години й залишайтеся на зв’язку. Пошук вакансій і рекрутинг доступні в тому самому JobHub. | Замовити безкоштовний показ |
+| RU | JobHub Support — работа команды в одном пространстве | Приглашайте работников, планируйте проекты и смены, проверяйте часы и оставайтесь на связи. Поиск вакансий и рекрутинг доступны в том же JobHub. | Запросить демо версию |
+| EN | JobHub Support — your team’s work in one place | Invite workers, plan projects and shifts, review hours and stay in touch. Job search and recruiting remain part of the same JobHub app. | Request a demo version |
+| PL | JobHub Support — praca zespołu w jednym miejscu | Zapraszaj pracowników, planuj projekty i zmiany, sprawdzaj godziny i pozostań w kontakcie. Oferty pracy i rekrutacja pozostają w tej samej aplikacji JobHub. | Poproś o wersję demo |
+| UK | JobHub Support — робота команди в одному просторі | Запрошуйте працівників, плануйте проєкти та зміни, перевіряйте години й залишайтеся на зв’язку. Пошук вакансій і рекрутинг доступні в тому самому JobHub. | Запросити демоверсію |
 
 Первый показ проводится дистанционно и бесплатно на вымышленных работниках,
 сменах и образцах документов. Демо не открывает доступ к реальным кадровым
