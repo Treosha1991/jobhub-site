@@ -30,10 +30,15 @@ All captures were made on 4 October 2026 from the isolated local
 `tmp/support-guide-demo.sqlite3` fixture, using the employer web UI. The
 fictional worker request and submitted time entry exist only in that local
 fixture. The announcement is deliberately unsaved. No pilot or production
-worker data was copied. Interface chrome follows the selected language;
-project names, worker names and other user-entered text retain the language in
-which they were entered. This is normal product behavior and is explained in
-the gallery introduction.
+worker data was copied. Interface chrome follows the selected language. The
+fictional project and crew names, worker names, addresses and other visible
+demo labels were entered in English for all four language sets. This fixture
+choice is explained in the gallery introduction; real user-entered text keeps
+its input language in the product.
+
+Run `python tools/prepare_support_guide_fixture.py tmp/support-guide-demo.sqlite3`
+from `T:/JobApp` before taking another set of screenshots from a newly created
+isolated fixture. The script changes only that local SQLite file.
 
 The local browser validation checked the language switch, image paths, full-size
 links and captions. In a separate backend worktree, the timesheet weekday
