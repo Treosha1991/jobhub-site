@@ -77,7 +77,7 @@
   function syncGuideImages(lang) {
     document.querySelectorAll('img[data-guide-shot]').forEach((img) => {
       const shot = img.getAttribute('data-guide-shot');
-      const path = `/assets/support-guide/${lang}/${shot}.jpg?v=20261004english-labels`;
+      const path = `/assets/support-guide/${lang}/${shot}.jpg?v=20261005workspace`;
       img.setAttribute('src', path);
       const link = img.closest('a');
       if (link) link.setAttribute('href', path);

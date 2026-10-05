@@ -12,7 +12,7 @@ checks that every referenced shot exists in all four languages.
 | Shot | What the screenshot explains |
 |---|---|
 | `demo-request` | Demo request entry point on the site. |
-| `home` | Company workspace, navigation and shortcuts. |
+| `home` | Updated company workspace, navigation and live preview cards. |
 | `workers` | Worker list, assignments and invitation entry point. |
 | `team` | Staff invitation and access permissions. |
 | `worker-invite` | Worker email invitation, manager and coordinator fields. |
@@ -26,9 +26,12 @@ checks that every referenced shot exists in all four languages.
 | `housing` | Occupied and available housing places. |
 | `fleet` | Vehicle, available seats, driver and route. |
 
-All captures were made on 4 October 2026 from the isolated local
+The original captures were made on 4 October 2026 from the isolated local
 `tmp/support-guide-demo.sqlite3` fixture, using the employer web UI. The
-fictional worker request and submitted time entry exist only in that local
+four `home` images were recaptured on 5 October 2026 at 1265 × 712 from the
+same fixture and the updated Support manager workspace. The images show the
+first project and worker preview cards, not the previous draft shortcuts.
+The fictional worker request and submitted time entry exist only in that local
 fixture. The announcement is deliberately unsaved. No pilot or production
 worker data was copied. Interface chrome follows the selected language. The
 fictional project and crew names, worker names, addresses and other visible
@@ -40,12 +43,11 @@ Run `python tools/prepare_support_guide_fixture.py tmp/support-guide-demo.sqlite
 from `T:/JobApp` before taking another set of screenshots from a newly created
 isolated fixture. The script changes only that local SQLite file.
 
-The local browser validation checked the language switch, image paths, full-size
-links and captions. In a separate backend worktree, the timesheet weekday
-headings, project calendar month and two fleet table headings were corrected
-for language consistency before the final captures. These backend changes are
-local until reviewed and deployed, so the guide's new localized captures should
-not be published against an older production backend without that check.
+The local browser validation checks the language switch, image paths, full-size
+links and captions. The screenshot source includes the updated manager workspace
+and the language fixes for the timesheet weekday headings, project calendar
+month and fleet table headings. Compare these screens with the deployed Support
+version before publication; site publication alone does not update the backend.
 
 These are explanatory examples, not evidence that every workflow has passed on
 both mobile platforms. Future mobile illustrations should use current accepted
