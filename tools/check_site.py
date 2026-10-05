@@ -29,7 +29,9 @@ class Page(HTMLParser):
             value = values.get(attr, "")
             if attr == "content" and tag != "meta":
                 continue
-            if attr == "content" and not values.get("property", "").startswith("og:image"):
+            if attr == "content" and values.get("property", "") not in (
+                "og:image", "og:image:url", "og:image:secure_url"
+            ):
                 continue
             if value:
                 self.links.append(value)
