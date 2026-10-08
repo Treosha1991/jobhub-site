@@ -709,24 +709,59 @@ ol {
   margin-bottom: 0;
 }
 
-.meta-list {
+.key-link-buttons {
   display: grid;
-  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.meta-item {
+.key-links .key-link {
+  min-width: 0;
+  min-height: 60px;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 18px;
   border: 1px solid var(--line);
-  border-radius: 10px;
-  background: transparent;
-  padding: 10px;
+  background: rgba(5, 28, 47, .28);
+  font-size: .94rem;
+  text-align: left;
 }
 
-.meta-item strong {
+.key-links .key-link:hover,
+.key-links .key-link:focus-visible {
   color: var(--text);
+  border-color: var(--accent);
+  background: rgba(22, 217, 90, .1);
 }
 
-.meta-item a {
+.key-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.key-link-arrow {
+  flex-shrink: 0;
   color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.key-links-stores-title {
+  margin: 24px 0 14px;
+  font-size: 1rem;
+}
+
+.key-links > .note {
+  margin-top: 22px;
+  color: var(--text-muted);
+}
+
+.release-store-badges {
+  margin-top: 20px;
+}
+
+@media (max-width: 650px) {
+  .key-link-buttons { grid-template-columns: 1fr; gap: 10px; }
+  .key-links .key-link { padding: 14px; }
 }
 
 .news-item {
