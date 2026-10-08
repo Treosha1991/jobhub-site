@@ -23,7 +23,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="JobHub">
   <link rel="stylesheet" href="/assets/styles.css?v=20260711a">
+  <link rel="stylesheet" href="/assets/support-video.css?v=20261008a">
   <script defer src="/assets/app.js?v=20260928titles"></script>
+  <script defer src="/assets/support-video.js?v=20261008a"></script>
 </head>
 <body>
   <header class="site-header">
@@ -111,6 +113,43 @@
         <a class="hero-secondary-link" href="mailto:admin@jobhub.today"><span class="lang-ru">Связаться с поддержкой</span><span class="lang-en">Contact support</span><span class="lang-pl">Skontaktuj wsparcie</span><span class="lang-uk">Зв'язатися з підтримкою</span></a>
         <a class="hero-secondary-link" href="/privacy.html"><span class="lang-ru">Политика конфиденциальности</span><span class="lang-en">Privacy policy</span><span class="lang-pl">Polityka prywatności</span><span class="lang-uk">Політика конфіденційності</span></a>
       </div>
+    </section>
+
+    <section class="support-video" id="support-video" aria-labelledby="support-video-title">
+      <div class="support-video-heading">
+        <div class="support-video-intro">
+          <div class="support-video-brand"><img src="/assets/logo-jobhub.png" width="28" height="28" alt="">JobHub Support</div>
+          <h2 id="support-video-title"><span class="lang-ru">Посмотрите, как это работает</span><span class="lang-en">See how it works</span><span class="lang-pl">Zobacz, jak to działa</span><span class="lang-uk">Подивіться, як це працює</span></h2>
+          <p><span class="lang-ru">От подготовки смены до проверки часов. Покажем работу менеджера и то, что видит работник в своём телефоне.</span><span class="lang-en">From planning a shift to reviewing hours. See the manager’s workspace and what each worker sees on their phone.</span><span class="lang-pl">Od planowania zmiany po sprawdzenie godzin. Zobacz pracę menedżera i to, co pracownik widzi na swoim telefonie.</span><span class="lang-uk">Від підготовки зміни до перевірки годин. Покажемо роботу менеджера й те, що бачить працівник у своєму телефоні.</span></p>
+        </div>
+        <div class="support-video-language">
+          <label for="support-video-language"><span class="lang-ru">Язык видео</span><span class="lang-en">Video language</span><span class="lang-pl">Język filmu</span><span class="lang-uk">Мова відео</span></label>
+          <select id="support-video-language" aria-describedby="support-video-language-hint">
+            <option value="ru" lang="ru">Русский</option>
+            <option value="en" lang="en">English</option>
+            <option value="pl" lang="pl">Polski</option>
+            <option value="uk" lang="uk">Українська</option>
+            <option value="nl" lang="nl">Nederlands</option>
+          </select>
+          <p id="support-video-language-hint"><span class="lang-ru">Можно выбрать другой язык, не меняя язык сайта.</span><span class="lang-en">Choose any video language without changing the site.</span><span class="lang-pl">Wybierz język filmu niezależnie od języka strony.</span><span class="lang-uk">Можна вибрати іншу мову, не змінюючи мову сайту.</span></p>
+        </div>
+      </div>
+      <div class="support-video-stage">
+        <video id="support-video-player" playsinline preload="none" aria-label="JobHub Support"></video>
+        <button class="support-video-play" id="support-video-play" type="button">
+          <span class="support-video-play-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 7 25 16 12 25Z"/></svg></span>
+          <span id="support-video-play-label"><span class="lang-ru">Смотреть презентацию</span><span class="lang-en">Watch the presentation</span><span class="lang-pl">Obejrzyj prezentację</span><span class="lang-uk">Дивитися презентацію</span></span>
+        </button>
+      </div>
+      <div class="support-video-bottom">
+        <div class="support-video-details">
+          <p class="support-video-meta"><span id="support-video-duration">5:01</span><span aria-hidden="true">·</span><span class="lang-ru">Озвучка и субтитры</span><span class="lang-en">Narration and subtitles</span><span class="lang-pl">Lektor i napisy</span><span class="lang-uk">Озвучення та субтитри</span></p>
+          <p id="support-video-status" role="status" aria-live="polite"></p>
+          <p class="support-video-nl-note" id="support-video-nl-note" hidden><span class="lang-ru">Нидерландская версия видео. Интерфейс приложения доступен на русском, английском, польском и украинском.</span><span class="lang-en">Dutch video version. The app interface is available in Russian, English, Polish and Ukrainian.</span><span class="lang-pl">Film w języku niderlandzkim. Interfejs aplikacji jest dostępny po rosyjsku, angielsku, polsku i ukraińsku.</span><span class="lang-uk">Нідерландська версія відео. Інтерфейс застосунку доступний російською, англійською, польською та українською.</span></p>
+        </div>
+        <a class="btn btn-primary support-video-demo" href="mailto:admin@jobhub.today?subject=JobHub%20Support%20demo"><span class="lang-ru">Запросить демо-тестирование</span><span class="lang-en">Request a demo</span><span class="lang-pl">Poproś o demo</span><span class="lang-uk">Запросити демотестування</span><span aria-hidden="true">→</span></a>
+      </div>
+      <noscript><p><span class="lang-ru">Включите JavaScript, чтобы посмотреть видео и выбрать его язык.</span><span class="lang-en">Enable JavaScript to watch the video and choose its language.</span><span class="lang-pl">Włącz JavaScript, aby obejrzeć film i wybrać jego język.</span><span class="lang-uk">Увімкніть JavaScript, щоб переглянути відео й вибрати його мову.</span></p></noscript>
     </section>
 
     <section class="section-card" id="support-workflow">

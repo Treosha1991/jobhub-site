@@ -1,0 +1,47 @@
+{
+  "ru": {
+    "master": "JobHub-Support-V18-Roger-1080p.mp4",
+    "master_sha256": "1f6bd47138f54592f158dd4a347c89be15edd967ae09df32d3e36a6260456157",
+    "duration": 301.1,
+    "bytes": 71826983,
+    "segments": 39,
+    "largest_asset": 3171656,
+    "video_audio_reencoded": false
+  },
+  "en": {
+    "master": "JobHub-Support-English-1080p.mp4",
+    "master_sha256": "8261dc5aae5a34dda8eda1bd02cd8cb4a464e37aa1910c2b848ca6e9121cfddc",
+    "duration": 291.173,
+    "bytes": 68856567,
+    "segments": 37,
+    "largest_asset": 3364242,
+    "video_audio_reencoded": false
+  },
+  "pl": {
+    "master": "JobHub-Support-Polish-1080p.mp4",
+    "master_sha256": "8be0d2e238379bdc7a5d59a45d26cc8799755048fc18f64135b2ebef784edd8e",
+    "duration": 309.173,
+    "bytes": 72235675,
+    "segments": 39,
+    "largest_asset": 3723057,
+    "video_audio_reencoded": false
+  },
+  "uk": {
+    "master": "JobHub-Support-Ukrainian-1080p.mp4",
+    "master_sha256": "9ca7a94f72e54f78ec93830f9d4a83adb8aea75d1ce4385715a7ffea3b392f96",
+    "duration": 312.736,
+    "bytes": 72240418,
+    "segments": 39,
+    "largest_asset": 3465539,
+    "video_audio_reencoded": false
+  },
+  "nl": {
+    "master": "JobHub-Support-Dutch-1080p.mp4",
+    "master_sha256": "e1a55ae9139790c215c7deefccff1fa8c2091211c0f648dd0cfeb0ce6e66c0e3",
+    "duration": 317.433333,
+    "bytes": 74533238,
+    "segments": 40,
+    "largest_asset": 3604945,
+    "video_audio_reencoded": false
+  }
+}

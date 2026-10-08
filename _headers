@@ -1,0 +1,24 @@
+/assets/support-video/20261008/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/support-video/20261008/ru/presentation.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/support-video/20261008/en/presentation.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/support-video/20261008/pl/presentation.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/support-video/20261008/uk/presentation.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+/assets/support-video/20261008/nl/presentation.m3u8
+  Content-Type: application/vnd.apple.mpegurl
+
+/assets/support-video/20261008/ru/subtitles.vtt
+  Content-Type: text/vtt; charset=utf-8
+/assets/support-video/20261008/en/subtitles.vtt
+  Content-Type: text/vtt; charset=utf-8
+/assets/support-video/20261008/pl/subtitles.vtt
+  Content-Type: text/vtt; charset=utf-8
+/assets/support-video/20261008/uk/subtitles.vtt
+  Content-Type: text/vtt; charset=utf-8
+/assets/support-video/20261008/nl/subtitles.vtt
+  Content-Type: text/vtt; charset=utf-8
