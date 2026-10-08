@@ -4,6 +4,10 @@ The `#support-video` section follows the home-page hero. It uses the approved
 Russian, English, Polish, Ukrainian and Dutch films, including their original
 narration, translated screenshots and language-specific animation timing.
 
+The same player and media are embedded near the beginning of the featured news
+article at `/news#support-video-2026-10-08`. The article is localized in the site's
+four languages. Its styles are scoped to `.support-news`; older news is preserved.
+
 ## Language behavior
 
 - Initial video language comes from `html[data-lang]`, set by `assets/app.js`.
@@ -51,6 +55,8 @@ The browser check uses the bundled Codex Playwright dependency and the installed
 Microsoft Edge. Set `JOBHUB_TEST_URL` and `JOBHUB_TEST_OUTPUT` to repeat against
 the public site. The report and screenshots are saved outside the repository at
 `T:/JobApp/output/site-home-video-check/`.
+Use a URL ending in `/news.html` (local) or `/news` (public) to check the player
+inside the news article. Reports for that page live in `site-news-video-check/`.
 
 Coverage: all four site defaults and all five independent video choices; reload
 reset; live site-language changes; browser-language default; no media before
