@@ -18,6 +18,10 @@ four languages. Its styles are scoped to `.support-news`; older news is preserve
   page also resets it. A restored page from the browser's back/forward cache resets
   it as well.
 - Selecting another film stops the current playback and resets its position.
+- Subtitles are visible by default after Play in both page embeds. The visible CC
+  button toggles them, and stays in sync with the native player's subtitle menu.
+  The choice is kept while switching films on that page; a reload enables them
+  again. Native text-track rendering keeps subtitles in video fullscreen.
 - Dutch is a video option only. The application and site still support RU/EN/PL/UK.
   A localized note appears when Dutch is selected.
 
@@ -60,7 +64,8 @@ inside the news article. Reports for that page live in `site-news-video-check/`.
 
 Coverage: all four site defaults and all five independent video choices; reload
 reset; live site-language changes; browser-language default; no media before
-Play; full-HD playback; middle/end seeking; subtitle tracks; native-HLS and
+Play; full-HD playback; middle/end seeking; visible subtitle cues and CC/native
+toggle synchronization; native-HLS and
 HLS.js/MSE paths; fullscreen; localized media-error recovery; 320/390/768px layouts.
 The phone-layout check runs in Chromium. Physical iPhone/Safari acceptance is
 separate and is not implied by these checks.

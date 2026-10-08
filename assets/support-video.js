@@ -10,6 +10,12 @@
     pl: { play: "Obejrzyj prezentację", loading: "Ładowanie filmu…", error: "Nie udało się załadować filmu. Kliknij „Spróbuj ponownie” lub wybierz inny język.", retry: "Spróbuj ponownie", unsupported: "Ta przeglądarka nie obsługuje filmu. Otwórz stronę w aktualnej wersji Safari, Chrome, Edge lub Firefox." },
     uk: { play: "Дивитися презентацію", loading: "Завантажуємо відео…", error: "Не вдалося завантажити відео. Натисніть «Спробувати ще раз» або виберіть іншу мову.", retry: "Спробувати ще раз", unsupported: "Цей браузер не підтримує відео. Відкрийте сторінку в актуальній версії Safari, Chrome, Edge або Firefox." }
   };
+  const captionCopy = {
+    ru: { label: "Субтитры", on: "Вкл.", off: "Выкл." },
+    en: { label: "Subtitles", on: "On", off: "Off" },
+    pl: { label: "Napisy", on: "Wł.", off: "Wył." },
+    uk: { label: "Субтитри", on: "Увімк.", off: "Вимк." }
+  };
   let library;
   function loadHls() {
     if (window.Hls) return Promise.resolve(window.Hls);
@@ -34,18 +40,36 @@
     const play = document.getElementById("support-video-play");
     const playLabel = document.getElementById("support-video-play-label");
     const status = document.getElementById("support-video-status");
+    const captions = document.getElementById("support-video-captions");
+    const captionLabel = document.getElementById("support-video-captions-label");
+    const captionState = document.getElementById("support-video-captions-state");
     let language;
     let generation = 0;
     let hls = null;
     let preparing = false;
+    let captionsEnabled = true;
+    let subtitleTrack = null;
     const siteLanguage = () => siteLanguages.includes(html.dataset.lang) ? html.dataset.lang : "en";
     const text = () => copy[siteLanguage()];
     const root = () => `/assets/support-video/20261008/${language}`;
+
+    function updateCaptionsButton() {
+      const labels = captionCopy[siteLanguage()];
+      captionLabel.textContent = labels.label;
+      captionState.textContent = captionsEnabled ? labels.on : labels.off;
+      captions.setAttribute("aria-pressed", String(captionsEnabled));
+    }
+
+    function applyCaptions() {
+      if (subtitleTrack) subtitleTrack.mode = captionsEnabled ? "showing" : "hidden";
+      updateCaptionsButton();
+    }
 
     function resetMedia() {
       generation += 1;
       video.pause();
       if (hls) { hls.destroy(); hls = null; }
+      subtitleTrack = null;
       video.removeAttribute("src");
       video.querySelectorAll("track").forEach(track => track.remove());
       video.load();
@@ -67,6 +91,7 @@
       document.getElementById("support-video-nl-note").hidden = language !== "nl";
       playLabel.textContent = text().play;
       status.textContent = "";
+      updateCaptionsButton();
     }
 
     function fail(id, message) {
@@ -89,6 +114,10 @@
       track.srclang = language;
       track.label = names[language];
       track.src = `${root()}/subtitles.vtt`;
+      track.default = captionsEnabled;
+      track.addEventListener("load", () => {
+        if (id === generation) applyCaptions();
+      });
       video.append(track);
       try {
         if (video.canPlayType("application/vnd.apple.mpegurl")) {
@@ -109,6 +138,9 @@
           hls.attachMedia(video);
         }
         if (id !== generation) return;
+        // Native rendering keeps captions available in video fullscreen too.
+        subtitleTrack = track.track;
+        applyCaptions();
         video.controls = true;
         await video.play();
         if (id !== generation) return;
@@ -129,6 +161,16 @@
     }
 
     play.addEventListener("click", start);
+    captions.addEventListener("click", () => {
+      captionsEnabled = !captionsEnabled;
+      applyCaptions();
+    });
+    // Keep the visible toggle in sync if captions are changed in native controls.
+    video.textTracks.addEventListener("change", () => {
+      if (!subtitleTrack) return;
+      captionsEnabled = subtitleTrack.mode === "showing";
+      updateCaptionsButton();
+    });
     video.addEventListener("error", () => {
       if (video.getAttribute("src")) fail(generation);
     });

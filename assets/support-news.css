@@ -12,9 +12,12 @@
 .support-news > h2 { margin: 20px 0 16px; max-width: 850px; font: 800 clamp(1.9rem, 4vw, 2.8rem)/1.14 "Manrope", "Inter", sans-serif; letter-spacing: -.045em; }
 .support-news > p, .support-news-section > p { max-width: 850px; margin: 14px 0; line-height: 1.7; color: #d5e3ed; }
 .support-news > .support-news-lead { font-size: clamp(1.02rem, 1.8vw, 1.16rem); color: #f2f6fa; }
-.support-news-jump { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 22px 0 24px; }
-.support-news-jump a { display: inline-flex; align-items: center; gap: 14px; font-weight: 600; font-size: .9rem; }
-.support-news-jump a:not(.btn) { color: #b3efc8; }
+.support-news-context { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin: 24px 0; }
+.support-news-context > div { min-width: 0; padding: 20px; border: 1px solid rgba(226, 185, 147, .35); border-radius: 14px; background: rgba(49, 36, 30, .2); }
+.support-news-context > .support-news-solution { border-color: rgba(75, 227, 138, .45); background: rgba(15, 85, 64, .24); }
+.support-news-context h3 { margin: 0 0 12px; color: #ffe0c3; font-size: 1.1rem; line-height: 1.35; }
+.support-news-solution h3 { color: #bdf2ce; }
+.support-news-context p { margin: 0; color: #d5e3ed; font-size: .94rem; line-height: 1.7; }
 .support-news .support-video { margin: 24px 0 30px; padding: clamp(14px, 2vw, 24px); }
 .support-news .support-video h3 { margin: 0 0 10px; font: 800 clamp(1.35rem, 3vw, 1.8rem)/1.2 "Manrope", "Inter", sans-serif; letter-spacing: -.035em; }
 .support-news-section { margin-top: 30px; scroll-margin-top: 80px; }
@@ -38,8 +41,8 @@
   .support-news > h2 { font-size: 1.75rem; }
   .support-news > p, .support-news-section > p { font-size: .94rem; }
   .support-news .support-video { margin-inline: -8px; padding: 14px 10px; border-radius: 12px; }
-  .support-news-roles, .support-news-steps { grid-template-columns: 1fr; gap: 12px; }
-  .support-news-roles > div, .support-news-step { padding: 16px; }
+  .support-news-context, .support-news-roles, .support-news-steps { grid-template-columns: 1fr; gap: 12px; }
+  .support-news-context > div, .support-news-roles > div, .support-news-step { padding: 16px; }
   .support-news-mobile { padding: 16px; }
   .support-news-actions { align-items: stretch; flex-direction: column; }
   .support-news-actions .btn { justify-content: center; text-align: center; }

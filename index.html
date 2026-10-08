@@ -23,9 +23,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="JobHub">
   <link rel="stylesheet" href="/assets/styles.css?v=20260711a">
-  <link rel="stylesheet" href="/assets/support-video.css?v=20261008a">
+  <link rel="stylesheet" href="/assets/support-video.css?v=20261008b">
   <script defer src="/assets/app.js?v=20260928titles"></script>
-  <script defer src="/assets/support-video.js?v=20261008a"></script>
+  <script defer src="/assets/support-video.js?v=20261008b"></script>
 </head>
 <body>
   <header class="site-header">
@@ -143,7 +143,13 @@
       </div>
       <div class="support-video-bottom">
         <div class="support-video-details">
-          <p class="support-video-meta"><span id="support-video-duration">5:01</span><span aria-hidden="true">·</span><span class="lang-ru">Озвучка и субтитры</span><span class="lang-en">Narration and subtitles</span><span class="lang-pl">Lektor i napisy</span><span class="lang-uk">Озвучення та субтитри</span></p>
+          <div class="support-video-meta"><span id="support-video-duration">5:01</span>
+            <button class="support-video-captions" id="support-video-captions" type="button" aria-pressed="true">
+              <span class="support-video-captions-icon" aria-hidden="true">CC</span>
+              <span id="support-video-captions-label"><span class="lang-ru">Субтитры</span><span class="lang-en">Subtitles</span><span class="lang-pl">Napisy</span><span class="lang-uk">Субтитри</span></span>
+              <span id="support-video-captions-state" aria-hidden="true"><span class="lang-ru">Вкл.</span><span class="lang-en">On</span><span class="lang-pl">Wł.</span><span class="lang-uk">Увімк.</span></span>
+            </button>
+          </div>
           <p id="support-video-status" role="status" aria-live="polite"></p>
           <p class="support-video-nl-note" id="support-video-nl-note" hidden><span class="lang-ru">Нидерландская версия видео. Интерфейс приложения доступен на русском, английском, польском и украинском.</span><span class="lang-en">Dutch video version. The app interface is available in Russian, English, Polish and Ukrainian.</span><span class="lang-pl">Film w języku niderlandzkim. Interfejs aplikacji jest dostępny po rosyjsku, angielsku, polsku i ukraińsku.</span><span class="lang-uk">Нідерландська версія відео. Інтерфейс застосунку доступний російською, англійською, польською та українською.</span></p>
         </div>

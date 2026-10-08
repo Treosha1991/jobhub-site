@@ -40,6 +40,7 @@ for (const site of ['ru', 'en', 'pl', 'uk']) {
   assert.equal(current.video, site);
   assert.equal(current.paused, true);
   assert.equal(current.time, 0);
+  assert.equal(await page.locator('#support-video-captions').getAttribute('aria-pressed'), 'true');
   assert.equal(mediaRequests.length, 0, 'no media before play');
   assert.match(current.poster, new RegExp(`/${site}/poster.jpg$`));
   for (const choice of ['ru', 'en', 'pl', 'uk', 'nl']) {
@@ -68,6 +69,19 @@ await page.goto(base); await ready();
 assert.equal((await state()).video, 'pl', 'stored site language without query');
 checks.push('site language live change, same-language button, stored site language');
 
+// The visible captions preference works before Play without preloading media.
+mediaRequests = [];
+await page.locator('#support-video-captions').click();
+await page.selectOption('#support-video-language', 'en');
+assert.equal(await page.locator('#support-video-captions').getAttribute('aria-pressed'), 'false');
+assert.equal(mediaRequests.length, 0);
+await page.locator('#support-video-play').click();
+await page.waitForFunction(() => document.querySelector('video').currentTime > .4);
+assert.equal(await page.evaluate(() => document.querySelector('video').textTracks[0].mode), 'hidden');
+await page.locator('#support-video-captions').click();
+await page.waitForFunction(() => document.querySelector('video').textTracks[0].mode === 'showing');
+checks.push('captions toggle before Play, preference on video change, no eager media fetch');
+
 // Rapid selection while the lazy library is loading must not start an old film.
 await page.selectOption('#support-video-language', 'ru');
 await page.route('**/assets/vendor/**/hls.min.js', async route => {
@@ -95,18 +109,41 @@ for (const language of ['ru', 'en', 'pl', 'uk', 'nl']) {
   });
   assert.equal(result.height, 1080);
   assert.equal(result.tracks, 1);
+  await page.waitForFunction(() => {
+    const t = document.querySelector('video').textTracks[0];
+    return t.mode === 'showing' && t.cues?.length > 0;
+  });
+  assert.equal(await page.evaluate(() => document.querySelector('video').textTracks[0].language), language);
+  // Pause within an actual cue: captions must render without test-only enabling.
+  await page.evaluate(() => {
+    const v = document.querySelector('video'), c = v.textTracks[0].cues[0];
+    v.pause(); v.currentTime = (c.startTime + c.endTime) / 2;
+  });
+  await page.waitForFunction(() => document.querySelector('video').textTracks[0].activeCues?.length > 0);
+  result.firstCaption = await page.evaluate(() => document.querySelector('video').textTracks[0].activeCues[0].text);
+  await page.locator('#support-video').screenshot({path: path.join(output, `captions-${language}.png`)});
+  await page.locator('#support-video-captions').click();
+  assert.equal(await page.evaluate(() => document.querySelector('video').textTracks[0].mode), 'hidden');
+  // A choice in the native caption menu must be reflected by the page button.
+  await page.evaluate(() => { document.querySelector('video').textTracks[0].mode = 'showing'; });
+  await page.waitForFunction(() => document.querySelector('#support-video-captions').getAttribute('aria-pressed') === 'true');
+  await page.evaluate(() => { document.querySelector('video').textTracks[0].mode = 'disabled'; });
+  await page.waitForFunction(() => document.querySelector('#support-video-captions').getAttribute('aria-pressed') === 'false');
+  await page.locator('#support-video-captions').click();
+  assert.equal(await page.evaluate(() => document.querySelector('video').textTracks[0].mode), 'showing');
+  await page.evaluate(() => document.querySelector('video').play());
   assert(mediaRequests.filter(u => /\.(m3u8|m4s|mp4)(\?|$)/.test(u)).every(u => u.includes(`/${language}/`)));
   // Seek well beyond the initial buffer, then seek close to the end.
   await page.evaluate(() => { document.querySelector('video').currentTime = 170; });
   await page.waitForFunction(() => { const v = document.querySelector('video'); return v.currentTime > 170.2 && v.readyState >= 3; }, null, {timeout: 30000});
-  await page.evaluate(() => { const v = document.querySelector('video'); v.textTracks[0].mode = 'showing'; v.currentTime = v.duration - 6; });
+  await page.evaluate(() => { const v = document.querySelector('video'); v.currentTime = v.duration - 6; });
   await page.waitForFunction(() => { const v = document.querySelector('video'); return v.currentTime > v.duration - 5.7 && v.readyState >= 3; }, null, {timeout: 30000});
   await page.waitForFunction(() => { const t = document.querySelector('video').textTracks[0]; return t.cues?.length > 0; }, null, {timeout: 10000});
   result.cues = await page.evaluate(() => document.querySelector('video').textTracks[0].cues.length);
   await page.evaluate(() => document.querySelector('video').pause());
   assert.equal((await state()).paused, true);
   media[language] = {...result, mediaRequests: mediaRequests.length};
-  checks.push(`${language}: 1080p playback, pause, middle/end seek, own captions`);
+  checks.push(`${language}: 1080p playback, pause, middle/end seek, visible default captions, page/native toggle sync`);
   console.log(`Verified playback and captions: ${language}`);
 }
 await page.locator('#support-video').scrollIntoViewIfNeeded();
@@ -148,7 +185,11 @@ await mobile.setViewportSize({width: 390, height: 844});
 await mobile.selectOption('#support-video-language', 'nl');
 await mobile.locator('#support-video-play').click();
 await mobile.waitForFunction(() => !document.querySelector('video').paused && document.querySelector('video').currentTime > .2, null, {timeout: 30000});
+await mobile.waitForFunction(() => document.querySelector('video').textTracks[0]?.mode === 'showing' && document.querySelector('video').textTracks[0]?.activeCues?.length > 0);
 await mobile.evaluate(() => document.querySelector('video').pause());
+await mobile.locator('#support-video').screenshot({path: path.join(output, 'mobile-nl-captions.png')});
+await mobile.locator('#support-video-captions').click();
+assert.equal(await mobile.evaluate(() => document.querySelector('video').textTracks[0].mode), 'hidden');
 await mobile.reload();
 await mobile.waitForFunction(() => document.querySelector('#support-video')?.dataset.videoLanguage === 'uk');
 checks.push('browser locale uk-UA, 320/390/768px all site languages, mobile NL playback and reload reset');
@@ -168,6 +209,7 @@ for (const language of ['ru', 'en', 'pl', 'uk', 'nl']) {
   await mse.locator('#support-video-play').click();
   await mse.waitForFunction(() => !document.querySelector('video').paused && document.querySelector('video').currentTime > .4, null, {timeout: 30000});
   assert.equal(await mse.evaluate(() => window.Hls.version), '1.7.3');
+  await mse.waitForFunction(() => document.querySelector('video').textTracks[0]?.mode === 'showing' && document.querySelector('video').textTracks[0]?.cues?.length > 0);
   await mse.evaluate(() => { document.querySelector('video').currentTime = 120; });
   await mse.waitForFunction(() => document.querySelector('video').currentTime > 120.2, null, {timeout: 30000});
   await mse.evaluate(() => document.querySelector('video').pause());
@@ -180,9 +222,11 @@ await mse.evaluate(() => {
 });
 await mse.locator('#test-fullscreen').click();
 await mse.waitForFunction(() => document.fullscreenElement?.tagName === 'VIDEO');
+assert.equal(await mse.evaluate(() => document.fullscreenElement.textTracks[0].mode), 'showing');
+await mse.screenshot({path: path.join(output, 'fullscreen-nl-captions.png')});
 await mse.evaluate(() => document.exitFullscreen());
 await mse.waitForFunction(() => !document.fullscreenElement);
-checks.push('all 5 videos play and seek through hls.js/MSE; fullscreen entry/exit');
+checks.push('all 5 videos play and seek through hls.js/MSE with captions; native video fullscreen keeps captions');
 assert.deepEqual(errors, []);
 await fs.writeFile(path.join(output, 'verification.json'), JSON.stringify({base, date: new Date().toISOString(), checks, media, errors}, null, 2));
 console.log(JSON.stringify({base, passed: checks.length, media, errors}, null, 2));
