@@ -11,10 +11,18 @@ JobHub — одно приложение с рабочим пространст�
 
 | Язык | Заголовок первого экрана | Подзаголовок | Основное действие |
 |---|---|---|---|
-| RU | JobHub Support — работа команды в одном пространстве | Приглашайте работников, планируйте проекты и смены, проверяйте часы и оставайтесь на связи. Поиск вакансий и рекрутинг доступны в том же JobHub. | Запросить демо версию |
-| EN | JobHub Support — your team’s work in one place | Invite workers, plan projects and shifts, review hours and stay in touch. Job search and recruiting remain part of the same JobHub app. | Request a demo version |
-| PL | JobHub Support — praca zespołu w jednym miejscu | Zapraszaj pracowników, planuj projekty i zmiany, sprawdzaj godziny i pozostań w kontakcie. Oferty pracy i rekrutacja pozostają w tej samej aplikacji JobHub. | Poproś o wersję demo |
-| UK | JobHub Support — робота команди в одному просторі | Запрошуйте працівників, плануйте проєкти та зміни, перевіряйте години й залишайтеся на зв’язку. Пошук вакансій і рекрутинг доступні в тому самому JobHub. | Запросити демоверсію |
+| RU | Спланируйте неделю. Опубликуйте одним нажатием. | Выберите рабочие дни и время смен для экипажа. Опубликуйте график одним действием — каждый работник увидит свои смены в мобильном JobHub. | Запросить демо версию |
+| EN | Plan the week. Publish in one click. | Select your crew’s workdays and shift times. Publish them together — each worker sees their own shifts in the JobHub app. | Request a demo version |
+| PL | Zaplanuj tydzień. Opublikuj jednym kliknięciem. | Wybierz dni pracy i godziny zmian dla załogi. Opublikuj je razem — każdy pracownik zobaczy swoje zmiany w aplikacji JobHub. | Poproś o wersję demo |
+| UK | Сплануйте тиждень. Опублікуйте одним натисканням. | Виберіть робочі дні та час змін для екіпажу. Опублікуйте їх разом — кожен працівник побачить свої зміни в мобільному JobHub. | Запросити демоверсію |
+
+09.10.2026: таблица выше подготовлена по идее
+владельца о недельном графике. Над заголовком показаны логотип и имя JobHub
+Support, затем аудитория — агентства и координаторы рабочих команд. Под ним
+раскрыта последовательность «подготовка → публикация выбранных дней → свой
+график работника». 11.10.2026 владелец принял вариант и разрешил его публикацию
+на сайте. Вариант с отдельной точной рифмой остаётся предложением для рекламы.
+Формулировки для рекламы и граница обещания описаны в `SUPPORT_WEEK_MESSAGE.md`.
 
 Первый показ проводится дистанционно и бесплатно на вымышленных работниках,
 сменах и образцах документов. Демо не открывает доступ к реальным кадровым

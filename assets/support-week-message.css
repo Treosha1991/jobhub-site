@@ -1,0 +1,105 @@
+/* The campaign message is scoped to the home-page hero. */
+.week-message-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 1.14rem;
+  font-weight: 800;
+}
+
+.week-message-brand img {
+  flex: 0 0 34px;
+  border-radius: 7px;
+}
+
+.week-message-audience {
+  margin: 0 0 12px;
+  color: #adf3c8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.week-message .hero-title {
+  max-width: 32ch;
+  margin-top: 0;
+}
+
+.week-message-line {
+  display: block;
+}
+
+.week-message-accent {
+  color: #6deca0;
+}
+
+.week-message .hero-lead {
+  max-width: 70ch;
+  color: rgba(242, 242, 242, 0.88);
+}
+
+.week-message-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  gap: 20px;
+  padding: 20px 0;
+  margin: 22px 0 10px;
+  border-top: 1px solid rgba(109, 236, 160, 0.25);
+  border-bottom: 1px solid rgba(109, 236, 160, 0.25);
+}
+
+.week-message-flow li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-width: 0;
+}
+
+.week-message-step {
+  flex: 0 0 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 27px;
+  height: 27px;
+  margin-top: 1px;
+  border: 1px solid rgba(109, 236, 160, 0.48);
+  border-radius: 8px;
+  background: rgba(109, 236, 160, 0.08);
+  color: #9cf1bd;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.week-message-flow strong {
+  display: block;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.week-message-detail {
+  display: block;
+  margin-top: 4px;
+  color: rgba(242, 242, 242, 0.75);
+  font-size: 0.79rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 680px) {
+  .week-message-flow {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 17px 0;
+    margin-top: 18px;
+  }
+
+  .week-message-audience {
+    font-size: 0.81rem;
+  }
+
+  .week-message-flow strong {
+    font-size: 0.88rem;
+  }
+}
