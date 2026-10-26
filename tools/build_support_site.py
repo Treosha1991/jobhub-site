@@ -8,6 +8,7 @@ from pathlib import Path
 import json
 import shutil
 import build_support_commerce as commerce
+import build_support_presentation as presentation
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'dist-support'
@@ -58,12 +59,13 @@ setLanguage(lang);
 ''', encoding='utf-8')
     commerce.ROOT = OUT
     commerce.pricing(); commerce.terms(); commerce.refunds(); commerce.privacy()
+    presentation.build(ROOT, OUT, commerce)
 
     intro = ('Рабочее пространство для команды: проекты, экипажи, смены, часы и рабочая переписка.',
              'A workspace for your team: projects, crews, shifts, working hours and work chats.',
              'Przestrzeń dla zespołu: projekty, brygady, zmiany, godziny pracy i czaty służbowe.',
              'Робочий простір команди: проєкти, екіпажі, зміни, години та робоче листування.')
-    actions = '<p><a class="btn" href="/support-pricing.html">'+tr('Тарифы', 'Pricing', 'Cennik', 'Тарифи')+'</a> · <a href="/support-guide.html">'+tr('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support')+'</a></p>'
+    actions = '<p><a class="btn" href="/support-presentation.html">'+tr('Посмотреть презентацию', 'Watch the presentation', 'Zobacz prezentację', 'Переглянути презентацію')+'</a> · <a href="/support-pricing.html">'+tr('Тарифы', 'Pricing', 'Cennik', 'Тарифи')+'</a> · <a href="/support-guide.html">'+tr('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support')+'</a></p>'
     capabilities = section(('Работа своей команды', 'Your team’s work', 'Praca własnego zespołu', 'Робота своєї команди'), intro,
         ('Руководитель приглашает менеджеров и работников в их собственные аккаунты, назначает права и ответственных. Работник подтверждает приглашение. Данные ограничены своей организацией и назначенным доступом.',
          'The owner invites managers and workers into their own accounts and assigns permissions and contacts. The worker accepts the invitation. Access is limited to the organisation and assigned scope.',
@@ -118,7 +120,7 @@ setLanguage(lang);
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
     (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n', encoding='utf-8')
-    manifest = {'edition': EDITION, 'live_payments': False, 'publication_approved': False,
+    manifest = {'edition': EDITION, 'live_payments': False, 'publication_approved': True,
                 'files': sorted(str(p.relative_to(OUT)).replace('\\', '/') for p in OUT.rglob('*') if p.is_file())}
     (OUT / 'support-site-manifest.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8')
     print(f'{EDITION}: {len(pages)} pages; only allow-listed assets; no checkout. Output: {OUT}')

@@ -1,0 +1,113 @@
+{
+  "edition": "support-presentation-2026-10-26-v2",
+  "slides": [
+    {
+      "ru": {
+        "title": "JobHub Support",
+        "body": "Команда, проекты, смены и рабочие часы — в одном пространстве."
+      },
+      "en": {
+        "title": "JobHub Support",
+        "body": "Teams, projects, shifts and working hours in one workspace."
+      },
+      "pl": {
+        "title": "JobHub Support",
+        "body": "Zespoły, projekty, zmiany i czas pracy w jednej przestrzeni."
+      },
+      "uk": {
+        "title": "JobHub Support",
+        "body": "Команда, проєкти, зміни та робочі години — в одному просторі."
+      }
+    },
+    {
+      "ru": {
+        "title": "Своя команда и понятный доступ",
+        "body": "Пригласите человека в его аккаунт. Он подтверждает участие; вы назначаете ответственных и права."
+      },
+      "en": {
+        "title": "Your team, clear access",
+        "body": "Invite a person into their account. They accept; you assign responsible staff and permissions."
+      },
+      "pl": {
+        "title": "Własny zespół i jasny dostęp",
+        "body": "Zaproś osobę na jej konto. Potwierdza udział, a Ty przydzielasz osoby odpowiedzialne i uprawnienia."
+      },
+      "uk": {
+        "title": "Своя команда та зрозумілий доступ",
+        "body": "Запросіть людину до її акаунта. Вона підтверджує участь; ви призначаєте відповідальних і права."
+      }
+    },
+    {
+      "ru": {
+        "title": "Объект → экипаж → смена",
+        "body": "Выберите объект, водителя, автомобиль и пассажиров. Планируйте работу на конкретные даты."
+      },
+      "en": {
+        "title": "Project → crew → shift",
+        "body": "Choose a project, driver, vehicle and passengers. Schedule work for specific dates."
+      },
+      "pl": {
+        "title": "Obiekt → brygada → zmiana",
+        "body": "Wybierz obiekt, kierowcę, pojazd i pasażerów. Planuj pracę na konkretne daty."
+      },
+      "uk": {
+        "title": "Об’єкт → екіпаж → зміна",
+        "body": "Виберіть об’єкт, водія, автомобіль і пасажирів. Плануйте роботу на конкретні дати."
+      }
+    },
+    {
+      "ru": {
+        "title": "Часы, которые можно проверить",
+        "body": "Работник указывает начало, окончание и паузу. Менеджер проверяет запись; при назначенном заказчике его решение окончательное. CSV выгружается в веб-кабинете."
+      },
+      "en": {
+        "title": "Hours you can review",
+        "body": "Workers enter start, end and breaks. Managers review entries; an assigned customer gives final approval. CSV export is available in the web workspace."
+      },
+      "pl": {
+        "title": "Godziny, które można sprawdzić",
+        "body": "Pracownicy wpisują początek, koniec i przerwę. Menedżer sprawdza wpisy; przypisany klient zatwierdza ostatecznie. Eksport CSV jest w panelu WWW."
+      },
+      "uk": {
+        "title": "Години, які можна перевірити",
+        "body": "Працівник зазначає початок, кінець і перерву. Менеджер перевіряє запис; призначений замовник підтверджує остаточно. CSV експортується у веб-кабінеті."
+      }
+    },
+    {
+      "ru": {
+        "title": "Рабочая связь в своём круге",
+        "body": "Личные и групповые чаты, задачи, объявления и запросы связаны с вашей организацией и назначенным доступом."
+      },
+      "en": {
+        "title": "Work chats with the right people",
+        "body": "Private and group chats, tasks, announcements and requests follow your organisation and assigned access."
+      },
+      "pl": {
+        "title": "Kontakt z właściwymi osobami",
+        "body": "Czaty prywatne i grupowe, zadania, ogłoszenia i zgłoszenia są powiązane z organizacją i nadanym dostępem."
+      },
+      "uk": {
+        "title": "Робочий зв’язок зі своїми людьми",
+        "body": "Особисті й групові чати, завдання, оголошення та запити пов’язані з організацією й призначеним доступом."
+      }
+    },
+    {
+      "ru": {
+        "title": "Попробуйте до подключения",
+        "body": "Демо использует настоящие экраны с вымышленными данными. Обучение можно пропустить; рабочий доступ открывается после проверки организации и оформления условий."
+      },
+      "en": {
+        "title": "Try before connecting",
+        "body": "The demo uses real screens with fictional data. You can skip training; work access requires organisation review and the applicable agreements."
+      },
+      "pl": {
+        "title": "Wypróbuj przed podłączeniem",
+        "body": "Demo używa prawdziwych ekranów i fikcyjnych danych. Szkolenie można pominąć; dostęp roboczy wymaga weryfikacji organizacji i odpowiednich umów."
+      },
+      "uk": {
+        "title": "Спробуйте до підключення",
+        "body": "Демо використовує справжні екрани з вигаданими даними. Навчання можна пропустити; робочий доступ потребує перевірки організації та оформлення умов."
+      }
+    }
+  ]
+}

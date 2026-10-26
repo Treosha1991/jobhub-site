@@ -39,6 +39,10 @@ class Page(HTMLParser):
 
 def main():
     pages = {}
+    redirects = set()
+    if (ROOT / "_redirects").is_file():
+        redirects = {line.split()[0] for line in (ROOT / "_redirects").read_text(encoding="utf-8").splitlines()
+                     if len(line.split()) >= 3 and not line.lstrip().startswith("#")}
     for path in ROOT.glob("*.html"):
         page = Page()
         source = path.read_text(encoding="utf-8")
@@ -65,6 +69,8 @@ def main():
                 target = ROOT / (name if not target_name else "index.html")
             elif target.is_dir():
                 target /= "index.html"
+            if not target.exists() and parsed.path in redirects:
+                continue
             if not target.exists():
                 errors.append(f"{name}: missing local target {link}")
             elif parsed.fragment and target.suffix == ".html":
@@ -82,4 +88,8 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, default=ROOT)
+    ROOT = parser.parse_args().root.resolve()
     main()

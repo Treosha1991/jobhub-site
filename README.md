@@ -10,8 +10,9 @@ The generated directory excludes legacy job-board pages, scripts and media;
 its own 404.html prevents falling back to a job-board SPA.
 
 Local preview: `python -m http.server 8780 --bind 127.0.0.1 --directory dist-support`.
-Review edition: `support-only-web-2026-10-26-v1`; publication/terms approval is
-pending, Live payments are OFF. Prior v1 approval does not approve this revision.
+Review edition: `support-only-web-2026-10-26-v1`; the owner explicitly approved
+this edition and its publication on 26 October 2026. Live payments remain OFF.
+Deployment evidence is recorded separately; approval alone is not a deployment.
 Preserved original site: `T:\JobApp\_local_jobhub_legacy_20261026\site.zip`.
 
 The remaining sections below document the earlier combined-site history.
