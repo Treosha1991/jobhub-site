@@ -22,7 +22,7 @@ NAV = [
     ('support-refunds.html', ('Отмена и возвраты', 'Cancellation and refunds', 'Anulowanie i zwroty', 'Скасування та повернення')),
     ('support-privacy.html', ('Данные и конфиденциальность', 'Data and privacy', 'Dane i prywatność', 'Дані та конфіденційність')),
 ]
-EDITION = 'support-web-2026-10-25-v1'
+EDITION = 'support-only-web-2026-10-26-v1'
 NOTICE = ('Продажи подписок ещё не открыты. Страница описывает условия будущего подключения. Оплата недоступна.',
           'Subscription sales have not opened. This page describes the terms for future activation. Payment is unavailable.',
           'Sprzedaż subskrypcji nie została jeszcze uruchomiona. Strona opisuje warunki przyszłej aktywacji. Płatność jest niedostępna.',
@@ -51,7 +51,7 @@ def render(file, title, intro, content):
 <meta name="robots" content="noindex,nofollow"><title>{escape(title[0])} — JobHub Support</title>
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/styles.css?v=20260217j">
 <link rel="stylesheet" href="/assets/support-commerce.css?v=20261025">
-<script defer src="/assets/app.js?v=20260928titles"></script>
+<script defer src="/assets/support-site.js?v=20261026"></script>
 </head><body class="commerce-review">
 <a class="commerce-skip" href="#main">{tr('К содержанию', 'Skip to content', 'Przejdź do treści', 'До вмісту')}</a>
 <header class="site-header"><div class="wrap commerce-header"><a class="brand" href="/" data-nav>JobHub Support</a><div class="lang-inline">{buttons}</div></div>
@@ -61,7 +61,8 @@ def render(file, title, intro, content):
 <section class="hero"><span class="badge">JobHub Support · {EDITION}</span><h1>{tr(*title)}</h1>{paragraph(intro)}</section>
 {content}
 </main><footer class="wrap"><p>{tr(*IDENTITY)}</p><p><a href="mailto:admin@jobhub.today" data-no-lang>admin@jobhub.today</a></p><div class="commerce-footer">{nav}</div>
-<p><a href="/privacy.html">{tr('Общая политика JobHub', 'General JobHub privacy policy', 'Ogólna polityka prywatności JobHub', 'Загальна політика JobHub')}</a> · <a href="/data-deletion.html">{tr('Удаление данных', 'Data deletion', 'Usuwanie danych', 'Видалення даних')}</a></p></footer>
+<p><a href="/terms.html">{tr('Условия Support', 'Support terms', 'Warunki Support', 'Умови Support')}</a> · <a href="/contact.html">{tr('Поддержка', 'Contact support', 'Wsparcie', 'Підтримка')}</a> · <a href="/help.html">{tr('Помощь', 'Help', 'Pomoc', 'Допомога')}</a></p>
+<p><a href="/privacy.html">{tr('Политика JobHub Support', 'JobHub Support privacy', 'Prywatność JobHub Support', 'Політика JobHub Support')}</a> · <a href="/data-deletion.html">{tr('Удаление данных', 'Data deletion', 'Usuwanie danych', 'Видалення даних')}</a></p></footer>
 </body></html>'''
     (ROOT / file).write_text(source, encoding='utf-8')
 
@@ -106,10 +107,10 @@ def pricing():
          'Rejestracja konta → formularz i ręczna weryfikacja zgłoszenia → akceptacja konkretnej wersji warunków i wymaganych umów powierzenia → wybór pakietu i płatność → weryfikacja płatności na serwerze → dostęp do tej samej organizacji. Obecnie dostępne są przygotowania i demo; sprzedaż Live nie jest włączona.',
          'Реєстрація акаунта → анкета та особиста перевірка заявки → прийняття конкретної редакції умов і потрібних договорів обробки даних → вибір пакета й оплата → серверна перевірка платежу → доступ до тієї самої фірми. Зараз доступні підготовка й демо; Live-продажі ще не ввімкнені.'))
     content += section(('Границы покупки', 'Purchase scope', 'Zakres zakupu', 'Межі купівлі'),
-        ('Подписка оплачивает ПО Support для работы со своей командой. Она не покупает работников, трудоустройство, публикации вакансий, рекламу, контакты кандидатов, кредиты или переводы денег. Область вакансий и прежние покупки Apple/Google в основном JobHub — отдельные продукты; Support их не открывает.',
-         'The subscription pays for Support software to manage your own team. It does not buy workers, placement, job listings, advertising, candidate contacts, credits or money transfers. The vacancy area and legacy Apple/Google purchases in the wider JobHub app are separate products; Support does not unlock them.',
-         'Subskrypcja opłaca oprogramowanie Support do zarządzania własnym zespołem. Nie obejmuje pracowników, pośrednictwa pracy, publikacji ofert, reklam, kontaktów kandydatów, kredytów ani transferów pieniędzy. Oferty pracy i wcześniejsze zakupy Apple/Google w JobHub są osobnymi produktami; Support ich nie odblokowuje.',
-         'Підписка оплачує ПЗ Support для роботи зі своєю командою. Вона не купує працівників, працевлаштування, публікації вакансій, рекламу, контакти кандидатів, кредити чи перекази грошей. Вакансії та попередні покупки Apple/Google в основному JobHub — окремі продукти; Support їх не відкриває.'))
+        ('Подписка оплачивает самостоятельное ПО JobHub Support для управления своей командой. В выпуске Support нет доски вакансий, поиска работы, рекламы, продажи контактов, кредитов или переводов денег. Обычный JobHub не предлагается на этом сайте и сохраняется как отдельный локальный проект.',
+         'The subscription pays for independent JobHub Support software to manage your own team. The Support release has no job board, job search, advertising, contact sales, credits or money transfers. Ordinary JobHub is not offered on this site and is retained as a separate local project.',
+         'Subskrypcja opłaca samodzielne oprogramowanie JobHub Support do zarządzania własnym zespołem. Wydanie Support nie zawiera tablicy ofert pracy, szukania pracy, reklam, sprzedaży kontaktów, kredytów ani transferów pieniędzy. Zwykły JobHub nie jest oferowany na tej stronie i pozostaje osobnym projektem lokalnym.',
+         'Підписка оплачує самостійне ПЗ JobHub Support для керування власною командою. Випуск Support не містить дошки вакансій, пошуку роботи, реклами, продажу контактів, кредитів чи грошових переказів. Звичайний JobHub не пропонується на цьому сайті й зберігається як окремий локальний проєкт.'))
     content += '<section class="section-card"><h2>' + tr('Попробовать без оплаты', 'Try without paying', 'Wypróbuj bez opłaty', 'Спробувати без оплати') + '</h2><p><a class="btn btn-primary" href="https://jobhub.today/demo" data-no-lang>' + tr('Открыть демо', 'Open demo', 'Otwórz demo', 'Відкрити демо') + '</a> <a class="btn btn-secondary" href="mailto:admin@jobhub.today" data-no-lang>' + tr('Задать вопрос', 'Ask a question', 'Zadaj pytanie', 'Поставити запитання') + '</a></p><p>' + tr('Демо использует вымышленные данные и не создаёт покупку.', 'The demo uses fictional data and does not create a purchase.', 'Demo korzysta z fikcyjnych danych i nie tworzy zakupu.', 'Демо використовує вигадані дані й не створює купівлю.') + '</p></section>'
     render(NAV[0][0], ('Пакеты JobHub Support', 'JobHub Support packages', 'Pakiety JobHub Support', 'Пакети JobHub Support'),
            ('Один рабочий кабинет. Выберите лимит своей команды.', 'One workspace. Choose your team limit.', 'Jedna przestrzeń robocza. Wybierz limit zespołu.', 'Один робочий кабінет. Виберіть ліміт своєї команди.'), content)
@@ -270,7 +271,7 @@ def privacy():
         'Ці сторінки зберігають вибрану мову в локальному сховищі браузера. Сам перегляд не відкриває платіжної форми Paddle. Запити щодо даних надсилайте на admin@jobhub.today або через сторінку видалення; за потреби попросимо безпечно підтвердити належність акаунта. Відповідь надають у строки застосовного закону. Відомості про застосовні гарантії передачі можна запросити за тією самою адресою.')))
     content = ''.join(section(*row) for row in rows)
     content += '<section class="section-card"><h2>'+tr('Связанные политики', 'Related policies', 'Powiązane polityki', 'Пов’язані політики')+'</h2><p><a href="/privacy.html">JobHub Privacy Policy</a> · <a href="https://www.paddle.com/legal/privacy" data-no-lang>Paddle Privacy Policy</a> · <a href="https://uodo.gov.pl/" data-no-lang>UODO</a></p></section>'
-    render(NAV[3][0], NAV[3][1], ('Дополнение от 25 октября 2026 года о подписке Support и будущей оплате Paddle. Читается вместе с общей политикой JobHub; не заменяет сведения об основном приложении и договор обработки рабочих данных.', 'Supplement dated 25 October 2026 covering Support subscriptions and future Paddle billing. Read with the general JobHub policy; it does not replace wider-app disclosures or the work-data processing agreement.', 'Uzupełnienie z 25 października 2026 r. dotyczące subskrypcji Support i przyszłych płatności Paddle. Czytaj łącznie z ogólną polityką JobHub; nie zastępuje informacji o głównej aplikacji ani umowy powierzenia danych służbowych.', 'Доповнення від 25 жовтня 2026 року про підписку Support і майбутню оплату Paddle. Читайте разом із загальною політикою JobHub; воно не замінює відомостей про основний застосунок і договору обробки робочих даних.'), content)
+    render(NAV[3][0], NAV[3][1], ('Политика самостоятельного сервиса JobHub Support, редакция от 26 октября 2026 года. Описывает аккаунты, подключение организации и рабочие данные. Договор обработки рабочих данных оформляется отдельно.', 'Privacy policy for the independent JobHub Support service, edition dated 26 October 2026. Covers accounts, organisation activation and work data. Work-data processing agreements are concluded separately.', 'Polityka prywatności samodzielnego serwisu JobHub Support, wersja z 26 października 2026. Obejmuje konta, podłączenie organizacji i dane służbowe. Umowa powierzenia danych służbowych jest zawierana osobno.', 'Політика самостійного сервісу JobHub Support, редакція від 26 жовтня 2026 року. Описує акаунти, підключення організації та робочі дані. Договір обробки робочих даних укладається окремо.'), content)
 
 
 if __name__ == '__main__':
