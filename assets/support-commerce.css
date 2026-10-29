@@ -14,6 +14,8 @@
 .commerce-review p,.commerce-review li,.commerce-review a,.commerce-review h1,.commerce-review h2{overflow-wrap:anywhere}
 .commerce-review .section-card a{text-decoration:underline;text-underline-offset:3px}
 .commerce-review .section-card .btn{text-decoration:none}
+.commerce-review .support-downloads .play-store-badge{text-decoration:none}
+.support-downloads{scroll-margin-top:145px}
 .commerce-review main{padding-bottom:24px}
 .commerce-review footer{padding-top:22px;padding-bottom:32px;font-size:.88rem;border-top:1px solid var(--line)}
 .commerce-skip{position:absolute;left:12px;top:-120px;padding:12px;background:var(--bg);z-index:100}

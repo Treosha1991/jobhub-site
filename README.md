@@ -30,6 +30,12 @@ Validate with `python tools/build_support_site.py`,
 `python tools/check_site.py --root dist-support`, and
 `python tools/check_support_updates.py`. Publish only `dist-support` as before.
 
+On 29 October the owner also approved restoring the Windows download button
+and a shared Download navigation link to `/#download`. The Microsoft Store
+listing `9P0Q581Q363X` was verified as JobHub Support. The owner explicitly
+deferred App Store / Google Play links until the public Support release;
+their currently published listings still describe the older JobHub product.
+
 The remaining sections below document the earlier combined-site history.
 
 ## Support publication candidate, 25.10.2026

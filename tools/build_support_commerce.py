@@ -51,7 +51,7 @@ def render(file, title, intro, content):
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>{escape(title[0])} — JobHub Support</title>
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/styles.css?v=20260217j">
-<link rel="stylesheet" href="/assets/support-commerce.css?v=20261025">
+<link rel="stylesheet" href="/assets/support-commerce.css?v=20261029-download">
 <script defer src="/assets/support-site.js?v=20261026"></script>
 </head><body class="commerce-review">
 <a class="commerce-skip" href="#main">{tr('К содержанию', 'Skip to content', 'Przejdź do treści', 'До вмісту')}</a>

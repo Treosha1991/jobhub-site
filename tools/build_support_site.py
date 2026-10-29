@@ -60,6 +60,7 @@ setLanguage(lang);
 ''', encoding='utf-8')
     commerce.ROOT = OUT
     commerce.PUBLIC_NAV = [
+        ('index.html#download', ('Скачать', 'Download', 'Pobierz', 'Завантажити')),
         ('support-presentation.html', ('Презентация', 'Presentation', 'Prezentacja', 'Презентація')),
         ('news.html', ('Новости', 'News', 'Aktualności', 'Новини')),
     ]
@@ -72,6 +73,19 @@ setLanguage(lang);
              'Przestrzeń dla zespołu: projekty, brygady, zmiany, godziny pracy i czaty służbowe.',
              'Робочий простір команди: проєкти, екіпажі, зміни, години та робоче листування.')
     actions = '<p><a class="btn" href="/support-presentation.html">'+tr('Посмотреть презентацию', 'Watch the presentation', 'Zobacz prezentację', 'Переглянути презентацію')+'</a> · <a href="/support-pricing.html">'+tr('Тарифы', 'Pricing', 'Cennik', 'Тарифи')+'</a> · <a href="/support-guide.html">'+tr('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support')+'</a></p>'
+    downloads = '<section class="section-card support-downloads" id="download"><h2>' + tr(
+        'JobHub Support для Windows', 'JobHub Support for Windows',
+        'JobHub Support na Windows', 'JobHub Support для Windows') + '</h2>'
+    downloads += '<div class="store-badges"><a class="play-store-badge microsoft-store-badge" href="https://apps.microsoft.com/detail/9P0Q581Q363X" target="_blank" rel="noopener noreferrer" data-no-lang>'
+    downloads += '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path fill="#f25022" d="M0 0h14v14H0z"/><path fill="#7fba00" d="M16 0h14v14H16z"/><path fill="#00a4ef" d="M0 16h14v14H0z"/><path fill="#ffb900" d="M16 16h14v14H16z"/></svg>'
+    downloads += '<span class="play-store-copy"><span class="play-store-kicker">' + tr(
+        'Скачать для Windows', 'Download for Windows', 'Pobierz na Windows', 'Завантажити для Windows')
+    downloads += '</span><span class="play-store-name">Microsoft Store</span></span></a></div>'
+    downloads += paragraph((
+        'Установка бесплатна. Доступ к рабочему пространству открывается после приглашения или подключения фирмы.',
+        'Installation is free. Workspace access requires an invitation or company activation.',
+        'Instalacja jest bezpłatna. Dostęp do przestrzeni roboczej wymaga zaproszenia lub podłączenia firmy.',
+        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.')) + '</section>'
     capabilities = section(('Работа своей команды', 'Your team’s work', 'Praca własnego zespołu', 'Робота своєї команди'), intro,
         ('Руководитель приглашает менеджеров и работников в их собственные аккаунты, назначает права и ответственных. Работник подтверждает приглашение. Данные ограничены своей организацией и назначенным доступом.',
          'The owner invites managers and workers into their own accounts and assigns permissions and contacts. The worker accepts the invitation. Access is limited to the organisation and assigned scope.',
@@ -87,7 +101,7 @@ setLanguage(lang);
          'JobHub Support is independent software for managing an existing team. This site offers no job search, job board, recruitment, contact sales, advertising or credits. Transport and housing features record internal team assignments; they do not sell those services.',
          'JobHub Support to samodzielne oprogramowanie do zarządzania istniejącym zespołem. Ta strona nie oferuje szukania pracy, tablicy ofert, rekrutacji, sprzedaży kontaktów, reklam ani kredytów. Funkcje transportu i zakwaterowania ewidencjonują przydziały zespołu; nie sprzedają tych usług.',
          'JobHub Support — самостійне ПЗ для керування наявною командою. Сайт не пропонує пошук роботи, дошку вакансій, підбір персоналу, продаж контактів, рекламу чи кредити. Функції транспорту й житла обліковують призначення команди, а не продають ці послуги.'))
-    render('index.html', ('JobHub Support',)*4, intro, actions+player+capabilities+hours+scope)
+    render('index.html', ('JobHub Support',)*4, intro, actions+downloads+player+capabilities+hours+scope)
     updates.add_player_assets(OUT / 'index.html')
     render('support-guide.html', ('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support'), intro, capabilities+hours+scope)
     render('help.html', ('Помощь JobHub Support', 'JobHub Support help', 'Pomoc JobHub Support', 'Допомога JobHub Support'), intro, capabilities+hours)
