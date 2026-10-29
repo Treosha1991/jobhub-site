@@ -59,7 +59,7 @@ def render(file, title, intro, content):
 <nav class="wrap commerce-nav" aria-label="JobHub Support">{nav}</nav></header>
 <main id="main" class="wrap">
 <aside class="commerce-draft" role="note">{tr(*NOTICE)}</aside>
-<section class="hero"><span class="badge">JobHub Support · {EDITION}</span><h1>{tr(*title)}</h1>{paragraph(intro)}</section>
+<section class="hero"><span class="badge">JobHub Support</span><h1>{tr(*title)}</h1>{paragraph(intro)}</section>
 {content}
 </main><footer class="wrap"><p>{tr(*IDENTITY)}</p><p><a href="mailto:admin@jobhub.today" data-no-lang>admin@jobhub.today</a></p><div class="commerce-footer">{nav}</div>
 <p><a href="/terms.html">{tr('Условия Support', 'Support terms', 'Warunki Support', 'Умови Support')}</a> · <a href="/contact.html">{tr('Поддержка', 'Contact support', 'Wsparcie', 'Підтримка')}</a> · <a href="/help.html">{tr('Помощь', 'Help', 'Pomoc', 'Допомога')}</a></p>
