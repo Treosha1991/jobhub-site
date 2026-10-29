@@ -1,4 +1,5 @@
 /* Featured Support article. Older news and the home-page player stay unchanged. */
+.support-updates { display: grid; gap: 24px; }
 .support-news {
   padding: clamp(18px, 3vw, 30px);
   border-color: rgba(22, 217, 90, .45);

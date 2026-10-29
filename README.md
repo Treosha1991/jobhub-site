@@ -15,6 +15,21 @@ this edition and its publication on 26 October 2026. Live payments remain OFF.
 Deployment evidence is recorded separately; approval alone is not a deployment.
 Preserved original site: `T:\JobApp\_local_jobhub_legacy_20261026\site.zip`.
 
+## Support news and video restoration, 29 October 2026
+
+At the owner's request, the generated Support-only site again includes the
+09 October Microsoft Store article and the 08 October Support video article.
+No other articles from the combined `news.html` are published. The original
+RU/EN/PL/UK/NL films, posters and subtitles are copied byte-for-byte, with the
+self-hosted player and its HLS dependencies. The player appears on home,
+presentation and news pages; News and Presentation are in the shared navigation.
+The legal edition, prices and disabled checkout remain unchanged. The separate
+27 October native presentation candidate is not published by this restoration.
+
+Validate with `python tools/build_support_site.py`,
+`python tools/check_site.py --root dist-support`, and
+`python tools/check_support_updates.py`. Publish only `dist-support` as before.
+
 The remaining sections below document the earlier combined-site history.
 
 ## Support publication candidate, 25.10.2026

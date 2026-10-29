@@ -9,6 +9,7 @@ import json
 import shutil
 import build_support_commerce as commerce
 import build_support_presentation as presentation
+import build_support_updates as updates
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'dist-support'
@@ -58,8 +59,13 @@ document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('cl
 setLanguage(lang);
 ''', encoding='utf-8')
     commerce.ROOT = OUT
+    commerce.PUBLIC_NAV = [
+        ('support-presentation.html', ('Презентация', 'Presentation', 'Prezentacja', 'Презентація')),
+        ('news.html', ('Новости', 'News', 'Aktualności', 'Новини')),
+    ]
     commerce.pricing(); commerce.terms(); commerce.refunds(); commerce.privacy()
-    presentation.build(ROOT, OUT, commerce)
+    player = updates.build(ROOT, OUT, commerce)
+    presentation.build(ROOT, OUT, commerce, video=player)
 
     intro = ('Рабочее пространство для команды: проекты, экипажи, смены, часы и рабочая переписка.',
              'A workspace for your team: projects, crews, shifts, working hours and work chats.',
@@ -81,7 +87,8 @@ setLanguage(lang);
          'JobHub Support is independent software for managing an existing team. This site offers no job search, job board, recruitment, contact sales, advertising or credits. Transport and housing features record internal team assignments; they do not sell those services.',
          'JobHub Support to samodzielne oprogramowanie do zarządzania istniejącym zespołem. Ta strona nie oferuje szukania pracy, tablicy ofert, rekrutacji, sprzedaży kontaktów, reklam ani kredytów. Funkcje transportu i zakwaterowania ewidencjonują przydziały zespołu; nie sprzedają tych usług.',
          'JobHub Support — самостійне ПЗ для керування наявною командою. Сайт не пропонує пошук роботи, дошку вакансій, підбір персоналу, продаж контактів, рекламу чи кредити. Функції транспорту й житла обліковують призначення команди, а не продають ці послуги.'))
-    render('index.html', ('JobHub Support',)*4, intro, actions+capabilities+hours+scope)
+    render('index.html', ('JobHub Support',)*4, intro, actions+player+capabilities+hours+scope)
+    updates.add_player_assets(OUT / 'index.html')
     render('support-guide.html', ('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support'), intro, capabilities+hours+scope)
     render('help.html', ('Помощь JobHub Support', 'JobHub Support help', 'Pomoc JobHub Support', 'Допомога JobHub Support'), intro, capabilities+hours)
     render('faq.html', ('Вопросы и ответы', 'Questions and answers', 'Pytania i odpowiedzi', 'Запитання й відповіді'), intro, scope+capabilities+hours)
@@ -119,7 +126,7 @@ setLanguage(lang);
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://jobhub.today/{"" if p=="index.html" else p}</loc></url>' for p in pages)+'</urlset>', encoding='utf-8')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
-    (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n', encoding='utf-8')
+    (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; media-src \'self\' blob:; worker-src \'self\' blob:; connect-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n' + updates.media_headers(), encoding='utf-8')
     manifest = {'edition': EDITION, 'live_payments': False, 'publication_approved': True,
                 'files': sorted(str(p.relative_to(OUT)).replace('\\', '/') for p in OUT.rglob('*') if p.is_file())}
     (OUT / 'support-site-manifest.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8')

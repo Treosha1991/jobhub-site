@@ -4,7 +4,7 @@ from html import escape
 from pathlib import Path
 
 
-def build(source_root, out, commerce):
+def build(source_root, out, commerce, video=''):
     data = json.loads((source_root / 'assets/support-presentation-v2/content.json').read_text(encoding='utf-8'))
     langs = commerce.LANGS
     slides = ''.join(
@@ -13,7 +13,7 @@ def build(source_root, out, commerce):
         '<h2>' + commerce.tr(*(slide[lang]['title'] for lang in langs)) + '</h2>'
         '<p>' + commerce.tr(*(slide[lang]['body'] for lang in langs)) + '</p></article>'
         for index, slide in enumerate(data['slides']))
-    content = '<section class="section-card" id="support-presentation" aria-label="JobHub Support">' + slides
+    content = video + '<section class="section-card" id="support-presentation" aria-label="JobHub Support">' + slides
     content += '<div class="actions"><button type="button" class="btn" data-slide-back>' + commerce.tr('Назад', 'Back', 'Wstecz', 'Назад') + '</button>'
     content += '<output aria-live="polite" data-slide-count>1 / 6</output><button type="button" class="btn" data-slide-next>' + commerce.tr('Далее', 'Next', 'Dalej', 'Далі') + '</button></div>'
     content += '<p><a class="btn" href="/demo">' + commerce.tr('Попробовать демо', 'Try the demo', 'Wypróbuj demo', 'Спробувати демо') + '</a></p></section>'
@@ -21,6 +21,9 @@ def build(source_root, out, commerce):
     page = out / 'support-presentation.html'
     html = page.read_text(encoding='utf-8').replace('</head>', '<link rel="stylesheet" href="/assets/support-presentation.css"><script src="/assets/support-presentation.js" defer></script></head>')
     page.write_text(html, encoding='utf-8')
+    if video:
+        from build_support_updates import add_player_assets
+        add_player_assets(page)
     (out / 'assets/support-presentation.css').write_text('''
 .presentation-slide { min-height: 15rem; padding: clamp(1rem, 4vw, 3rem); }
 .presentation-slide h2 { font-size: clamp(1.6rem, 4vw, 3rem); line-height: 1.2; }

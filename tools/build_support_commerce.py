@@ -22,6 +22,7 @@ NAV = [
     ('support-refunds.html', ('Отмена и возвраты', 'Cancellation and refunds', 'Anulowanie i zwroty', 'Скасування та повернення')),
     ('support-privacy.html', ('Данные и конфиденциальность', 'Data and privacy', 'Dane i prywatność', 'Дані та конфіденційність')),
 ]
+PUBLIC_NAV = []
 EDITION = 'support-only-web-2026-10-26-v1'
 NOTICE = ('Продажи подписок ещё не открыты. Страница описывает условия будущего подключения. Оплата недоступна.',
           'Subscription sales have not opened. This page describes the terms for future activation. Payment is unavailable.',
@@ -43,7 +44,7 @@ def section(title, *paragraphs, anchor=None):
 
 
 def render(file, title, intro, content):
-    nav = ''.join(f'<a href="/{name}" data-nav>{tr(*label)}</a>' for name, label in NAV)
+    nav = ''.join(f'<a href="/{name}" data-nav>{tr(*label)}</a>' for name, label in PUBLIC_NAV + NAV)
     buttons = ''.join(f'<button type="button" class="lang-btn" data-set-lang="{lang}">{lang.upper()}</button>' for lang in LANGS)
     source = f'''<!doctype html>
 <html lang="ru" data-lang="ru"><head>
