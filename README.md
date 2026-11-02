@@ -113,6 +113,14 @@ and domain by Paddle is not assumed.
 
 ## Store terms candidate, 2 November 2026
 
+Owner approved publication2Nov. Cloudflare production build now uses
+`python tools/build_support_site.py --store-review --approved-store-edition support-store-2026-10-31-v1`
+and output`dist-support-store-review`. Mainf1a6597, deployment
+bc5e924b-06dd-475f-9e90-8c1f6aa064e1SUCCESS.7public pages HTTP200; exact approved
+content after reversing only existing Cloudflare email obfuscation/line endings.
+Evidence:T:/JobApp/output/support-store-public-html-verified-20261102.json.
+No checkout or real-payment activation. Preparation notes below are historical.
+
 The owner-approved Store amounts and Custom payer/trial model are merged into a
 separate, unpublished review build. The existing published Support-only build and
 its approval are preserved. Do not publish the repository root or treat the new
