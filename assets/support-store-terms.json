@@ -1,0 +1,77 @@
+{
+  "edition": "support-store-2026-10-31-v1",
+  "languages": {
+    "ru": [
+      {
+        "title": "Подписки в App Store и Google Play",
+        "body": "Пакеты Support 20, Support 50 и Support 100 открывают рабочий кабинет одной проверенной фирмы соответственно для 20, 50 или 100 одновременно активных работников. Доступ работников входит в пакет фирмы. Месячные цены для Польши: 249, 449 и 749 PLN, включая налоги. В других странах действует локальная цена магазина. Валюта, итоговая цена и период показываются в приложении и подтверждаются магазином до покупки."
+      },
+      {
+        "title": "Личная подписка работника",
+        "body": "Она нужна только в отдельно согласованном Custom, в котором прямо предусмотрена оплата работником. Ориентир — 9,99 EUR в месяц; применяется локальная цена магазина. Для новых подписчиков, которым магазин разрешает пробный период, первый месяц бесплатный. После него подписка автоматически продлевается по показанной месячной цене, если не отменена. При отсутствии права на пробный период магазин покажет обычную оплату. Подписка даёт личный доступ к сервису, но не заменяет приглашение фирмы, не назначает рабочую роль и не гарантирует трудоустройство. В стандартных пакетах повторная личная оплата работником не требуется."
+      },
+      {
+        "title": "Продление, изменение, отмена и восстановление",
+        "body": "Подписка продлевается автоматически до отмены в исходном магазине. Google Play: повышение пакета действует сразу, новая месячная цена применяется при следующем продлении; понижение — со следующего периода. App Store определяет сроки изменения и перерасчёт по своим правилам; окончательные суммы и даты показывает магазин. Сохранённые рабочие данные не удаляются при понижении пакета. При превышении нового лимита нужно согласовать состав команды; новые подключения сверх лимита недоступны. Отмена продления сохраняет доступ до окончания оплаченного периода. При приостановлении оплаты, окончании периода или отзыве покупки рабочий доступ зависит от актуального подтверждения магазина. Удаление приложения или аккаунта не отменяет подписку магазина: автопродление нужно отключить отдельно. Восстановите покупку в исходном магазине, войдя в тот же аккаунт магазина и JobHub Support. Пакет фирмы остаётся привязан к выбранной фирме; покупка не передаётся другому аккаунту автоматически. Возврат запрашивается через исходный магазин по его процедуре. Это не ограничивает обязательные права потребителя и возможность обратиться в поддержку Support. Через эти продукты не продаются вакансии, рекрутинг или кредиты JobHub."
+      },
+      {
+        "title": "Данные о покупке",
+        "body": "Магазин обрабатывает платёжные реквизиты. Для проверки подписки Support обрабатывает идентификаторы продукта и транзакции, магазин, статус продления, оплаченный период и связь с аккаунтом/фирмой. В магазин передаётся непрозрачный идентификатор связи, а не email работника. Серверный токен Google Play хранится зашифрованно; полные чеки и токены не записываются в журналы. Срок хранения платёжных записей определяется необходимостью исполнения подписки, разрешения споров и применимыми обязанностями хранения; запрос удаления не отменяет обязательного хранения отдельных записей."
+      }
+    ],
+    "en": [
+      {
+        "title": "Store plans",
+        "body": "Support 20/50/100 provide one approved company workspace for up to 20/50/100 concurrently active workers. Worker access is included. Polish monthly prices are PLN 249/449/749 including tax. Other storefronts use localized prices. The app and store show the currency, final amount and billing period before purchase. These products do not sell recruitment, job adverts or credits."
+      },
+      {
+        "title": "Worker Custom",
+        "body": "Personal access is required only under a separately agreed worker-paid Custom arrangement. Reference price: EUR 9.99 monthly; the storefront price applies. Eligible new subscribers receive one free month, then automatically renew at the displayed monthly price unless cancelled. Without trial eligibility, the store shows regular payment. This subscription does not replace a company invitation, assign a work role or guarantee employment. Workers covered by a standard company plan do not need an additional personal subscription."
+      },
+      {
+        "title": "Lifecycle",
+        "body": "Renewal continues until cancelled in the original store. Google Play upgrades apply immediately with the new price at the next renewal; downgrades apply next period. App Store controls change timing and proration, showing the final amounts and dates before confirmation. Downgrades retain working records; new admissions cannot exceed the lower capacity. Cancellation preserves access until the paid period ends. Payment hold, expiry and revocation are checked against current store status. Deleting the app or account does not cancel store renewal. Restore using the original store account and the same Support account; company purchases stay bound to the selected company. Request refunds through the original store's procedure. Mandatory consumer rights and contact with Support are unaffected."
+      },
+      {
+        "title": "Purchase data",
+        "body": "Payment details are processed by the store. Support processes product/transaction identifiers, channel, renewal status, paid period and the account/company binding to verify access. The store receives an opaque binding identifier rather than a worker email. Google purchase tokens are encrypted at rest; full receipts/tokens are excluded from logs. Retention follows subscription fulfilment, dispute resolution and applicable recordkeeping duties. Deletion requests do not override required retention of individual payment records."
+      }
+    ],
+    "pl": [
+      {
+        "title": "Pakiety sklepowe",
+        "body": "Support 20/50/100 zapewniają panel jednej zatwierdzonej firmy dla maksymalnie 20/50/100 jednocześnie aktywnych pracowników. Dostęp pracowników jest w cenie. Ceny miesięczne w Polsce: 249/449/749 PLN z podatkami. W innych krajach obowiązuje lokalna cena sklepu. Waluta, końcowa kwota i okres są widoczne przed zakupem. Produkty nie obejmują rekrutacji, ogłoszeń ani kredytów."
+      },
+      {
+        "title": "Custom pracownika",
+        "body": "Osobista subskrypcja jest potrzebna wyłącznie w osobno uzgodnionym Custom opłacanym przez pracownika. Cena odniesienia: 9,99 EUR miesięcznie; obowiązuje lokalna cena sklepu. Uprawnieni nowi subskrybenci mają pierwszy miesiąc bezpłatny, następnie subskrypcja odnawia się automatycznie po pokazanej cenie, o ile nie zostanie anulowana. Bez uprawnienia do próby sklep pokaże zwykłą płatność. Subskrypcja nie zastępuje zaproszenia firmy, nie nadaje roli pracowniczej i nie gwarantuje zatrudnienia. Standardowy pakiet firmy nie wymaga dodatkowej osobistej opłaty od pracownika."
+      },
+      {
+        "title": "Obsługa",
+        "body": "Odnawianie wyłącza się w sklepie zakupu. Google Play: wyższy pakiet działa od razu, nowa cena od odnowienia; niższy pakiet od kolejnego okresu. App Store ustala termin zmiany i rozliczenie, pokazując końcowe kwoty i daty. Obniżenie pakietu nie usuwa zapisów pracy; nowe przyjęcia nie mogą przekroczyć niższego limitu. Anulowanie odnawiania zachowuje dostęp do końca opłaconego okresu. Blokada płatności, wygaśnięcie i cofnięcie zakupu zależą od aktualnego statusu sklepu. Usunięcie aplikacji lub konta nie anuluje subskrypcji. Zakup odtwarza się na pierwotnym koncie sklepu i tym samym koncie Support; pakiet pozostaje związany z wybraną firmą. O zwrot występuje się w sklepie zakupu. Nie ogranicza to ustawowych praw konsumenta ani kontaktu z pomocą Support."
+      },
+      {
+        "title": "Dane zakupu",
+        "body": "Dane płatnicze przetwarza sklep. Support przetwarza identyfikatory produktu i transakcji, kanał, status odnowienia, opłacony okres oraz powiązanie konta z firmą. Do sklepu trafia niejawny identyfikator powiązania zamiast adresu email pracownika. Tokeny Google są szyfrowane; pełne potwierdzenia i tokeny nie trafiają do logów. Retencja wynika z realizacji subskrypcji, rozstrzygania sporów i obowiązków przechowywania. Żądanie usunięcia nie znosi obowiązkowej retencji poszczególnych zapisów płatności."
+      }
+    ],
+    "uk": [
+      {
+        "title": "Пакети магазинів",
+        "body": "Support 20/50/100 відкривають кабінет однієї перевіреної фірми для 20/50/100 одночасно активних працівників. Доступ працівників включено. Місячні ціни в Польщі — 249/449/749 PLN з податками; в інших країнах діють локальні ціни магазину. Валюта, кінцева сума й період показуються до покупки. Продукти не продають вакансії, рекрутинг чи кредити JobHub."
+      },
+      {
+        "title": "Custom працівника",
+        "body": "Особиста підписка потрібна лише в окремо погодженому Custom з оплатою працівником. Орієнтир — 9,99 EUR на місяць, діє локальна ціна магазину. Для нових підписників, яким магазин дозволяє пробний період, перший місяць безплатний. Далі підписка автоматично продовжується за показаною ціною, якщо її не скасовано. Без права на пробу магазин покаже звичайну оплату. Підписка не замінює запрошення фірми, не призначає робочу роль і не гарантує працевлаштування. Стандартний пакет фірми не потребує особистої доплати працівника."
+      },
+      {
+        "title": "Керування",
+        "body": "Автоподовження вимикається в магазині покупки. Google Play: більший пакет діє одразу, нова ціна — при продовженні; менший — з наступного періоду. App Store визначає дату зміни й перерахунок та показує кінцеві суми й дати. Зменшення пакета не видаляє робочі записи; нові підключення не можуть перевищувати менший ліміт. Скасування продовження зберігає доступ до кінця оплаченого періоду. Блокування оплати, завершення й відкликання покупки перевіряються за актуальним станом магазину. Видалення застосунку або акаунта не скасовує підписку. Відновлення потребує початкового акаунта магазину та того самого акаунта Support; пакет залишається прив'язаним до вибраної фірми. Повернення коштів запитується в магазині покупки. Обов'язкові права споживача й можливість звернутися до підтримки Support зберігаються."
+      },
+      {
+        "title": "Дані покупки",
+        "body": "Платіжні реквізити обробляє магазин. Support обробляє ідентифікатори продукту й транзакції, канал, стан продовження, оплачений період та зв'язок акаунта з фірмою. Магазину передається непрозорий ідентифікатор, а не email працівника. Токени Google зберігаються зашифровано; повні чеки й токени не потрапляють до журналів. Строки зберігання залежать від надання підписки, вирішення спорів і застосовних обов'язків зберігання. Запит видалення не скасовує обов'язкового зберігання окремих платіжних записів."
+      }
+    ]
+  }
+}

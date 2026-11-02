@@ -110,3 +110,33 @@ Primary references checked 25.10.2026:
 The broad JobHub vacancy/legacy Store products are disclosed in the copy and
 excluded from the proposed Paddle purchase; acceptance of the shared brand
 and domain by Paddle is not assumed.
+
+## Store terms candidate, 2 November 2026
+
+The owner-approved Store amounts and Custom payer/trial model are merged into a
+separate, unpublished review build. The existing published Support-only build and
+its approval are preserved. Do not publish the repository root or treat the new
+edition as approved merely because the earlier website was approved.
+
+`python tools/build_support_site.py --store-review` writes
+`dist-support-store-review` with publication_approved=false and live_payments=false.
+Preview: `python -m http.server 8782 --bind 127.0.0.1 --directory dist-support-store-review`.
+Edition: support-store-2026-10-31-v1. Seven merged legal/pricing pages include the
+canonical terms/privacy URLs used by the mobile purchase consent. The existing
+operator, statutory rights, DPA limitations and Windows-only download decision
+are preserved. Store prices include Polish tax; web prices remain a separate
+inactive channel. Personal worker9.99EUR/month and eligible free month apply only
+to worker-paid Custom. No checkout or real payments are enabled.
+
+After explicit owner publication approval, build with both `--store-review` and
+`--approved-store-edition support-store-2026-10-31-v1`; publish ONLY
+dist-support-store-review and verify exact approved HTML hashes first.
+The second flag changes approval metadata, not the customer terms.
+No approval flag has been used during preparation.
+
+Validation2Nov: links/assets/anchors16pages PASS;32 browser cases (RU/EN/PL/UK,
+390 and1528px) PASS, including expanded/collapsed web terms on the pricing page.
+Evidence: T:/JobApp/output/support-store-policies-browser-qa-20261102.json and
+support-store-site-owner-review-20261102.json. Server gates and intended Render
+destinations: JOBHUB_SUPPORT_STORE_SERVER_ROLLOUT_2026-11-02.md in the canonical
+backend checkout. No site publication/deployment happened in this preparation.
