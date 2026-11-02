@@ -19,6 +19,12 @@ mobile public-store download links or real sales are enabled by this publication
 viewports PASS. Evidence: `T:/JobApp/output/support-free-terms-browser-qa-20261102.json`.
 Deployment/live hash verification is recorded in the backend rollout evidence.
 
+Executed: source b0f0e9e pushed to main; the public site rendered the Free
+edition on all canonical links.32public language/page cases and96exact legal
+paragraph comparisons passed in Edge. Store edition remains unchanged. Backend
+rollout evidence: JOBHUB_SUPPORT_TERMS_TESTFLIGHT_2026-11-02.md; actual physical
+TestFlight consent/purchase acceptance remains the owner's next check.
+
 Official references checked: Apple auto-renewable subscription presentation
 (`https://developer.apple.com/app-store/subscriptions/`) and UOKiK consumer
 withdrawal guidance (`https://prawakonsumenta.uokik.gov.pl/prawo-odstapienia-od-umowy/`).
