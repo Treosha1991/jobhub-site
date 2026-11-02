@@ -1,5 +1,30 @@
 # jobhub-site
 
+## Free activation and TestFlight terms, 2 November 2026
+
+Owner instruction: prepare and publish current terms so the installed TestFlight
+can complete company activation for Free and Store packages, without real charges.
+`assets/support-free-terms.json` contains the separate Free edition
+`support-free-2026-11-02-v1` in RU/EN/PL/UK. The Store edition remains
+`support-store-2026-10-31-v1`, pinned by iOS185; its prices and purchase rules
+were not changed. The generated terms/pricing/refund/privacy pages now explain
+Free, explicit acceptance, agreed capacity, worker-paid access and Sandbox.
+The canonical `/terms.html` and `/privacy.html` used by185 remain valid.
+
+Build: `python tools/build_support_site.py --store-review --approved-store-edition support-store-2026-10-31-v1`.
+Publish only `dist-support-store-review`, never the legacy repository root.
+The generated manifest records the Free edition separately. No checkout,
+mobile public-store download links or real sales are enabled by this publication.
+17-page link/asset checks PASS;32 browser cases across four languages and two
+viewports PASS. Evidence: `T:/JobApp/output/support-free-terms-browser-qa-20261102.json`.
+Deployment/live hash verification is recorded in the backend rollout evidence.
+
+Official references checked: Apple auto-renewable subscription presentation
+(`https://developer.apple.com/app-store/subscriptions/`) and UOKiK consumer
+withdrawal guidance (`https://prawakonsumenta.uokik.gov.pl/prawo-odstapienia-od-umowy/`).
+Existing mandatory consumer rights are preserved; accepting Free does not
+purport to waive them. Real workforce-data/DPA readiness remains a separate gate.
+
 ## Independent Support candidate, 26 October 2026
 
 The original combined site is retained as local source/history only. Publish

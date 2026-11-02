@@ -145,12 +145,15 @@ setLanguage(lang);
     if store_review:
         import build_support_store_terms
         build_support_store_terms.apply(OUT, commerce)
+        import build_support_free_terms
+        build_support_free_terms.apply(OUT, commerce)
     pages = sorted(p.name for p in OUT.glob('*.html') if p.name != '404.html')
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://jobhub.today/{"" if p=="index.html" else p}</loc></url>' for p in pages)+'</urlset>', encoding='utf-8')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
     (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; media-src \'self\' blob:; worker-src \'self\' blob:; connect-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n' + updates.media_headers(), encoding='utf-8')
     manifest = {'edition': 'support-store-2026-10-31-v1' if store_review else EDITION,
+                'free_terms_version': 'support-free-2026-11-02-v1' if store_review else None,
                 'live_payments': False,
                 'publication_approved': bool(approved_store_edition) if store_review else True,
                 'files': sorted(str(p.relative_to(OUT)).replace('\\', '/') for p in OUT.rglob('*') if p.is_file())}
