@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EDITION = 'support-free-2026-11-02-v1'
+EDITION = 'support-free-2026-11-03-v1'
 
 
 def apply(out, commerce):
@@ -40,18 +40,27 @@ def apply(out, commerce):
                  'support-store-terms.html', 'support-free-terms.html', 'support-refunds.html'):
         page = out / name
         html = page.read_text(encoding='utf-8')
-        hero_end = html.index('</section>', html.index('<section class="hero">')) + len('</section>')
         # On the dedicated Free page the full content already includes this notice.
         addition = chooser + ('' if name == 'support-free-terms.html' else testing)
         if name in ('terms.html', 'support-subscription-terms.html'):
             addition += free
         elif name == 'support-pricing.html':
+            html = html.replace(
+                tr('Один рабочий кабинет. Выберите лимит своей команды.', 'One workspace. Choose your team limit.',
+                   'Jedna przestrzeń robocza. Wybierz limit zespołu.', 'Один робочий кабінет. Виберіть ліміт своєї команди.'),
+                tr('Один рабочий кабинет. Выберите, кто оплачивает доступ команды.',
+                   'One workspace. Choose who pays for your team’s access.',
+                   'Jedna przestrzeń robocza. Wybierz, kto płaci za dostęp zespołu.',
+                   'Один робочий кабінет. Виберіть, хто оплачує доступ команди.'),
+                1,
+            )
             addition += section(('Free — первый вариант для работодателя', 'Free — the first employer option',
                 'Free — pierwszy wariant dla pracodawcy', 'Free — перший варіант для роботодавця'),
                 tuple(rows[lang][0]['body'] for lang in langs), tuple(rows[lang][1]['body'] for lang in langs), anchor='free')
         elif name == 'support-refunds.html':
             addition += section(tuple(rows[lang][3]['title'] for lang in langs),
                                 tuple(rows[lang][3]['body'] for lang in langs), anchor='free')
+        hero_end = html.index('</section>', html.index('<section class="hero">')) + len('</section>')
         html = html[:hero_end] + '\n' + addition + '\n' + html[hero_end:]
         html = html.replace('<main ', f'<main data-support-free-edition="{EDITION}" ', 1)
         page.write_text(html, encoding='utf-8')

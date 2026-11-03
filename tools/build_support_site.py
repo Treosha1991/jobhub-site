@@ -10,6 +10,7 @@ from pathlib import Path
 import json
 import shutil
 import build_support_commerce as commerce
+import build_support_free_terms as free_terms
 import build_support_presentation as presentation
 import build_support_updates as updates
 
@@ -24,10 +25,12 @@ def render(name, title, intro, content):
     commerce.render(name, title, intro, content)
 
 
-def main(store_review=False, approved_store_edition=None):
+def main(store_review=False, approved_store_edition=None, approved_free_edition=None):
     global OUT
     if approved_store_edition and (not store_review or approved_store_edition != 'support-store-2026-10-31-v1'):
         raise ValueError('Publication requires the exact reviewed Store edition and --store-review')
+    if approved_free_edition and (not store_review or approved_free_edition != free_terms.EDITION):
+        raise ValueError('Publication requires the exact reviewed Free edition and --store-review')
     OUT = ROOT / ('dist-support-store-review' if store_review else 'dist-support')
     OUT.mkdir(exist_ok=True)
     # Remove only the verified, dedicated generated directory, never source.
@@ -145,17 +148,16 @@ setLanguage(lang);
     if store_review:
         import build_support_store_terms
         build_support_store_terms.apply(OUT, commerce)
-        import build_support_free_terms
-        build_support_free_terms.apply(OUT, commerce)
+        free_terms.apply(OUT, commerce)
     pages = sorted(p.name for p in OUT.glob('*.html') if p.name != '404.html')
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://jobhub.today/{"" if p=="index.html" else p}</loc></url>' for p in pages)+'</urlset>', encoding='utf-8')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
     (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; media-src \'self\' blob:; worker-src \'self\' blob:; connect-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n' + updates.media_headers(), encoding='utf-8')
     manifest = {'edition': 'support-store-2026-10-31-v1' if store_review else EDITION,
-                'free_terms_version': 'support-free-2026-11-02-v1' if store_review else None,
+                'free_terms_version': free_terms.EDITION if store_review else None,
                 'live_payments': False,
-                'publication_approved': bool(approved_store_edition) if store_review else True,
+                'publication_approved': bool(approved_store_edition and approved_free_edition) if store_review else True,
                 'files': sorted(str(p.relative_to(OUT)).replace('\\', '/') for p in OUT.rglob('*') if p.is_file())}
     (OUT / 'support-site-manifest.json').write_text(json.dumps(manifest, indent=2)+'\n', encoding='utf-8')
     print(f'{manifest["edition"]}: {len(pages)} pages; only allow-listed assets; no checkout. Output: {OUT}')
@@ -168,5 +170,8 @@ if __name__ == '__main__':
                         help='Build the unpublished Store terms edition into a separate preview directory')
     parser.add_argument('--approved-store-edition', choices=('support-store-2026-10-31-v1',),
                         help='Use only after the owner explicitly approves this exact merged edition for publication')
+    parser.add_argument('--approved-free-edition', choices=(free_terms.EDITION,),
+                        help='Use only after the owner explicitly approves these Free terms for publication')
     args = parser.parse_args()
-    main(store_review=args.store_review, approved_store_edition=args.approved_store_edition)
+    main(store_review=args.store_review, approved_store_edition=args.approved_store_edition,
+         approved_free_edition=args.approved_free_edition)
