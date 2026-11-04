@@ -50,6 +50,8 @@
     let captionsEnabled = true;
     let subtitleTrack = null;
     const siteLanguage = () => siteLanguages.includes(html.dataset.lang) ? html.dataset.lang : "en";
+    const requestedVideo = new URLSearchParams(window.location.search).get("video");
+    const linkedVideoLanguage = () => supported.includes(requestedVideo) ? requestedVideo : siteLanguage();
     const text = () => copy[siteLanguage()];
     const root = () => `/assets/support-video/20261008/${language}`;
 
@@ -175,14 +177,14 @@
       if (video.getAttribute("src")) fail(generation);
     });
     selector.addEventListener("change", () => chooseLanguage(selector.value));
-    // The site's canonical language is set by app.js. An override is intentionally
-    // kept only in this document: no URL parameter, cookie or localStorage key.
+    // A shared link can preselect a video without changing the site's language.
+    // Manual selections remain local to this page.
     new MutationObserver(() => chooseLanguage(siteLanguage())).observe(html, {
       attributes: true, attributeFilter: ["data-lang"]
     });
     window.addEventListener("pageshow", event => {
-      if (event.persisted) chooseLanguage(siteLanguage());
+      if (event.persisted) chooseLanguage(linkedVideoLanguage());
     });
-    chooseLanguage(siteLanguage());
+    chooseLanguage(linkedVideoLanguage());
   });
 })();

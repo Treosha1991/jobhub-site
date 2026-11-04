@@ -30,6 +30,21 @@ async function state() {
   }));
 }
 async function ready() { await page.waitForFunction(() => document.querySelector('#support-video')?.dataset.videoLanguage); }
+await page.goto(`${base}?lang=en&video=nl#support-video`);
+await ready();
+assert.equal((await state()).site, 'en');
+assert.equal((await state()).selected, 'nl');
+assert.match((await state()).poster, /\/nl\/poster\.jpg$/);
+await page.reload(); await ready();
+assert.equal((await state()).video, 'nl');
+mediaRequests = [];
+await page.locator('#support-video-play').click();
+await page.waitForFunction(() => document.querySelector('video').currentTime > .4);
+assert(mediaRequests.some(url => url.includes('/nl/presentation.m3u8')));
+await page.goto(`${base}?lang=ru&video=unknown#support-video`);
+await ready();
+assert.equal((await state()).video, 'ru');
+checks.push('shared Dutch video URL preselects and plays Nederlands, and ignores unknown overrides');
 for (const site of ['ru', 'en', 'pl', 'uk']) {
   mediaRequests = [];
   await page.goto(`${base}?lang=${site}`);
