@@ -21,7 +21,7 @@ def article(source, identifier):
 
 def add_player_assets(page):
     source = page.read_text(encoding='utf-8')
-    assets = ('<link rel="stylesheet" href="/assets/support-video.css">'
+    assets = ('<link rel="stylesheet" href="/assets/support-video.css?v=20261105">'
               '<link rel="stylesheet" href="/assets/support-news.css">'
               '<script defer src="/assets/support-video.js?v=20261104"></script>')
     page.write_text(source.replace('</head>', assets + '</head>'), encoding='utf-8')

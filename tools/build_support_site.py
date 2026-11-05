@@ -5,19 +5,21 @@ Publication must use the generated directory, never the repository root.
 --store-review creates the separately approved Store edition in
 dist-support-store-review; the default preserves the previously approved site.
 """
-from html import escape
 from pathlib import Path
+from urllib.parse import urlsplit
 import json
 import shutil
 import build_support_commerce as commerce
 import build_support_free_terms as free_terms
 import build_support_presentation as presentation
+import build_support_store_terms as store_terms
 import build_support_updates as updates
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / 'dist-support'
 EDITION = 'support-only-web-2026-10-26-v1'
 LANGS = commerce.LANGS
+ONBOARDING_ORIGIN = 'https://jobapp-backend-f2u8.onrender.com'
 tr, section, paragraph = commerce.tr, commerce.section, commerce.paragraph
 
 
@@ -25,16 +27,26 @@ def render(name, title, intro, content):
     commerce.render(name, title, intro, content)
 
 
-def main(store_review=False, approved_store_edition=None, approved_free_edition=None):
+def main(store_review=False, approved_store_edition=None, approved_free_edition=None, onboarding_origin=ONBOARDING_ORIGIN):
     global OUT
-    if approved_store_edition and (not store_review or approved_store_edition != 'support-store-2026-10-31-v1'):
+    onboarding_origin = onboarding_origin.rstrip('/')
+    parsed = urlsplit(onboarding_origin)
+    local_preview = onboarding_origin != ONBOARDING_ORIGIN
+    if local_preview and (not store_review or parsed.scheme != 'http'
+            or parsed.hostname not in ('127.0.0.1', 'localhost') or not parsed.port
+            or parsed.username or parsed.password or parsed.path or parsed.query or parsed.fragment
+            or approved_store_edition or approved_free_edition):
+        raise ValueError('A local catalog origin requires an unapproved Store review build and loopback HTTP')
+    if approved_store_edition and (not store_review or approved_store_edition != store_terms.EDITION):
         raise ValueError('Publication requires the exact reviewed Store edition and --store-review')
     if approved_free_edition and (not store_review or approved_free_edition != free_terms.EDITION):
         raise ValueError('Publication requires the exact reviewed Free edition and --store-review')
-    OUT = ROOT / ('dist-support-store-review' if store_review else 'dist-support')
+    OUT = ROOT / ('dist-support-onboarding-preview' if local_preview else
+                  'dist-support-store-review' if store_review else 'dist-support')
     OUT.mkdir(exist_ok=True)
     # Remove only the verified, dedicated generated directory, never source.
-    assert OUT.resolve().parent == ROOT.resolve() and OUT.name in ('dist-support', 'dist-support-store-review')
+    assert OUT.resolve().parent == ROOT.resolve() and OUT.name in (
+        'dist-support', 'dist-support-store-review', 'dist-support-onboarding-preview')
     for item in OUT.iterdir():
         if item.is_symlink():
             item.unlink()
@@ -61,21 +73,26 @@ function setLanguage(code) {
   document.querySelectorAll('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === code)));
   document.querySelectorAll('a[href]').forEach(a => {
     const u = new URL(a.href, location.href);
-    if (u.origin === location.origin && !a.hasAttribute('data-no-lang')) { u.searchParams.set('lang', code); a.href = u; }
+    if ((u.origin === location.origin || a.hasAttribute('data-onboarding-link')) && !a.hasAttribute('data-no-lang')) {
+      u.searchParams.set('lang', code);
+      a.href = u;
+    }
   });
 }
 document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.setLang)));
 setLanguage(lang);
 ''', encoding='utf-8')
     commerce.ROOT = OUT
+    commerce.PUBLIC_INDEXABLE = bool(approved_store_edition and approved_free_edition)
     commerce.PUBLIC_NAV = [
         ('index.html#download', ('Скачать', 'Download', 'Pobierz', 'Завантажити')),
         ('support-presentation.html', ('Презентация', 'Presentation', 'Prezentacja', 'Презентація')),
         ('news.html', ('Новости', 'News', 'Aktualności', 'Новини')),
     ]
-    commerce.pricing(); commerce.terms(); commerce.refunds(); commerce.privacy()
+    commerce.terms(); commerce.refunds(); commerce.privacy()
+    commerce.pricing(onboarding_origin)
     player = updates.build(ROOT, OUT, commerce)
-    presentation.build(ROOT, OUT, commerce, video=player)
+    presentation.build(OUT, commerce, onboarding_origin, video=player)
 
     intro = ('Рабочее пространство для команды: проекты, экипажи, смены, часы и рабочая переписка.',
              'A workspace for your team: projects, crews, shifts, working hours and work chats.',
@@ -83,8 +100,8 @@ setLanguage(lang);
              'Робочий простір команди: проєкти, екіпажі, зміни, години та робоче листування.')
     actions = '<p><a class="btn" href="/support-presentation.html">'+tr('Посмотреть презентацию', 'Watch the presentation', 'Zobacz prezentację', 'Переглянути презентацію')+'</a> · <a href="/support-pricing.html">'+tr('Тарифы', 'Pricing', 'Cennik', 'Тарифи')+'</a> · <a href="/support-guide.html">'+tr('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support')+'</a></p>'
     downloads = '<section class="section-card support-downloads" id="download"><h2>' + tr(
-        'JobHub Support для Windows', 'JobHub Support for Windows',
-        'JobHub Support na Windows', 'JobHub Support для Windows') + '</h2>'
+        'Скачать JobHub Support', 'Download JobHub Support',
+        'Pobierz JobHub Support', 'Завантажити JobHub Support') + '</h2>'
     downloads += '<div class="store-badges"><a class="play-store-badge microsoft-store-badge" href="https://apps.microsoft.com/detail/9P0Q581Q363X" target="_blank" rel="noopener noreferrer" data-no-lang>'
     downloads += '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path fill="#f25022" d="M0 0h14v14H0z"/><path fill="#7fba00" d="M16 0h14v14H16z"/><path fill="#00a4ef" d="M0 16h14v14H0z"/><path fill="#ffb900" d="M16 16h14v14H16z"/></svg>'
     downloads += '<span class="play-store-copy"><span class="play-store-kicker">' + tr(
@@ -94,7 +111,12 @@ setLanguage(lang);
         'Установка бесплатна. Доступ к рабочему пространству открывается после приглашения или подключения фирмы.',
         'Installation is free. Workspace access requires an invitation or company activation.',
         'Instalacja jest bezpłatna. Dostęp do przestrzeni roboczej wymaga zaproszenia lub podłączenia firmy.',
-        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.')) + '</section>'
+        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.'))
+    downloads += paragraph((
+        'Ссылки на App Store и Google Play появятся здесь после выхода мобильных версий JobHub Support.',
+        'App Store and Google Play links will appear here after the JobHub Support mobile apps are released.',
+        'Linki do App Store i Google Play pojawią się tutaj po premierze aplikacji mobilnych JobHub Support.',
+        'Посилання на App Store і Google Play з’являться тут після виходу мобільних версій JobHub Support.')) + '</section>'
     capabilities = section(('Работа своей команды', 'Your team’s work', 'Praca własnego zespołu', 'Робота своєї команди'), intro,
         ('Руководитель приглашает менеджеров и работников в их собственные аккаунты, назначает права и ответственных. Работник подтверждает приглашение. Данные ограничены своей организацией и назначенным доступом.',
          'The owner invites managers and workers into their own accounts and assigns permissions and contacts. The worker accepts the invitation. Access is limited to the organisation and assigned scope.',
@@ -146,15 +168,14 @@ setLanguage(lang);
             'Ta strona udostępnia wyłącznie JobHub Support. Przejdź na stronę główną.',
             'Тут доступний лише JobHub Support. Перейдіть на головну сторінку.'), '')
     if store_review:
-        import build_support_store_terms
-        build_support_store_terms.apply(OUT, commerce)
+        store_terms.apply(OUT, commerce)
         free_terms.apply(OUT, commerce)
     pages = sorted(p.name for p in OUT.glob('*.html') if p.name != '404.html')
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://jobhub.today/{"" if p=="index.html" else p}</loc></url>' for p in pages)+'</urlset>', encoding='utf-8')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
     (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; media-src \'self\' blob:; worker-src \'self\' blob:; connect-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n' + updates.media_headers(), encoding='utf-8')
-    manifest = {'edition': 'support-store-2026-10-31-v1' if store_review else EDITION,
+    manifest = {'edition': store_terms.EDITION if store_review else EDITION,
                 'free_terms_version': free_terms.EDITION if store_review else None,
                 'live_payments': False,
                 'publication_approved': bool(approved_store_edition and approved_free_edition) if store_review else True,
@@ -168,10 +189,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--store-review', action='store_true',
                         help='Build the unpublished Store terms edition into a separate preview directory')
-    parser.add_argument('--approved-store-edition', choices=('support-store-2026-10-31-v1',),
+    parser.add_argument('--approved-store-edition', choices=(store_terms.EDITION,),
                         help='Use only after the owner explicitly approves this exact merged edition for publication')
     parser.add_argument('--approved-free-edition', choices=(free_terms.EDITION,),
                         help='Use only after the owner explicitly approves these Free terms for publication')
+    parser.add_argument('--onboarding-origin', default=ONBOARDING_ORIGIN,
+                        help='Loopback origin for a separate local onboarding preview')
     args = parser.parse_args()
     main(store_review=args.store_review, approved_store_edition=args.approved_store_edition,
-         approved_free_edition=args.approved_free_edition)
+         approved_free_edition=args.approved_free_edition, onboarding_origin=args.onboarding_origin)

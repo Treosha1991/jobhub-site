@@ -1,7 +1,6 @@
 """Render the owner's four-language Support publication candidate.
 
-This generates static copy only. It does not publish, load Paddle.js or create
-a checkout. This candidate must be explicitly approved before publication.
+This generates static copy only. It does not publish or create a checkout.
 """
 from html import escape
 from pathlib import Path
@@ -24,10 +23,7 @@ NAV = [
 ]
 PUBLIC_NAV = []
 EDITION = 'support-only-web-2026-10-26-v1'
-NOTICE = ('Продажи подписок ещё не открыты. Страница описывает условия будущего подключения. Оплата недоступна.',
-          'Subscription sales have not opened. This page describes the terms for future activation. Payment is unavailable.',
-          'Sprzedaż subskrypcji nie została jeszcze uruchomiona. Strona opisuje warunki przyszłej aktywacji. Płatność jest niedostępna.',
-          'Продаж підписок ще не відкрито. Сторінка описує умови майбутнього підключення. Оплата недоступна.')
+PUBLIC_INDEXABLE = False
 IDENTITY = ('Поставщик ПО: Andrei Trakaila, физическое лицо без зарегистрированной фирмы, Польша. Почтовый адрес: Lawendowa 81A/8, 15-642 Bialystok, Poland.',
             'Software supplier: Andrei Trakaila, an individual without a registered company, Poland. Postal address: Lawendowa 81A/8, 15-642 Bialystok, Poland.',
             'Dostawca oprogramowania: Andrei Trakaila, osoba fizyczna bez zarejestrowanej firmy, Polska. Adres pocztowy: Lawendowa 81A/8, 15-642 Bialystok, Poland.',
@@ -44,22 +40,26 @@ def section(title, *paragraphs, anchor=None):
 
 
 def render(file, title, intro, content):
-    nav = ''.join(f'<a href="/{name}" data-nav>{tr(*label)}</a>' for name, label in PUBLIC_NAV + NAV)
+    links = []
+    for name, label in PUBLIC_NAV + NAV:
+        active = ' aria-current="page"' if name == file else ''
+        links.append(f'<a href="/{name}"{active} data-nav>{tr(*label)}</a>')
+    nav = ''.join(links)
     buttons = ''.join(f'<button type="button" class="lang-btn" data-set-lang="{lang}">{lang.upper()}</button>' for lang in LANGS)
+    robots = '' if PUBLIC_INDEXABLE and file != '404.html' else '<meta name="robots" content="noindex,nofollow">'
     source = f'''<!doctype html>
 <html lang="ru" data-lang="ru"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>{escape(title[0])} — JobHub Support</title>
+{robots}<title>{escape(title[0])} — JobHub Support</title>
 <link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/styles.css?v=20260217j">
-<link rel="stylesheet" href="/assets/support-commerce.css?v=20261029-download">
-<script defer src="/assets/support-site.js?v=20261026"></script>
+<link rel="stylesheet" href="/assets/support-commerce.css?v=20261105-catalog">
+<script defer src="/assets/support-site.js?v=20261105-catalog"></script>
 </head><body class="commerce-review">
 <a class="commerce-skip" href="#main">{tr('К содержанию', 'Skip to content', 'Przejdź do treści', 'До вмісту')}</a>
 <header class="site-header"><div class="wrap commerce-header"><a class="brand" href="/" data-nav>JobHub Support</a><div class="lang-inline">{buttons}</div></div>
 <nav class="wrap commerce-nav" aria-label="JobHub Support">{nav}</nav></header>
 <main id="main" class="wrap">
-<aside class="commerce-draft" role="note">{tr(*NOTICE)}</aside>
-<section class="hero"><span class="badge">JobHub Support</span><h1>{tr(*title)}</h1>{paragraph(intro)}</section>
+<section class="hero"><span class="badge">JobHub Support</span><h1>{tr(*title)}</h1>{paragraph(intro) if intro else ''}</section>
 {content}
 </main><footer class="wrap"><p>{tr(*IDENTITY)}</p><p><a href="mailto:admin@jobhub.today" data-no-lang>admin@jobhub.today</a></p><div class="commerce-footer">{nav}</div>
 <p><a href="/terms.html">{tr('Условия Support', 'Support terms', 'Warunki Support', 'Умови Support')}</a> · <a href="/contact.html">{tr('Поддержка', 'Contact support', 'Wsparcie', 'Підтримка')}</a> · <a href="/help.html">{tr('Помощь', 'Help', 'Pomoc', 'Допомога')}</a></p>
@@ -68,91 +68,99 @@ def render(file, title, intro, content):
     (ROOT / file).write_text(source, encoding='utf-8')
 
 
-def pricing():
-    cards = ''
-    for seats, price in ((20, 249), (50, 449), (100, 749)):
-        cards += f'''<article class="commerce-plan"><h2>Support {seats}</h2><p class="commerce-price">{price} <span>PLN</span></p>
-        <p>{tr('за календарный месяц, до применимых налогов', 'per calendar month, before applicable taxes', 'za miesiąc kalendarzowy, przed należnymi podatkami', 'за календарний місяць, до застосовних податків')}</p>
-        <p>{tr(f'До {seats} одновременно активных работников', f'Up to {seats} simultaneously active workers', f'Do {seats} jednocześnie aktywnych pracowników', f'До {seats} одночасно активних працівників')}</p>
-        <p class="commerce-status">{tr('Покупка пока недоступна', 'Purchasing is not available yet', 'Zakup nie jest jeszcze dostępny', 'Купівля поки недоступна')}</p></article>'''
-    content = '<div class="commerce-plans">' + cards + '</div>'
-    content += section(('Custom', 'Custom', 'Custom', 'Custom'),
-        ('Больше 100 работников или особые требования — отдельное предложение после оценки объёма. Цена, лимит и условия согласуются письменно до покупки; автоматической покупки Custom нет.',
-         'More than 100 workers or specific requirements: a separate proposal after assessing scope. Price, limit and terms are agreed in writing before purchase; Custom has no automatic checkout.',
-         'Ponad 100 pracowników lub szczególne wymagania: osobna oferta po ocenie zakresu. Cena, limit i warunki są uzgadniane pisemnie przed zakupem; Custom nie ma automatycznej płatności.',
-         'Понад 100 працівників або особливі вимоги — окрема пропозиція після оцінки обсягу. Ціну, ліміт та умови погоджують письмово до купівлі; автоматичної купівлі Custom немає.'))
-    features = [
-        ('Приглашения сотрудников и работников, роли и права доступа.', 'Staff and worker invitations, roles and access permissions.', 'Zaproszenia współpracowników i pracowników, role i uprawnienia.', 'Запрошення співробітників і працівників, ролі та права доступу.'),
-        ('Проекты, экипажи, график смен и проверка фактических часов.', 'Projects, crews, shift schedules and actual-hours review.', 'Projekty, załogi, grafiki zmian i sprawdzanie faktycznych godzin.', 'Проєкти, екіпажі, графік змін і перевірка фактичних годин.'),
-        ('Рабочие чаты, задачи, объявления и выгрузка часов в CSV.', 'Work chats, tasks, announcements and hours exported to CSV.', 'Czaty służbowe, zadania, ogłoszenia i eksport godzin do CSV.', 'Робочі чати, завдання, оголошення та експорт годин у CSV.'),
-        ('Учёт назначений транспорта и жилья. Покупка не включает сами транспорт или проживание.', 'Transport and housing assignment records. Transport and accommodation themselves are not included.', 'Ewidencja przydziałów transportu i zakwaterowania. Sam transport i noclegi nie są wliczone.', 'Облік призначень транспорту та житла. Самі транспорт і проживання не включені.'),
-    ]
-    content += '<section class="section-card"><h2>' + tr('В каждом пакете', 'In every package', 'W każdym pakiecie', 'У кожному пакеті') + '</h2><ul>' + ''.join('<li>'+tr(*f)+'</li>' for f in features) + '</ul></section>'
-    content += section(('Что считается местом', 'What counts as a seat', 'Co zajmuje miejsce', 'Що вважається місцем'),
-        ('Лимит относится к активным работникам одной фирмы. Архивный работник и ещё не принятое приглашение место не занимают. Для участия в фирме работнику не нужна дополнительная обязательная платная подписка.',
-         'The limit covers active workers in one organisation. Archived workers and invitations not yet accepted do not occupy seats. Workers do not need an additional mandatory paid subscription to participate.',
-         'Limit obejmuje aktywnych pracowników jednej organizacji. Pracownicy archiwalni i nieprzyjęte zaproszenia nie zajmują miejsc. Udział pracownika nie wymaga dodatkowej obowiązkowej płatnej subskrypcji.',
-         'Ліміт охоплює активних працівників однієї фірми. Архівний працівник і ще не прийняте запрошення місця не займають. Працівнику не потрібна додаткова обов’язкова платна підписка для участі.'))
-    content += section(('Оплата и изменение пакета', 'Billing and package changes', 'Płatności i zmiana pakietu', 'Оплата та зміна пакета'),
-        ('Планируется автоматическое продление каждый календарный месяц. Итоговая сумма с применимыми налогами, дата и период оплаты показываются до подтверждения покупки. Годового плана и платного пробного периода в этой редакции нет.',
-         'Automatic renewal is planned each calendar month. The total including applicable taxes, billing date and period are shown before purchase confirmation. This edition has no annual plan or paid trial.',
-         'Planowane jest automatyczne odnowienie co miesiąc kalendarzowy. Kwota z należnymi podatkami, termin i okres płatności będą widoczne przed potwierdzeniem zakupu. Ta wersja nie obejmuje planu rocznego ani płatnego okresu próbnego.',
-         'Планується автоматичне подовження кожного календарного місяця. Підсумкову суму з податками, дату й період оплати показують до підтвердження купівлі. Річного плану й платного пробного періоду в цій редакції немає.'),
-        ('Повышение пакета открывает новый лимит сразу без доплаты за остаток уже оплаченного периода; новая цена действует со следующего платежа. Снижение — со следующего периода, если число активных работников укладывается в новый лимит. Работники автоматически не удаляются.',
-         'An upgrade opens the higher limit immediately, without an extra charge for the rest of the paid period; the new price starts with the next payment. Downgrades take effect next period if active workers fit the new limit. Workers are not deleted automatically.',
-         'Wyższy pakiet zwiększa limit od razu, bez dopłaty za resztę opłaconego okresu; nowa cena obowiązuje od następnej płatności. Obniżenie działa od kolejnego okresu, jeśli liczba aktywnych pracowników mieści się w limicie. Pracownicy nie są automatycznie usuwani.',
-         'Підвищення пакета відкриває більший ліміт одразу без доплати за залишок оплаченого періоду; нова ціна діє з наступного платежу. Зниження — з наступного періоду, якщо активні працівники вміщаються в новий ліміт. Працівників автоматично не видаляють.'))
-    content += section(('Порядок подключения', 'How activation works', 'Jak przebiega aktywacja', 'Порядок підключення'),
-        ('Регистрация аккаунта → анкета и личная проверка заявки → принятие конкретной версии условий и необходимых договоров обработки данных → выбор пакета и оплата → серверная проверка оплаты → доступ к той же фирме. Сейчас доступны подготовка и демо; Live-продажи ещё не включены.',
-         'Register an account → submit an application for manual review → accept the specific terms edition and required data-processing agreements → choose a package and pay → server verification of payment → access to the same organisation. Preparation and demo are available now; Live sales are not enabled.',
-         'Rejestracja konta → formularz i ręczna weryfikacja zgłoszenia → akceptacja konkretnej wersji warunków i wymaganych umów powierzenia → wybór pakietu i płatność → weryfikacja płatności na serwerze → dostęp do tej samej organizacji. Obecnie dostępne są przygotowania i demo; sprzedaż Live nie jest włączona.',
-         'Реєстрація акаунта → анкета та особиста перевірка заявки → прийняття конкретної редакції умов і потрібних договорів обробки даних → вибір пакета й оплата → серверна перевірка платежу → доступ до тієї самої фірми. Зараз доступні підготовка й демо; Live-продажі ще не ввімкнені.'))
-    content += section(('Границы покупки', 'Purchase scope', 'Zakres zakupu', 'Межі купівлі'),
-        ('Подписка оплачивает самостоятельное ПО JobHub Support для управления своей командой. В выпуске Support нет доски вакансий, поиска работы, рекламы, продажи контактов, кредитов или переводов денег. Обычный JobHub не предлагается на этом сайте и сохраняется как отдельный локальный проект.',
-         'The subscription pays for independent JobHub Support software to manage your own team. The Support release has no job board, job search, advertising, contact sales, credits or money transfers. Ordinary JobHub is not offered on this site and is retained as a separate local project.',
-         'Subskrypcja opłaca samodzielne oprogramowanie JobHub Support do zarządzania własnym zespołem. Wydanie Support nie zawiera tablicy ofert pracy, szukania pracy, reklam, sprzedaży kontaktów, kredytów ani transferów pieniędzy. Zwykły JobHub nie jest oferowany na tej stronie i pozostaje osobnym projektem lokalnym.',
-         'Підписка оплачує самостійне ПЗ JobHub Support для керування власною командою. Випуск Support не містить дошки вакансій, пошуку роботи, реклами, продажу контактів, кредитів чи грошових переказів. Звичайний JobHub не пропонується на цьому сайті й зберігається як окремий локальний проєкт.'))
-    content += '<section class="section-card"><h2>' + tr('Попробовать без оплаты', 'Try without paying', 'Wypróbuj bez opłaty', 'Спробувати без оплати') + '</h2><p><a class="btn btn-primary" href="https://jobhub.today/demo" data-no-lang>' + tr('Открыть демо', 'Open demo', 'Otwórz demo', 'Відкрити демо') + '</a> <a class="btn btn-secondary" href="mailto:admin@jobhub.today" data-no-lang>' + tr('Задать вопрос', 'Ask a question', 'Zadaj pytanie', 'Поставити запитання') + '</a></p><p>' + tr('Демо использует вымышленные данные и не создаёт покупку.', 'The demo uses fictional data and does not create a purchase.', 'Demo korzysta z fikcyjnych danych i nie tworzy zakupu.', 'Демо використовує вигадані дані й не створює купівлю.') + '</p></section>'
-    render(NAV[0][0], ('Пакеты JobHub Support', 'JobHub Support packages', 'Pakiety JobHub Support', 'Пакети JobHub Support'),
-           ('Один рабочий кабинет. Выберите лимит своей команды.', 'One workspace. Choose your team limit.', 'Jedna przestrzeń robocza. Wybierz limit zespołu.', 'Один робочий кабінет. Виберіть ліміт своєї команди.'), content)
+def pricing(onboarding_origin):
+    def action(path, label, *, primary=False):
+        href = escape(f"{onboarding_origin}{path}&lang=ru", quote=True)
+        css = 'btn btn-primary' if primary else 'btn btn-secondary'
+        return f'<a class="{css}" href="{href}" data-onboarding-link>{label}<span aria-hidden="true">→</span></a>'
+
+    title = ('Тарифы Support', 'Support plans', 'Pakiety Support', 'Тарифи Support')
+    free_label = tr('Бесплатно для работодателя', 'Free for employers',
+                    'Bezpłatnie dla pracodawcy', 'Безкоштовно для роботодавця')
+    free_intro = paragraph((
+        'Вы управляете фирмой бесплатно. Каждый работник оплачивает личную подписку, чтобы подключить свой аккаунт к фирме.',
+        'Manage your company for free. Each worker pays for a personal subscription to connect their account to your company.',
+        'Zarządzaj firmą bez opłat. Każdy pracownik opłaca subskrypcję osobistą, aby połączyć swoje konto z firmą.',
+        'Керуйте фірмою безкоштовно. Кожен працівник оплачує особисту підписку, щоб підключити свій акаунт до фірми.'))
+    worker_price = paragraph((
+        'Ориентир для работника — 8,72 € в месяц без учёта налогов. Итоговую цену магазин покажет перед покупкой. Первый месяц бесплатный, если магазин предложит пробный период. Затем подписка продлевается автоматически до отмены в магазине.',
+        'Estimated worker price: €8.72 per month before tax. The store shows the final price before purchase. The first month is free if the store offers a trial. The subscription then renews automatically until cancelled in the store.',
+        'Orientacyjna cena dla pracownika to 8,72 € miesięcznie bez podatków. Sklep pokaże ostateczną cenę przed zakupem. Pierwszy miesiąc jest bezpłatny, jeśli sklep oferuje okres próbny. Subskrypcja odnawia się automatycznie do anulowania w sklepie.',
+        'Орієнтовна ціна для працівника — 8,72 € на місяць без урахування податків. Магазин покаже остаточну ціну перед купівлею. Перший місяць безкоштовний, якщо магазин запропонує пробний період. Далі підписка поновлюється автоматично до скасування в магазині.'))
+    free_button = action('/employer/connect-company/?package=free',
+        tr('Подключить Free', 'Get started with Free', 'Wybierz Free', 'Підключити Free'), primary=True)
+    free_card = (f'<section id="free" class="section-card catalog-free" aria-labelledby="free-title">'
+                 f'<h2 id="free-title">Free</h2><p class="catalog-free-price">{free_label}</p>'
+                 f'<div class="catalog-free-copy">{free_intro}{worker_price}</div>{free_button}</section>')
+
+    # Store catalogue estimates excluding Polish VAT, rounded at the 5 Nov 2026 NBP rate.
+    cards = []
+    for seats, price in ((20, 46), (50, 83), (100, 139)):
+        capacity = paragraph((f'До {seats} одновременно активных работников',
+            f'Up to {seats} concurrently active workers', f'Do {seats} jednocześnie aktywnych pracowników',
+            f'До {seats} одночасно активних працівників'))
+        amount = tr(f'{price} € в месяц', f'€{price} per month',
+                    f'{price} € miesięcznie', f'{price} € на місяць')
+        coverage = paragraph(('Работодатель оплачивает пакет. Личный доступ работников включён.',
+            'The employer pays for the plan. Personal access for workers is included.',
+            'Pracodawca opłaca pakiet. Osobisty dostęp pracowników jest w cenie.',
+            'Роботодавець оплачує пакет. Особистий доступ працівників включено.'))
+        choose = tr(f'Выбрать Support {seats}', f'Choose Support {seats}',
+                    f'Wybierz Support {seats}', f'Обрати Support {seats}')
+        cards.append(f'<article class="commerce-plan"><h3>Support {seats}</h3>{capacity}'
+                     f'<p class="commerce-price">{amount}</p>{coverage}'
+                     f'{action(f"/employer/plans/?package={seats}", choose)}</article>')
+
+    paid_title = tr('Платные тарифы для компании', 'Paid plans for companies',
+                    'Płatne pakiety dla firm', 'Платні тарифи для компанії')
+    paid_intro = paragraph((
+        'Оформите пакет в App Store или Google Play. Подписка привязана к вашему аккаунту JobHub Support и действует на всех устройствах.',
+        'Subscribe through the App Store or Google Play. The plan is linked to your JobHub Support account and works on all your devices.',
+        'Kup pakiet w App Store lub Google Play. Subskrypcja jest przypisana do konta JobHub Support i działa na wszystkich Twoich urządzeniach.',
+        'Оформіть пакет в App Store або Google Play. Підписка прив’язана до вашого акаунта JobHub Support і діє на всіх пристроях.'))
+    price_note = paragraph((
+        'Ориентировочные цены в евро без учёта налогов. Итоговую цену в местной валюте с применимыми налогами магазин покажет перед покупкой.',
+        'Estimated prices in euros before tax. Your store shows the final price in your local currency, including applicable taxes, before purchase.',
+        'Orientacyjne ceny w euro bez podatków. Przed zakupem sklep pokaże ostateczną cenę w lokalnej walucie z uwzględnieniem należnych podatków.',
+        'Орієнтовні ціни в євро без урахування податків. Остаточну ціну в місцевій валюті з відповідними податками магазин покаже перед купівлею.'))
+    paid = (f'<section id="paid-plans" class="catalog-paid" aria-labelledby="paid-title">'
+            f'<h2 id="paid-title">{paid_title}</h2>{paid_intro}'
+            f'<div id="store-prices" class="commerce-plans">{"".join(cards)}</div>{price_note}</section>')
+    render('support-pricing.html', title, None, free_card + paid)
 
 
 def terms():
     rows = [
       (('1. Поставщик и предмет', '1. Supplier and scope', '1. Dostawca i zakres', '1. Постачальник і предмет'), IDENTITY,
-       ('Условия относятся только к будущей платной подписке Support. Это доступ к ПО для внутренних операций своей организации, в пределах пакета и назначенных прав. Тарифы и исключения покупки приведены на странице пакетов.',
-        'These terms cover only the future paid Support subscription: access to software for your own organisation’s internal operations, within package limits and assigned permissions. Packages and purchase exclusions are listed on the pricing page.',
-        'Warunki dotyczą wyłącznie przyszłej płatnej subskrypcji Support: dostępu do oprogramowania do wewnętrznych działań własnej organizacji, w granicach pakietu i uprawnień. Pakiety i wyłączenia opisuje cennik.',
-        'Умови стосуються лише майбутньої платної підписки Support: доступу до ПЗ для внутрішніх операцій своєї організації в межах пакета та прав. Тарифи й винятки наведено на сторінці пакетів.')),
+       ('Платная подписка Support предоставляет доступ к ПО для внутренних операций вашей организации в пределах пакета и назначенных прав. Пакеты описаны на странице тарифов.',
+        'A paid Support subscription provides software for your organisation’s internal operations within your plan limits and assigned permissions. See the pricing page for available plans.',
+        'Płatna subskrypcja Support zapewnia dostęp do oprogramowania do wewnętrznych działań organizacji w ramach pakietu i nadanych uprawnień. Pakiety opisuje cennik.',
+        'Платна підписка Support надає доступ до ПЗ для внутрішніх операцій вашої організації в межах пакета та призначених прав. Пакети описано на сторінці тарифів.')),
       (('2. Анкета и договор', '2. Application and agreement', '2. Zgłoszenie i umowa', '2. Анкета та договір'),
        ('Заявитель предоставляет достоверные контактные сведения и подтверждает полномочия действовать для организации. Ручное одобрение анкеты само по себе не означает оплату или активную подписку. До покупки показываются версия условий, пакет, сумма, налоги и автопродление; согласие фиксируется отдельно.',
         'Applicants provide accurate contact details and confirm authority to act for the organisation. Manual application approval alone is not payment or an active subscription. The terms edition, package, amount, taxes and renewal are shown before purchase; acceptance is recorded separately.',
         'Wnioskodawca podaje prawdziwe dane kontaktowe i potwierdza umocowanie do działania dla organizacji. Ręczna akceptacja zgłoszenia nie oznacza płatności ani aktywnej subskrypcji. Przed zakupem widoczne są wersja warunków, pakiet, kwota, podatki i odnowienie; zgoda jest rejestrowana osobno.',
         'Заявник надає достовірні контакти й підтверджує повноваження діяти для організації. Схвалення анкети саме по собі не означає оплати чи активної підписки. До купівлі показують редакцію умов, пакет, суму, податки й автоподовження; згоду фіксують окремо.')),
       (('3. Платёж и период', '3. Payment and period', '3. Płatność i okres', '3. Платіж і період'),
-       ('Для будущих покупок через Paddle применяются также условия покупателя Paddle, показанные при оплате; Paddle выступает уполномоченным перепродавцом и обрабатывает платёж. Доступ начинается после подтверждения успешной оплаты сервером. Период — календарный месяц по датам покупки, а не фиксированные 30 дней.',
-        'Future Paddle purchases also use the Paddle buyer terms shown at checkout; Paddle acts as authorised reseller and processes payment. Access starts after the server confirms successful payment. The period is a calendar month based on the purchase dates, not a fixed 30 days.',
-        'Przyszłe zakupy przez Paddle podlegają również warunkom kupującego Paddle widocznym przy płatności; Paddle działa jako upoważniony odsprzedawca i obsługuje płatność. Dostęp rozpoczyna się po potwierdzeniu płatności przez serwer. Okres to miesiąc kalendarzowy według dat zakupu, nie stałe 30 dni.',
-        'Майбутні покупки через Paddle також регулюють умови покупця Paddle, показані під час оплати; Paddle є уповноваженим перепродавцем і обробляє платіж. Доступ починається після серверного підтвердження успішної оплати. Період — календарний місяць за датами купівлі, а не фіксовані 30 днів.')),
-      (('4. Продление и отмена', '4. Renewal and cancellation', '4. Odnowienie i anulowanie', '4. Подовження та скасування'),
-       ('Подписка продлевается автоматически, пока не отменена. Отмена будущего продления в кабинете Paddle или через paddle.net сохраняет доступ до конца оплаченного периода и не означает автоматического возврата. Дата следующего списания и статус отмены показываются в управлении подпиской.',
-        'The subscription renews automatically until cancelled. Cancelling future renewal through the Paddle portal or paddle.net preserves access until the paid period ends and does not automatically refund a payment. Subscription management shows the next billing date and cancellation status.',
-        'Subskrypcja odnawia się automatycznie do anulowania. Anulowanie przyszłego odnowienia w portalu Paddle lub przez paddle.net zachowuje dostęp do końca opłaconego okresu i nie oznacza automatycznego zwrotu. Panel subskrypcji pokazuje termin płatności i status anulowania.',
-        'Підписка подовжується автоматично до скасування. Скасування майбутнього подовження в кабінеті Paddle або через paddle.net зберігає доступ до кінця оплаченого періоду й не означає автоматичного повернення коштів. Керування підпискою показує наступну дату платежу та статус скасування.')),
+       ('Платная подписка оформляется в App Store или Google Play. Перед покупкой магазин показывает итоговую цену и период. Доступ открывается после подтверждения покупки.',
+        'Subscribe through the App Store or Google Play. The store shows the final price and billing period before purchase. Access starts once the purchase is verified.',
+        'Subskrypcję kupisz w App Store lub Google Play. Przed zakupem sklep pokazuje ostateczną cenę i okres rozliczeniowy. Dostęp otwiera się po weryfikacji zakupu.',
+        'Платну підписку оформлюють в App Store або Google Play. Перед купівлею магазин показує остаточну ціну та період оплати. Доступ відкривається після підтвердження купівлі.')),
+      (('4. Продление и отмена', '4. Renewal and cancellation', '4. Odnowienie i anulowanie', '4. Поновлення та скасування'),
+       ('Подписка продлевается автоматически до отмены. Отключить продление можно в магазине, где оформлена подписка.',
+        'The subscription renews automatically until cancelled. Turn off renewal in the store where you subscribed.',
+        'Subskrypcja odnawia się automatycznie do anulowania. Odnowienie wyłączysz w sklepie, w którym wykupiono subskrypcję.',
+        'Підписка поновлюється автоматично до скасування. Вимкнути поновлення можна в магазині, де оформлено підписку.')),
       (('5. Изменение пакета', '5. Changing package', '5. Zmiana pakietu', '5. Зміна пакета'),
-       ('Повышение действует сразу без доплаты за остаток оплаченного периода, новая месячная цена — со следующего платежа. Снижение действует со следующего периода при достаточном лимите. Если работников больше нового лимита, сначала уменьшите число активных работников или выберите другой пакет; автоматического удаления людей нет.',
-        'Upgrades apply immediately without an extra charge for the remaining paid period; the new monthly price starts next payment. Downgrades apply next period if capacity is sufficient. If workers exceed the new limit, first reduce active workers or choose another package; people are not automatically deleted.',
-        'Podwyższenie działa od razu bez dopłaty za resztę opłaconego okresu; nowa cena miesięczna obowiązuje od następnej płatności. Obniżenie działa od kolejnego okresu przy wystarczającym limicie. Gdy pracowników jest zbyt wielu, najpierw zmniejsz liczbę aktywnych lub wybierz inny pakiet; nikt nie jest automatycznie usuwany.',
-        'Підвищення діє одразу без доплати за залишок оплаченого періоду, нова місячна ціна — з наступного платежу. Зниження діє з наступного періоду за достатнього ліміту. Якщо працівників забагато, спочатку зменште кількість активних або виберіть інший пакет; автоматичного видалення людей немає.'),
-       ('При запланированном снижении новые активации ограничиваются будущим пакетом. Смена пакета доступна для действующей подписки без задолженности и запланированной отмены. Итог изменения показывается до подтверждения.',
-        'When a downgrade is scheduled, new activations are capped by the future package. Package changes require an active subscription with no overdue payment or scheduled cancellation. The change is shown before confirmation.',
-        'Przy zaplanowanym obniżeniu nowe aktywacje ogranicza przyszły pakiet. Zmiana wymaga aktywnej subskrypcji bez zaległości i zaplanowanego anulowania. Wynik zmiany jest widoczny przed potwierdzeniem.',
-        'За запланованого зниження нові активації обмежує майбутній пакет. Зміна доступна для чинної підписки без заборгованості й запланованого скасування. Результат показують до підтвердження.')),
+       ('Магазин показывает цену и дату вступления изменений в силу до подтверждения смены пакета.',
+        'The store shows the price and effective date before you confirm a plan change.',
+        'Przed potwierdzeniem zmiany pakietu sklep pokazuje cenę i datę wejścia zmiany w życie.',
+        'Магазин показує ціну та дату набрання зміною чинності до підтвердження зміни пакета.')),
       (('6. Неудачная оплата', '6. Failed payment', '6. Nieudana płatność', '6. Невдала оплата'),
-       ('Неудачная оплата не продлевает доступ. До конца уже оплаченного периода действует прежний доступ, затем рабочие операции закрываются. Обновите способ оплаты и оплатите задолженность в Paddle. После серверного подтверждения доступ восстанавливается для той же фирмы; повторная фирма автоматически не создаётся.',
-        'A failed payment does not extend access. Existing paid access lasts to its end; workspace operations then close. Update the payment method and pay the outstanding amount in Paddle. Server confirmation restores access to the same organisation; another organisation is not automatically created.',
-        'Nieudana płatność nie przedłuża dostępu. Opłacony dostęp trwa do końca okresu; potem działania robocze są blokowane. Zaktualizuj metodę płatności i opłać zaległość w Paddle. Po potwierdzeniu przez serwer wraca dostęp do tej samej organizacji; nowa organizacja nie powstaje automatycznie.',
-        'Невдала оплата не подовжує доступ. Попередній оплачений доступ діє до завершення періоду, потім робочі операції закриваються. Оновіть спосіб оплати й погасіть заборгованість у Paddle. Після серверного підтвердження відновлюється та сама фірма; нова автоматично не створюється.')),
+       ('Если платёж не прошёл, проверьте подписку и способ оплаты в том же магазине.',
+        'If a payment fails, check your subscription and payment method in the same store.',
+        'Jeśli płatność się nie powiodła, sprawdź subskrypcję i metodę płatności w tym samym sklepie.',
+        'Якщо платіж не пройшов, перевірте підписку та спосіб оплати в тому самому магазині.')),
       (('7. Рабочие данные и допустимое использование', '7. Work data and permitted use', '7. Dane służbowe i dozwolone użycie', '7. Робочі дані та дозволене використання'),
        ('Организация отвечает за законное основание внесения сведений о работниках, свои инструкции, достоверность часов и своевременный отзыв прав. Псевдоним не гарантирует анонимность. Запрещены чужие данные без основания, незаконный контент, обход доступа и передача кадровых документов через обычный чат.',
         'The organisation is responsible for lawful grounds for worker data, its instructions, accurate hours and timely access revocation. A nickname does not guarantee anonymity. Unauthorised third-party data, unlawful content, access bypass and personnel documents sent through ordinary chat are prohibited.',
@@ -169,10 +177,10 @@ def terms():
         'Pytania i reklamacje: admin@jobhub.today. Podaj konto, organizację i opis problemu; nie wysyłaj hasła ani pełnych danych karty. Nie oferujemy gwarancji wsparcia całodobowego, nieprzerwanego działania, zatrudnienia, wynagrodzenia ani prawnej poprawności decyzji kadrowych. Zmiany cen i istotnych warunków są komunikowane wcześniej; opłacony okres nie jest przeliczany wstecz.',
         'Питання й претензії: admin@jobhub.today. Укажіть акаунт, фірму та проблему; не надсилайте пароль чи повні реквізити картки. Немає гарантій цілодобової підтримки, безперервності, працевлаштування, зарплати чи юридичної правильності кадрових рішень. Про зміни ціни та істотних умов повідомляють заздалегідь; оплачений період не перераховують заднім числом.')),
       (('10. Возвраты и обязательные права', '10. Refunds and mandatory rights', '10. Zwroty i prawa bezwzględnie obowiązujące', '10. Повернення та обов’язкові права'),
-       ('Порядок отмены и обращения за возвратом приведён на отдельной странице. Эти условия не исключают обязательные права покупателя и ответственность, которую нельзя исключить законом. Они не подменяют условия покупателя Paddle и не меняют прежние покупки Apple/Google.',
-        'Cancellation and refund requests are explained on the separate page. These terms do not exclude mandatory buyer rights or liability that law does not allow to be excluded. They do not replace Paddle buyer terms or alter previous Apple/Google purchases.',
-        'Zasady anulowania i wniosków o zwrot opisuje osobna strona. Warunki nie wyłączają bezwzględnie obowiązujących praw kupującego ani odpowiedzialności, której nie można wyłączyć prawem. Nie zastępują warunków kupującego Paddle i nie zmieniają wcześniejszych zakupów Apple/Google.',
-        'Порядок скасування та звернення по повернення описано на окремій сторінці. Умови не виключають обов’язкових прав покупця й відповідальності, яку не можна виключити законом. Вони не замінюють умов покупця Paddle і не змінюють попередніх покупок Apple/Google.')),
+       ('Порядок отмены и обращения за возвратом приведён на отдельной странице. Эти условия не исключают обязательные права покупателя и ответственность, которую нельзя исключить законом.',
+        'Cancellation and refund requests are explained on the separate page. These terms do not exclude mandatory buyer rights or liability that law does not allow to be excluded.',
+        'Zasady anulowania i wniosków o zwrot opisuje osobna strona. Warunki nie wyłączają bezwzględnie obowiązujących praw kupującego ani odpowiedzialności, której nie można wyłączyć prawem.',
+        'Порядок скасування та звернення по повернення описано на окремій сторінці. Умови не виключають обов’язкових прав покупця й відповідальності, яку не можна виключити законом.')),
     ]
     rows += [
       (('11. Право использования и ваши данные', '11. Right of use and your data', '11. Prawo korzystania i Twoje dane', '11. Право використання та ваші дані'),
@@ -185,46 +193,45 @@ def terms():
         'Access may be restricted to a necessary and proportionate extent for material breach, unlawful use or a security threat. Where permitted, we explain the reason and opportunity to remedy it. Statutory refund and data-retrieval rights remain. Material terms changes and price increases for an existing subscription are communicated before applying; buyers may cancel renewal, and any legally required consent is requested separately.',
         'Dostęp może być ograniczony w niezbędnym i proporcjonalnym zakresie przy istotnym naruszeniu, nielegalnym użyciu lub zagrożeniu bezpieczeństwa. Gdy jest to dopuszczalne, wyjaśniamy powód i możliwość naprawy. Prawa do ustawowego zwrotu i otrzymania danych pozostają. Istotne zmiany warunków i podwyżki są komunikowane przed zastosowaniem; można anulować odnowienie, a zgoda wymagana prawem jest pozyskiwana osobno.',
         'Доступ може бути обмежено в потрібному й пропорційному обсязі за істотного порушення умов, незаконного використання чи загрози безпеці. Коли дозволено, повідомляємо причину й можливість виправлення. Законні права на повернення та отримання даних зберігаються. Про істотні зміни й підвищення ціни повідомляють до застосування; покупець може скасувати подовження, а потрібну законом згоду запитують окремо.'),
-       ('К отношениям с поставщиком ПО применяется право Польши с сохранением обязательной защиты, которую предоставляет применимое право покупателя. Обязательные правила о компетентном суде не ограничиваются. Платёжный договор Paddle регулируется его собственными условиями. Эта редакция применяется только к новым подпискам Support после отдельного принятия до покупки; она не изменяет старые покупки и бесплатный демо-показ.',
-        'Polish law governs the software-supplier relationship without removing mandatory protection under the buyer’s applicable law. Mandatory jurisdiction rules are unaffected. Paddle’s payment contract follows its own terms. This edition applies only to new Support subscriptions after separate pre-purchase acceptance; it does not alter previous purchases or the free demo.',
-        'Relację z dostawcą oprogramowania reguluje prawo polskie z zachowaniem obowiązkowej ochrony wynikającej z prawa właściwego kupującego. Bezwzględnie obowiązujące zasady właściwości sądu pozostają. Umowa płatnicza Paddle podlega jego warunkom. Wersja dotyczy tylko nowych subskrypcji Support po osobnej akceptacji przed zakupem; nie zmienia wcześniejszych zakupów ani bezpłatnego demo.',
-        'Відносини з постачальником ПЗ регулює право Польщі зі збереженням обов’язкового захисту за застосовним правом покупця. Обов’язкові правила підсудності не обмежуються. Платіжний договір Paddle має власні умови. Редакція діє лише для нових підписок Support після окремого прийняття до купівлі; старі покупки та безкоштовне демо не змінюються.')),
+       ('К отношениям с поставщиком ПО применяется право Польши с сохранением обязательной защиты, которую предоставляет применимое право покупателя. Обязательные правила о компетентном суде не ограничиваются. Эта редакция применяется только к новым подпискам Support после отдельного принятия до покупки; она не изменяет старые покупки и бесплатный демо-показ.',
+        'Polish law governs the software-supplier relationship without removing mandatory protection under the buyer’s applicable law. Mandatory jurisdiction rules are unaffected. This edition applies only to new Support subscriptions after separate pre-purchase acceptance; it does not alter previous purchases or the free demo.',
+        'Relację z dostawcą oprogramowania reguluje prawo polskie z zachowaniem obowiązkowej ochrony wynikającej z prawa właściwego kupującego. Bezwzględnie obowiązujące zasady właściwości sądu pozostają. Wersja dotyczy tylko nowych subskrypcji Support po osobnej akceptacji przed zakupem; nie zmienia wcześniejszych zakupów ani bezpłatnego demo.',
+        'Відносини з постачальником ПЗ регулює право Польщі зі збереженням обов’язкового захисту за застосовним правом покупця. Обов’язкові правила підсудності не обмежуються. Редакція діє лише для нових підписок Support після окремого прийняття до купівлі; старі покупки та безкоштовне демо не змінюються.')),
     ]
-    render(NAV[1][0], NAV[1][1], ('Редакция от 25 октября 2026 года для отдельной подписки Support. Применяется после отдельного принятия до покупки. Продажи ещё не открыты.', 'Edition dated 25 October 2026 for the separate Support subscription. Applies after separate pre-purchase acceptance. Sales have not opened.', 'Wersja z 25 października 2026 r. dla osobnej subskrypcji Support. Obowiązuje po osobnej akceptacji przed zakupem. Sprzedaż nie jest jeszcze uruchomiona.', 'Редакція від 25 жовтня 2026 року для окремої підписки Support. Застосовується після окремого прийняття до купівлі. Продажі ще не відкрито.'), ''.join(section(*row) for row in rows))
+    render(NAV[1][0], NAV[1][1], (
+        'Правила подключения, продления и управления доступом JobHub Support.',
+        'Rules for activation, renewal and access management in JobHub Support.',
+        'Zasady aktywacji, odnawiania i zarządzania dostępem w JobHub Support.',
+        'Правила підключення, поновлення й керування доступом JobHub Support.',
+    ), ''.join(section(*row) for row in rows))
 
 
 def refunds():
-    content = section(('Отмена — это остановка будущих списаний', 'Cancellation stops future charges', 'Anulowanie zatrzymuje przyszłe opłaty', 'Скасування зупиняє майбутні списання'),
-        ('Будущую подписку Paddle можно отменить в кабинете по ссылке из платёжного письма или через paddle.net. Отмена продления сохраняет доступ до конца оплаченного периода. Она не является запросом возврата уже оплаченной суммы.',
-         'A future Paddle subscription can be cancelled through the portal linked in your payment email or via paddle.net. Cancelling renewal preserves access until the paid period ends. It is not a request to refund an amount already paid.',
-         'Przyszłą subskrypcję Paddle można anulować w portalu z linku w e-mailu płatniczym lub przez paddle.net. Anulowanie odnowienia zachowuje dostęp do końca opłaconego okresu. Nie jest wnioskiem o zwrot wpłaconej kwoty.',
-         'Майбутню підписку Paddle можна скасувати в кабінеті за посиланням із платіжного листа або через paddle.net. Скасування подовження зберігає доступ до кінця оплаченого періоду. Воно не є запитом повернення вже сплаченої суми.'))
-    content += section(('Как запросить возврат', 'How to request a refund', 'Jak poprosić o zwrot', 'Як запросити повернення'),
-        ('Для покупки Paddle откройте paddle.net или ссылку поддержки в квитанции. Можно также написать admin@jobhub.today для помощи. Укажите email покупки, ID транзакции, дату, сумму и причину. Не передавайте пароль, CVV, полный номер карты или документы работников.',
-         'For a Paddle purchase, open paddle.net or the support link in your receipt. You may also contact admin@jobhub.today for help. Include purchase email, transaction ID, date, amount and reason. Do not send passwords, CVV, full card numbers or worker documents.',
-         'Dla zakupu Paddle otwórz paddle.net lub link wsparcia w potwierdzeniu. Możesz też napisać na admin@jobhub.today po pomoc. Podaj e-mail zakupu, ID transakcji, datę, kwotę i powód. Nie przesyłaj haseł, CVV, pełnego numeru karty ani dokumentów pracowników.',
-         'Для покупки Paddle відкрийте paddle.net або посилання підтримки у квитанції. Також можна звернутися до admin@jobhub.today по допомогу. Укажіть email купівлі, ID транзакції, дату, суму й причину. Не надсилайте пароль, CVV, повний номер картки чи документи працівників.'))
-    content += section(('Условия рассмотрения', 'How requests are assessed', 'Jak rozpatrywane są wnioski', 'Умови розгляду'),
-        ('Применяются политика возвратов и условия покупателя Paddle, а также обязательные права покупателя. Мы не обещаем безусловный возврат для любой причины и не вводим правило «возвратов нет». Ошибочные/повторные списания, несоответствие продукта и другие претензии рассматриваются по обстоятельствам.',
-         'Paddle’s refund policy and buyer terms apply alongside mandatory buyer rights. We do not promise an unconditional refund for every reason or impose a blanket no-refunds rule. Mistaken/duplicate charges, product non-conformity and other complaints are assessed on their circumstances.',
-         'Obowiązują polityka zwrotów i warunki kupującego Paddle oraz bezwzględnie obowiązujące prawa. Nie obiecujemy bezwarunkowego zwrotu z dowolnego powodu ani nie wprowadzamy zasady „brak zwrotów”. Błędne/podwójne opłaty, niezgodność produktu i inne reklamacje są oceniane indywidualnie.',
-         'Застосовуються політика повернень і умови покупця Paddle та обов’язкові права покупця. Ми не обіцяємо безумовного повернення з будь-якої причини й не запроваджуємо правила «повернень немає». Помилкові/повторні платежі, невідповідність продукту та інші претензії розглядають за обставинами.'))
-    content += section(('Обязательные права', 'Mandatory rights', 'Prawa bezwzględnie obowiązujące', 'Обов’язкові права'),
-        ('Если закон предоставляет право отказаться от договора или потребовать возврат, оно сохраняется. Для некоторых потребительских цифровых договоров в ЕС/ЕЭЗ действует 14-дневное право отказа с предусмотренными законом условиями и исключениями. Начало использования само по себе не означает отказа от прав; B2B-покупка не автоматически даёт все потребительские права.',
-         'Any statutory withdrawal or refund right remains available. Some consumer digital contracts in the EU/EEA carry a 14-day withdrawal right subject to legal conditions and exceptions. Starting use alone does not waive rights; a B2B purchase does not automatically carry every consumer right.',
-         'Ustawowe prawo odstąpienia lub zwrotu pozostaje zachowane. Niektóre konsumenckie umowy cyfrowe w UE/EOG obejmuje 14-dniowe prawo odstąpienia z ustawowymi warunkami i wyjątkami. Samo rozpoczęcie używania nie oznacza zrzeczenia praw; zakup B2B nie daje automatycznie wszystkich praw konsumenta.',
-         'Законне право відмовитися від договору чи вимагати повернення зберігається. Деякі споживчі цифрові договори в ЄС/ЄЕЗ мають 14-денне право відмови за законних умов і винятків. Сам початок використання не означає відмови від прав; B2B-купівля не надає автоматично всіх споживчих прав.'),
-        ('Если закон распространяет потребительскую защиту на конкретного индивидуального предпринимателя, такая защита сохраняется. Для доступного права отказа можно использовать соответствующее действие в кабинете Paddle или написать: «Отказываюсь от договора подписки JobHub Support», указав email покупки, транзакцию и дату. Этот образец необязателен и не исключает другие законные способы обращения.',
-         'Where law extends consumer protection to a particular sole trader, that protection remains. To exercise an available withdrawal right, use the relevant Paddle portal action or write: “I withdraw from the JobHub Support subscription contract”, with purchase email, transaction and date. This optional example does not exclude other lawful request methods.',
-         'Jeżeli prawo obejmuje konkretnego przedsiębiorcę ochroną konsumencką, pozostaje ona zachowana. Aby wykonać przysługujące prawo odstąpienia, użyj odpowiedniej funkcji portalu Paddle lub napisz: „Odstępuję od umowy subskrypcji JobHub Support”, podając e-mail zakupu, transakcję i datę. Wzór jest dobrowolny i nie wyłącza innych prawnie dopuszczalnych sposobów.',
-         'Якщо закон поширює споживчий захист на конкретного підприємця, цей захист зберігається. Для доступного права відмови скористайтеся відповідною дією в кабінеті Paddle або напишіть: «Відмовляюся від договору підписки JobHub Support», зазначивши email купівлі, транзакцію й дату. Зразок необов’язковий і не виключає інших законних способів звернення.'))
-    content += section(('После решения о возврате', 'After a refund decision', 'Po decyzji o zwrocie', 'Після рішення про повернення'),
-        ('Полный возврат соответствующего платежа прекращает доступ по этому платежу после серверного подтверждения. Частичный возврат сам по себе не закрывает оплаченный период. Срок и способ зачисления зависят от правил Paddle, платёжного метода и обязательного закона. Удаление рабочих данных — отдельный процесс, не автоматический результат возврата.',
-         'A full refund ends access funded by that payment after server confirmation. A partial refund alone does not close the paid period. Timing and repayment method depend on Paddle rules, the payment method and mandatory law. Work-data deletion is a separate process, not an automatic result of a refund.',
-         'Pełny zwrot kończy dostęp finansowany tą płatnością po potwierdzeniu przez serwer. Sam częściowy zwrot nie zamyka opłaconego okresu. Termin i metoda zwrotu zależą od zasad Paddle, metody płatności i prawa. Usunięcie danych służbowych jest odrębne, nie następuje automatycznie po zwrocie.',
-         'Повне повернення припиняє доступ за відповідним платежем після серверного підтвердження. Саме часткове повернення не закриває оплачений період. Строк і спосіб зарахування залежать від правил Paddle, способу оплати й закону. Видалення робочих даних — окремий процес, не автоматичний наслідок повернення.'))
-    content += '<section class="section-card"><h2>' + tr('Официальные правила и помощь', 'Official rules and help', 'Oficjalne zasady i pomoc', 'Офіційні правила й допомога') + '</h2><p><a href="https://www.paddle.com/legal/refund-policy" data-no-lang>Paddle Refund Policy</a> · <a href="https://www.paddle.com/legal/buyer-terms" data-no-lang>Paddle Buyer Terms</a> · <a href="https://paddle.net" data-no-lang>Paddle.net</a></p></section>'
-    render(NAV[2][0], NAV[2][1], ('Для будущих подписок JobHub Support, оплаченных через Paddle. Покупки Apple/Google регулируются правилами соответствующего магазина.', 'For future JobHub Support subscriptions paid through Paddle. Apple/Google purchases follow the relevant store rules.', 'Dla przyszłych subskrypcji JobHub Support opłaconych przez Paddle. Zakupy Apple/Google podlegają zasadom danego sklepu.', 'Для майбутніх підписок JobHub Support, оплачених через Paddle. Покупки Apple/Google регулюють правила відповідного магазину.'), content)
+    intro = ('Управляйте подпиской в магазине, где вы её оформили.',
+             'Manage your subscription in the store where you bought it.',
+             'Zarządzaj subskrypcją w sklepie, w którym ją kupiono.',
+             'Керуйте підпискою в магазині, де ви її оформили.')
+    labels = (
+        ('Отменить продление', 'Cancel renewal', 'Anuluj odnowienie', 'Скасувати поновлення'),
+        ('Запросить возврат', 'Request a refund', 'Poproś o zwrot', 'Запросити повернення'),
+    )
+    stores = (
+        ('App Store', 'https://support.apple.com/118428', 'https://support.apple.com/118223'),
+        ('Google Play', 'https://support.google.com/googleplay/answer/7018481',
+         'https://support.google.com/googleplay/answer/2479637'),
+    )
+    cards = []
+    for name, cancel, refund in stores:
+        actions = ''.join(f'<a class="btn btn-secondary" href="{url}" data-no-lang>{tr(*label)}</a>'
+                          for url, label in zip((cancel, refund), labels))
+        cards.append(f'<section class="section-card refund-store"><h2>{name}</h2>'
+                     f'<div class="actions">{actions}</div></section>')
+    rights = section(('Права покупателя', 'Buyer rights', 'Prawa kupującego', 'Права покупця'),
+        ('Отмена продления и запрос возврата — отдельные действия. Магазин рассматривает запрос по своим правилам с учётом обязательных прав покупателя.',
+         'Cancelling renewal and requesting a refund are separate steps. The store assesses the request under its rules and applicable mandatory buyer rights.',
+         'Anulowanie odnowienia i wniosek o zwrot to odrębne działania. Sklep rozpatruje wniosek według swoich zasad z uwzględnieniem bezwzględnie obowiązujących praw kupującego.',
+         'Скасування поновлення та запит на повернення — окремі дії. Магазин розглядає запит за своїми правилами з урахуванням обов’язкових прав покупця.'))
+    render(NAV[2][0], NAV[2][1], intro, '<div class="refund-stores">' + ''.join(cards) + '</div>' + rights)
 
 
 def privacy():
@@ -239,26 +246,26 @@ def privacy():
         'Activation: email, representative, authority, application contact/organisation details, review decisions, terms edition and acceptance time. Operations: member IDs, display names, project/shift assignments, hours, review decisions, work messages and audit records. Billing: package, customer/subscription/transaction IDs, amount, currency, dates and status.',
         'Aktywacja: e-mail, przedstawiciel, umocowanie, dane kontaktowe/organizacji z formularza, decyzje weryfikacji, wersja warunków i czas akceptacji. Praca: ID uczestników, wyświetlane nazwy, projekty/zmiany, godziny, decyzje, wiadomości służbowe i dziennik działań. Płatności: pakiet, ID klienta/subskrypcji/transakcji, kwota, waluta, daty i status.',
         'Підключення: email, представник, повноваження, контактні й організаційні дані анкети, рішення перевірки, редакція та час прийняття умов. Робота: ID учасників, відображувані імена, проєкти/зміни, години, рішення, робочі повідомлення й журнал дій. Оплата: пакет, ID покупця/підписки/транзакції, сума, валюта, дати й статус.')),
-      (('3. Paddle и платёжные данные', '3. Paddle and payment data', '3. Paddle i dane płatnicze', '3. Paddle та платіжні дані'),
-       ('При будущей оплате Paddle получит сведения покупателя, необходимые для платежа, квитанции, налогов, предотвращения мошенничества и управления подпиской, по собственной политике. Полные данные карты обрабатываются платёжной формой Paddle; JobHub их не запрашивает. Профили работников, кадровые документы и историю чатов в платёжные метаданные передавать нельзя.',
-        'For future payments, Paddle receives buyer information needed for payment, receipts, taxes, fraud prevention and subscription management under its own policy. Full card details are handled by Paddle’s payment form; JobHub does not request them. Worker profiles, personnel documents and chat history must not be sent as payment metadata.',
-        'Przy przyszłej płatności Paddle otrzyma dane kupującego potrzebne do płatności, potwierdzeń, podatków, zapobiegania oszustwom i zarządzania subskrypcją według własnej polityki. Pełne dane karty obsługuje formularz Paddle; JobHub ich nie żąda. Profile pracowników, akta i historia czatów nie mogą trafiać do metadanych płatności.',
-        'Під час майбутньої оплати Paddle отримує дані покупця для платежу, квитанцій, податків, протидії шахрайству й керування підпискою за власною політикою. Повні дані картки обробляє форма Paddle; JobHub їх не запитує. Профілі працівників, кадрові документи й історію чатів не можна передавати як платіжні метадані.')),
+      (('3. Данные подписки', '3. Subscription data', '3. Dane subskrypcji', '3. Дані підписки'),
+       ('Для подтверждения покупки и предоставления доступа JobHub обрабатывает сведения о продукте, статусе подписки и идентификаторе покупки. Платёжные реквизиты обрабатывает магазин, в котором оформлена подписка.',
+        'To verify purchases and provide access, JobHub processes product information, subscription status and a purchase identifier. The store where you subscribed handles payment details.',
+        'Aby zweryfikować zakup i zapewnić dostęp, JobHub przetwarza informacje o produkcie, stanie subskrypcji i identyfikatorze zakupu. Dane płatnicze obsługuje sklep, w którym kupiono subskrypcję.',
+        'Для підтвердження купівлі та надання доступу JobHub обробляє відомості про продукт, статус підписки й ідентифікатор купівлі. Платіжні реквізити обробляє магазин, де оформлено підписку.')),
       (('4. Цели и основания', '4. Purposes and bases', '4. Cele i podstawy', '4. Цілі та підстави'),
        ('Для договора с вами и действий по вашему запросу до него используется договорное основание. Для контактов представителя фирмы — законный интерес организовать и обслуживать отношения с фирмой. Безопасность, доказательства принятия условий и защита требований опираются на соответствующие законные интересы; обязательный учёт — на закон. Необязательное согласие запрашивается отдельно, когда требуется. Основание рабочих данных определяет организация, а не факт оплаты.',
         'A contract with you and requested pre-contract steps use the contractual basis. Organisation-representative contacts use the legitimate interest in arranging and servicing that relationship. Security, terms-acceptance evidence and claims use relevant legitimate interests; mandatory records use legal duties. Optional consent is requested separately where required. The organisation determines the basis for work data; payment does not establish it.',
         'Umowa z Tobą i działania na Twoje żądanie przed jej zawarciem opierają się na podstawie umownej. Kontakty przedstawiciela organizacji opierają się na uzasadnionym interesie nawiązania i obsługi tej relacji. Bezpieczeństwo, dowody akceptacji i roszczenia mają odpowiednie uzasadnione interesy; obowiązkowe rejestry — obowiązek prawny. Wymagana zgoda opcjonalna jest pozyskiwana osobno. Podstawę danych służbowych określa organizacja, nie płatność.',
         'Для договору з вами й дій на ваш запит до нього застосовують договірну підставу. Для контактів представника фірми — законний інтерес організувати й обслуговувати відносини з фірмою. Безпека, докази прийняття умов і захист вимог мають відповідні законні інтереси; обов’язковий облік — законну підставу. Необов’язкову згоду запитують окремо, коли потрібно. Підставу робочих даних визначає організація, а не оплата.')),
       (('5. Доступ и поставщики', '5. Access and providers', '5. Dostęp i dostawcy', '5. Доступ і постачальники'),
-       ('Доступ сотрудников ограничивается организацией, ролью, назначением и правами. При обслуживании подписки сведения могут получать уполномоченная поддержка, инфраструктурные поставщики по общей политике JobHub и Paddle для платежей. При подключении реальных рабочих данных организация заранее получает применимые условия обработки, список обработчиков, сведения о местах обработки и международных передачах. Доступ к таким данным открывается после необходимых договорных подтверждений; эта страница сама по себе DPA не заключает.',
-        'Staff access is limited by organisation, role, assignment and permissions. Subscription data may be received by authorised support, infrastructure providers under the general JobHub policy and Paddle for payments. Before activating real work data, the organisation receives applicable processing terms, subprocessors and information on processing locations and international transfers. Such access opens after required contractual confirmations; this page alone does not conclude a DPA.',
-        'Dostęp współpracowników ograniczają organizacja, rola, przydział i uprawnienia. Dane subskrypcji mogą otrzymywać upoważnione wsparcie, dostawcy infrastruktury według ogólnej polityki JobHub oraz Paddle dla płatności. Przed aktywacją rzeczywistych danych organizacja otrzymuje właściwe warunki powierzenia, listę podwykonawców i informacje o miejscach przetwarzania oraz transferach. Dostęp otwiera się po wymaganych potwierdzeniach umownych; ta strona sama nie zawiera DPA.',
-        'Доступ співробітників обмежують організація, роль, призначення й права. Дані підписки можуть отримувати уповноважена підтримка, інфраструктурні постачальники за загальною політикою JobHub та Paddle для платежів. До підключення реальних робочих даних організація отримує потрібні умови обробки, перелік обробників, місця обробки й міжнародні передачі. Доступ відкривають після потрібних договірних підтверджень; ця сторінка сама не укладає DPA.')),
+       ('Доступ сотрудников ограничивается организацией, ролью, назначением и правами. При обслуживании подписки сведения могут получать уполномоченная поддержка и инфраструктурные поставщики по общей политике JobHub. При подключении реальных рабочих данных организация заранее получает применимые условия обработки, список обработчиков, сведения о местах обработки и международных передачах. Доступ к таким данным открывается после необходимых договорных подтверждений; эта страница сама по себе DPA не заключает.',
+        'Staff access is limited by organisation, role, assignment and permissions. Subscription data may be received by authorised support and infrastructure providers under the general JobHub policy. Before activating real work data, the organisation receives applicable processing terms, subprocessors and information on processing locations and international transfers. Such access opens after required contractual confirmations; this page alone does not conclude a DPA.',
+        'Dostęp współpracowników ograniczają organizacja, rola, przydział i uprawnienia. Dane subskrypcji mogą otrzymywać upoważnione wsparcie i dostawcy infrastruktury według ogólnej polityki JobHub. Przed aktywacją rzeczywistych danych organizacja otrzymuje właściwe warunki powierzenia, listę podwykonawców i informacje o miejscach przetwarzania oraz transferach. Dostęp otwiera się po wymaganych potwierdzeniach umownych; ta strona sama nie zawiera DPA.',
+        'Доступ співробітників обмежують організація, роль, призначення й права. Дані підписки можуть отримувати уповноважена підтримка й інфраструктурні постачальники за загальною політикою JobHub. До підключення реальних робочих даних організація отримує потрібні умови обробки, перелік обробників, місця обробки й міжнародні передачі. Доступ відкривають після потрібних договірних підтверджень; ця сторінка сама не укладає DPA.')),
       (('6. Хранение и удаление', '6. Retention and deletion', '6. Przechowywanie i usuwanie', '6. Зберігання й видалення'),
-       ('Критерии срока: сведения аккаунта — пока обслуживается аккаунт; анкета — пока рассматривается заявка или обслуживается подключение; договорные и платёжные подтверждения — пока необходимы для договора, обязательного учёта или конкретного требования. После отпадения цели данные удаляются или обезличиваются, кроме необходимых законных исключений. Самостоятельные сроки Paddle указаны в его политике. Для рабочих данных срок, начало его отсчёта и порядок возврата/удаления, включая резервные копии, организация получает до их приёма. Отмена подписки не равна удалению данных.',
-        'Retention criteria: account details while the account is serviced; applications while reviewed or activation is serviced; contract and payment evidence while needed for the contract, mandatory records or a specific claim. When the purpose ends, data is deleted or anonymised subject to necessary lawful exceptions. Paddle specifies its own retention in its policy. Before work data is accepted, the organisation receives its retention period, starting event and return/deletion procedure, including backups. Cancellation is not data deletion.',
-        'Kryteria okresu: dane konta podczas jego obsługi; zgłoszenie podczas rozpatrywania lub obsługi aktywacji; dowody umowne i płatnicze, dopóki są potrzebne do umowy, obowiązkowych rejestrów lub konkretnego roszczenia. Po ustaniu celu dane są usuwane lub anonimizowane z niezbędnymi wyjątkami prawnymi. Paddle podaje własne okresy w swojej polityce. Przed przyjęciem danych służbowych organizacja otrzymuje okres, zdarzenie początkowe i procedurę zwrotu/usunięcia, w tym kopii. Anulowanie nie oznacza usunięcia danych.',
-        'Критерії строку: дані акаунта — поки він обслуговується; анкета — поки розглядають заявку чи обслуговують підключення; договірні й платіжні докази — поки потрібні для договору, обов’язкового обліку чи конкретної вимоги. Після припинення мети дані видаляють або знеособлюють із потрібними законними винятками. Власні строки Paddle наведені в його політиці. До прийняття робочих даних організація отримує строк, початок його відліку й порядок повернення/видалення, включно з копіями. Скасування підписки не є видаленням даних.')),
+       ('Критерии срока: сведения аккаунта — пока обслуживается аккаунт; анкета — пока рассматривается заявка или обслуживается подключение; договорные и платёжные подтверждения — пока необходимы для договора, обязательного учёта или конкретного требования. После отпадения цели данные удаляются или обезличиваются, кроме необходимых законных исключений. Для рабочих данных срок, начало его отсчёта и порядок возврата/удаления, включая резервные копии, организация получает до их приёма. Отмена подписки не равна удалению данных.',
+        'Retention criteria: account details while the account is serviced; applications while reviewed or activation is serviced; contract and payment evidence while needed for the contract, mandatory records or a specific claim. When the purpose ends, data is deleted or anonymised subject to necessary lawful exceptions. Before work data is accepted, the organisation receives its retention period, starting event and return/deletion procedure, including backups. Cancellation is not data deletion.',
+        'Kryteria okresu: dane konta podczas jego obsługi; zgłoszenie podczas rozpatrywania lub obsługi aktywacji; dowody umowne i płatnicze, dopóki są potrzebne do umowy, obowiązkowych rejestrów lub konkretnego roszczenia. Po ustaniu celu dane są usuwane lub anonimizowane z niezbędnymi wyjątkami prawnymi. Przed przyjęciem danych służbowych organizacja otrzymuje okres, zdarzenie początkowe i procedurę zwrotu/usunięcia, w tym kopii. Anulowanie nie oznacza usunięcia danych.',
+        'Критерії строку: дані акаунта — поки він обслуговується; анкета — поки розглядають заявку чи обслуговують підключення; договірні й платіжні докази — поки потрібні для договору, обов’язкового обліку чи конкретної вимоги. Після припинення мети дані видаляють або знеособлюють із потрібними законними винятками. До прийняття робочих даних організація отримує строк, початок його відліку й порядок повернення/видалення, включно з копіями. Скасування підписки не є видаленням даних.')),
       (('7. Права и обращения', '7. Rights and requests', '7. Prawa i wnioski', '7. Права та звернення'),
        ('По применимому закону можно запросить доступ, исправление, удаление, ограничение, переносимость или возразить против обработки. Контакт: admin@jobhub.today. Вопрос о рабочих данных сначала адресуйте своей организации; JobHub помогает в пределах своих обязанностей. Жалобу можно подать в польский UODO или другой компетентный орган.',
         'Applicable law may provide access, correction, erasure, restriction, portability or objection rights. Contact admin@jobhub.today. First address work-data requests to your organisation; JobHub assists within its duties. Complaints may be made to Poland’s UODO or another competent authority.',
@@ -266,17 +273,17 @@ def privacy():
         'За застосовним законом можна запросити доступ, виправлення, видалення, обмеження, перенесення чи заперечити обробку. Контакт: admin@jobhub.today. Питання про робочі дані спочатку адресуйте своїй організації; JobHub допомагає в межах обов’язків. Скаргу можна подати до польського UODO чи іншого компетентного органу.')),
     ]
     rows.append((('8. Настройки страницы и обращения', '8. Page settings and requests', '8. Ustawienia strony i wnioski', '8. Налаштування сторінки та звернення'),
-       ('Эти страницы сохраняют выбранный язык в локальном хранилище браузера. Сам просмотр не открывает платёжную форму Paddle. Для запросов о данных используйте admin@jobhub.today или страницу удаления данных; при необходимости попросим подтвердить принадлежность аккаунта безопасным способом. Ответ предоставляется в сроки применимого закона. Сведения о применимых гарантиях передачи данных можно запросить по тому же адресу.',
-        'These pages save your chosen language in browser local storage. Viewing them alone does not open a Paddle payment form. Send data requests to admin@jobhub.today or use the data-deletion page; if needed, we ask you to verify account ownership securely. Responses follow applicable legal deadlines. Information about applicable transfer safeguards may be requested at the same address.',
-        'Te strony zapisują wybrany język w lokalnej pamięci przeglądarki. Samo przeglądanie nie otwiera formularza płatności Paddle. Wnioski dotyczące danych kieruj na admin@jobhub.today lub przez stronę usuwania danych; w razie potrzeby poprosimy o bezpieczne potwierdzenie własności konta. Odpowiedź następuje w terminie określonym prawem. Informacje o właściwych zabezpieczeniach transferów można uzyskać pod tym samym adresem.',
-        'Ці сторінки зберігають вибрану мову в локальному сховищі браузера. Сам перегляд не відкриває платіжної форми Paddle. Запити щодо даних надсилайте на admin@jobhub.today або через сторінку видалення; за потреби попросимо безпечно підтвердити належність акаунта. Відповідь надають у строки застосовного закону. Відомості про застосовні гарантії передачі можна запросити за тією самою адресою.')))
+       ('Эти страницы сохраняют выбранный язык в локальном хранилище браузера. Для запросов о данных используйте admin@jobhub.today или страницу удаления данных; при необходимости попросим подтвердить принадлежность аккаунта безопасным способом. Ответ предоставляется в сроки применимого закона. Сведения о применимых гарантиях передачи данных можно запросить по тому же адресу.',
+        'These pages save your chosen language in browser local storage. Send data requests to admin@jobhub.today or use the data-deletion page; if needed, we ask you to verify account ownership securely. Responses follow applicable legal deadlines. Information about applicable transfer safeguards may be requested at the same address.',
+        'Te strony zapisują wybrany język w lokalnej pamięci przeglądarki. Wnioski dotyczące danych kieruj na admin@jobhub.today lub przez stronę usuwania danych; w razie potrzeby poprosimy o bezpieczne potwierdzenie własności konta. Odpowiedź następuje w terminie określonym prawem. Informacje o właściwych zabezpieczeniach transferów można uzyskać pod tym samym adresem.',
+        'Ці сторінки зберігають вибрану мову в локальному сховищі браузера. Запити щодо даних надсилайте на admin@jobhub.today або через сторінку видалення; за потреби попросимо безпечно підтвердити належність акаунта. Відповідь надають у строки застосовного закону. Відомості про застосовні гарантії передачі можна запросити за тією самою адресою.')))
     content = ''.join(section(*row) for row in rows)
-    content += '<section class="section-card"><h2>'+tr('Связанные политики', 'Related policies', 'Powiązane polityki', 'Пов’язані політики')+'</h2><p><a href="/privacy.html">JobHub Privacy Policy</a> · <a href="https://www.paddle.com/legal/privacy" data-no-lang>Paddle Privacy Policy</a> · <a href="https://uodo.gov.pl/" data-no-lang>UODO</a></p></section>'
+    content += '<section class="section-card"><h2>'+tr('Связанные политики', 'Related policies', 'Powiązane polityki', 'Пов’язані політики')+'</h2><p><a href="/privacy.html">JobHub Privacy Policy</a> · <a href="https://uodo.gov.pl/" data-no-lang>UODO</a></p></section>'
     render(NAV[3][0], NAV[3][1], ('Политика самостоятельного сервиса JobHub Support, редакция от 26 октября 2026 года. Описывает аккаунты, подключение организации и рабочие данные. Договор обработки рабочих данных оформляется отдельно.', 'Privacy policy for the independent JobHub Support service, edition dated 26 October 2026. Covers accounts, organisation activation and work data. Work-data processing agreements are concluded separately.', 'Polityka prywatności samodzielnego serwisu JobHub Support, wersja z 26 października 2026. Obejmuje konta, podłączenie organizacji i dane służbowe. Umowa powierzenia danych służbowych jest zawierana osobno.', 'Політика самостійного сервісу JobHub Support, редакція від 26 жовтня 2026 року. Описує акаунти, підключення організації та робочі дані. Договір обробки робочих даних укладається окремо.'), content)
 
 
 if __name__ == '__main__':
-    pricing()
+    pricing("https://jobapp-backend-f2u8.onrender.com")
     terms()
     refunds()
     privacy()

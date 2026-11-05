@@ -1,14 +1,14 @@
 {
-  "edition": "support-store-2026-10-31-v1",
+  "edition": "support-store-2026-11-05-v1",
   "languages": {
     "ru": [
       {
         "title": "Подписки в App Store и Google Play",
-        "body": "Пакеты Support 20, Support 50 и Support 100 открывают рабочий кабинет одной проверенной фирмы соответственно для 20, 50 или 100 одновременно активных работников. Доступ работников входит в пакет фирмы. Месячные цены для Польши: 249, 449 и 749 PLN, включая налоги. В других странах действует локальная цена магазина. Валюта, итоговая цена и период показываются в приложении и подтверждаются магазином до покупки."
+        "body": "Пакеты Support 20, Support 50 и Support 100 открывают рабочий кабинет одной проверенной фирмы соответственно для 20, 50 или 100 одновременно активных работников. Доступ работников входит в пакет фирмы. Валюта, итоговая цена и период показываются в приложении и подтверждаются магазином до покупки."
       },
       {
-        "title": "Личная подписка работника",
-        "body": "Она нужна только в отдельно согласованном Custom, в котором прямо предусмотрена оплата работником. Ориентир — 9,99 EUR в месяц; применяется локальная цена магазина. Для новых подписчиков, которым магазин разрешает пробный период, первый месяц бесплатный. После него подписка автоматически продлевается по показанной месячной цене, если не отменена. При отсутствии права на пробный период магазин покажет обычную оплату. Подписка даёт личный доступ к сервису, но не заменяет приглашение фирмы, не назначает рабочую роль и не гарантирует трудоустройство. В стандартных пакетах повторная личная оплата работником не требуется."
+        "title": "Личная подписка работника на Free",
+        "body": "Личная подписка нужна работнику, чтобы подключить свой аккаунт к компании на Free. Ориентировочная стоимость — 8,72 € в месяц без учёта налогов. Итоговую сумму в местной валюте с применимыми налогами магазин покажет перед покупкой. Для новых подписчиков, которым магазин разрешает пробный период, первый месяц бесплатный. После него подписка автоматически продлевается по показанной месячной цене, если не отменена. При отсутствии права на пробный период магазин покажет обычную оплату. Подписка даёт личный доступ к сервису, но не заменяет приглашение фирмы, не назначает рабочую роль и не гарантирует трудоустройство. В стандартных пакетах повторная личная оплата работником не требуется."
       },
       {
         "title": "Продление, изменение, отмена и восстановление",
@@ -22,11 +22,11 @@
     "en": [
       {
         "title": "Store plans",
-        "body": "Support 20/50/100 provide one approved company workspace for up to 20/50/100 concurrently active workers. Worker access is included. Polish monthly prices are PLN 249/449/749 including tax. Other storefronts use localized prices. The app and store show the currency, final amount and billing period before purchase. These products do not sell recruitment, job adverts or credits."
+        "body": "Support 20/50/100 provide one approved company workspace for up to 20/50/100 concurrently active workers. Worker access is included. The app and store show the currency, final amount and billing period before purchase. These products do not sell recruitment, job adverts or credits."
       },
       {
-        "title": "Worker Custom",
-        "body": "Personal access is required only under a separately agreed worker-paid Custom arrangement. Reference price: EUR 9.99 monthly; the storefront price applies. Eligible new subscribers receive one free month, then automatically renew at the displayed monthly price unless cancelled. Without trial eligibility, the store shows regular payment. This subscription does not replace a company invitation, assign a work role or guarantee employment. Workers covered by a standard company plan do not need an additional personal subscription."
+        "title": "Personal worker subscription for Free",
+        "body": "Workers need a personal subscription to connect their account to a company on Free. Estimated price: €8.72 per month before tax. The store shows the final price in your local currency with applicable taxes before purchase. Eligible new subscribers receive one free month, then automatically renew at the displayed monthly price unless cancelled. Without trial eligibility, the store shows regular payment. This subscription does not replace a company invitation, assign a work role or guarantee employment. Workers covered by a standard company plan do not need an additional personal subscription."
       },
       {
         "title": "Lifecycle",
@@ -40,11 +40,11 @@
     "pl": [
       {
         "title": "Pakiety sklepowe",
-        "body": "Support 20/50/100 zapewniają panel jednej zatwierdzonej firmy dla maksymalnie 20/50/100 jednocześnie aktywnych pracowników. Dostęp pracowników jest w cenie. Ceny miesięczne w Polsce: 249/449/749 PLN z podatkami. W innych krajach obowiązuje lokalna cena sklepu. Waluta, końcowa kwota i okres są widoczne przed zakupem. Produkty nie obejmują rekrutacji, ogłoszeń ani kredytów."
+        "body": "Support 20/50/100 zapewniają panel jednej zatwierdzonej firmy dla maksymalnie 20/50/100 jednocześnie aktywnych pracowników. Dostęp pracowników jest w cenie. Waluta, końcowa kwota i okres są widoczne przed zakupem. Produkty nie obejmują rekrutacji, ogłoszeń ani kredytów."
       },
       {
-        "title": "Custom pracownika",
-        "body": "Osobista subskrypcja jest potrzebna wyłącznie w osobno uzgodnionym Custom opłacanym przez pracownika. Cena odniesienia: 9,99 EUR miesięcznie; obowiązuje lokalna cena sklepu. Uprawnieni nowi subskrybenci mają pierwszy miesiąc bezpłatny, następnie subskrypcja odnawia się automatycznie po pokazanej cenie, o ile nie zostanie anulowana. Bez uprawnienia do próby sklep pokaże zwykłą płatność. Subskrypcja nie zastępuje zaproszenia firmy, nie nadaje roli pracowniczej i nie gwarantuje zatrudnienia. Standardowy pakiet firmy nie wymaga dodatkowej osobistej opłaty od pracownika."
+        "title": "Osobista subskrypcja pracownika w Free",
+        "body": "Pracownik potrzebuje osobistej subskrypcji, aby połączyć swoje konto z firmą korzystającą z Free. Orientacyjna cena to 8,72 € miesięcznie bez podatków. Przed zakupem sklep pokaże ostateczną kwotę w lokalnej walucie z należnymi podatkami. Uprawnieni nowi subskrybenci mają pierwszy miesiąc bezpłatny, następnie subskrypcja odnawia się automatycznie po pokazanej cenie, o ile nie zostanie anulowana. Bez uprawnienia do próby sklep pokaże zwykłą płatność. Subskrypcja nie zastępuje zaproszenia firmy, nie nadaje roli pracowniczej i nie gwarantuje zatrudnienia. Standardowy pakiet firmy nie wymaga dodatkowej osobistej opłaty od pracownika."
       },
       {
         "title": "Obsługa",
@@ -58,11 +58,11 @@
     "uk": [
       {
         "title": "Пакети магазинів",
-        "body": "Support 20/50/100 відкривають кабінет однієї перевіреної фірми для 20/50/100 одночасно активних працівників. Доступ працівників включено. Місячні ціни в Польщі — 249/449/749 PLN з податками; в інших країнах діють локальні ціни магазину. Валюта, кінцева сума й період показуються до покупки. Продукти не продають вакансії, рекрутинг чи кредити JobHub."
+        "body": "Support 20/50/100 відкривають кабінет однієї перевіреної фірми для 20/50/100 одночасно активних працівників. Доступ працівників включено. Валюта, кінцева сума й період показуються до покупки. Продукти не продають вакансії, рекрутинг чи кредити JobHub."
       },
       {
-        "title": "Custom працівника",
-        "body": "Особиста підписка потрібна лише в окремо погодженому Custom з оплатою працівником. Орієнтир — 9,99 EUR на місяць, діє локальна ціна магазину. Для нових підписників, яким магазин дозволяє пробний період, перший місяць безплатний. Далі підписка автоматично продовжується за показаною ціною, якщо її не скасовано. Без права на пробу магазин покаже звичайну оплату. Підписка не замінює запрошення фірми, не призначає робочу роль і не гарантує працевлаштування. Стандартний пакет фірми не потребує особистої доплати працівника."
+        "title": "Особиста підписка працівника у Free",
+        "body": "Працівнику потрібна особиста підписка, щоб підключити свій акаунт до компанії на Free. Орієнтовна вартість — 8,72 € на місяць без урахування податків. Перед купівлею магазин покаже остаточну суму в місцевій валюті з відповідними податками. Для нових підписників, яким магазин дозволяє пробний період, перший місяць безплатний. Далі підписка автоматично продовжується за показаною ціною, якщо її не скасовано. Без права на пробу магазин покаже звичайну оплату. Підписка не замінює запрошення фірми, не призначає робочу роль і не гарантує працевлаштування. Стандартний пакет фірми не потребує особистої доплати працівника."
       },
       {
         "title": "Керування",

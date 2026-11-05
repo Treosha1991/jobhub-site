@@ -15,6 +15,9 @@ Build: `python tools/build_support_site.py --store-review --approved-store-editi
 Publish only `dist-support-store-review`, never the legacy repository root.
 The generated manifest records the Free edition separately. No checkout,
 mobile public-store download links or real sales are enabled by this publication.
+Release checklist: after the mobile JobHub Support listings are public, verify
+the live App Store and Google Play product pages and add both links to the
+Download section in `tools/build_support_site.py`.
 17-page link/asset checks PASS;32 browser cases across four languages and two
 viewports PASS. Evidence: `T:/JobApp/output/support-free-terms-browser-qa-20261102.json`.
 Deployment/live hash verification is recorded in the backend rollout evidence.

@@ -7,59 +7,53 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-EDITION = 'support-free-2026-11-03-v1'
+EDITION = 'support-free-2026-11-05-v1'
 
 
 def apply(out, commerce):
-    assert out.resolve() == (ROOT / 'dist-support-store-review').resolve()
+    assert out.resolve().parent == ROOT and out.name in ('dist-support-store-review', 'dist-support-onboarding-preview')
     data = json.loads((ROOT / 'assets/support-free-terms.json').read_text(encoding='utf-8'))
     assert data['edition'] == EDITION
     rows = data['languages']
     langs = commerce.LANGS
-    assert set(rows) == set(langs) and all(len(rows[lang]) == 6 for lang in langs)
-    tr, section, paragraph = commerce.tr, commerce.section, commerce.paragraph
+    assert set(rows) == set(langs) and all(len(rows[lang]) == 5 for lang in langs)
+    tr, section = commerce.tr, commerce.section
     free = ''.join(section(tuple(rows[lang][i]['title'] for lang in langs),
                            tuple(rows[lang][i]['body'] for lang in langs),
                            anchor='free' if i == 0 else 'free-' + str(i)) for i in range(5))
-    testing = section(tuple(rows[lang][5]['title'] for lang in langs),
-                      tuple(rows[lang][5]['body'] for lang in langs), anchor='testflight')
     commerce.render('support-free-terms.html',
         ('Подключение Free', 'Free activation', 'Aktywacja Free', 'Підключення Free'),
-        ('Для работодателя — 0 PLN. Работники оплачивают личный доступ в магазине.',
-         'PLN 0 for the employer. Workers pay for personal access through the store.',
-         'Dla pracodawcy 0 PLN. Pracownicy opłacają osobisty dostęp w sklepie.',
-         'Для роботодавця — 0 PLN. Працівники оплачують особистий доступ у магазині.'),
-        testing + free)
-    chooser = '<nav class="commerce-footer" aria-label="' + 'Support' + '">' + ''.join(
-        '<a href="' + path + '" data-nav>' + tr(*title) + '</a>' for path, title in (
-            ('/support-free-terms.html', ('Free: условия подключения', 'Free activation terms', 'Warunki aktywacji Free', 'Умови підключення Free')),
-            ('/support-store-terms.html', ('Support 20 / 50 / 100',)*4),
-            ('/support-refunds.html', ('Отмена и возвраты', 'Cancellation and refunds', 'Anulowanie i zwroty', 'Скасування та повернення')),
-            ('/privacy.html', ('Конфиденциальность', 'Privacy', 'Prywatność', 'Конфіденційність')))) + '</nav>'
-    for name in ('terms.html', 'support-subscription-terms.html', 'support-pricing.html',
-                 'support-store-terms.html', 'support-free-terms.html', 'support-refunds.html'):
+        ('Бесплатно для работодателя. Работники оплачивают личный доступ в магазине приложений.',
+         'Free for employers. Workers pay for personal access through their app store.',
+         'Bezpłatnie dla pracodawcy. Pracownicy opłacają osobisty dostęp w sklepie z aplikacjami.',
+         'Безкоштовно для роботодавця. Працівники оплачують особистий доступ у магазині застосунків.'),
+        free)
+    policy_pages = (
+        ('support-free-terms.html', ('Free: условия подключения', 'Free activation terms', 'Warunki aktywacji Free', 'Умови підключення Free')),
+        ('support-store-terms.html', ('Support 20 / 50 / 100',)*4),
+        ('support-refunds.html', ('Отмена и возвраты', 'Cancellation and refunds', 'Anulowanie i zwroty', 'Скасування та повернення')),
+        ('privacy.html', ('Конфиденциальность', 'Privacy', 'Prywatność', 'Конфіденційність')),
+    )
+    for name in ('terms.html', 'support-subscription-terms.html',
+                 'support-store-terms.html', 'support-free-terms.html', 'support-refunds.html',
+                 'privacy.html', 'support-privacy.html'):
         page = out / name
         html = page.read_text(encoding='utf-8')
-        # On the dedicated Free page the full content already includes this notice.
-        addition = chooser + ('' if name == 'support-free-terms.html' else testing)
+        current = 'privacy.html' if name == 'support-privacy.html' else name
+        tabs = []
+        for path, title in policy_pages:
+            active = ' aria-current="page"' if path == current else ''
+            tabs.append(f'<a href="/{path}"{active}>{tr(*title)}<span aria-hidden="true">→</span></a>')
+        label = tr('Условия и правила', 'Terms and policies', 'Warunki i zasady', 'Умови та правила')
+        chooser = (f'<nav class="commerce-policies" aria-labelledby="policy-nav-title">'
+                   f'<p id="policy-nav-title">{label}</p><div>{"".join(tabs)}</div></nav>')
+        addition = chooser
         if name in ('terms.html', 'support-subscription-terms.html'):
             addition += free
-        elif name == 'support-pricing.html':
-            html = html.replace(
-                tr('Один рабочий кабинет. Выберите лимит своей команды.', 'One workspace. Choose your team limit.',
-                   'Jedna przestrzeń robocza. Wybierz limit zespołu.', 'Один робочий кабінет. Виберіть ліміт своєї команди.'),
-                tr('Один рабочий кабинет. Выберите, кто оплачивает доступ команды.',
-                   'One workspace. Choose who pays for your team’s access.',
-                   'Jedna przestrzeń robocza. Wybierz, kto płaci za dostęp zespołu.',
-                   'Один робочий кабінет. Виберіть, хто оплачує доступ команди.'),
-                1,
-            )
-            addition += section(('Free — первый вариант для работодателя', 'Free — the first employer option',
-                'Free — pierwszy wariant dla pracodawcy', 'Free — перший варіант для роботодавця'),
-                tuple(rows[lang][0]['body'] for lang in langs), tuple(rows[lang][1]['body'] for lang in langs), anchor='free')
         elif name == 'support-refunds.html':
-            addition += section(tuple(rows[lang][3]['title'] for lang in langs),
-                                tuple(rows[lang][3]['body'] for lang in langs), anchor='free')
+            free_refunds = section(tuple(rows[lang][3]['title'] for lang in langs),
+                                   tuple(rows[lang][3]['body'] for lang in langs), anchor='free')
+            html = html.replace('</main>', free_refunds + '</main>', 1)
         hero_end = html.index('</section>', html.index('<section class="hero">')) + len('</section>')
         html = html[:hero_end] + '\n' + addition + '\n' + html[hero_end:]
         html = html.replace('<main ', f'<main data-support-free-edition="{EDITION}" ', 1)

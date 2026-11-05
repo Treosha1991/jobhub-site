@@ -1,15 +1,7 @@
 .commerce-header{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:12px;padding-bottom:10px;flex-wrap:wrap}
 .commerce-header .lang-inline{display:flex;flex-wrap:wrap;gap:4px}
 .commerce-nav,.commerce-footer{display:flex;flex-wrap:wrap;gap:10px 20px;padding-top:10px;padding-bottom:12px;font-size:.92rem}
-.commerce-nav a.active{color:var(--accent)}
-.commerce-draft{margin-top:24px;border:1px solid #e7bc68;border-radius:12px;padding:15px 18px;background:rgba(231,188,104,.1);color:#ffe0a3}
-.commerce-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:26px 0}
-.commerce-plan{padding:25px 22px;border:1px solid var(--line);border-radius:18px;background:var(--surface);min-width:0}
-.commerce-plan h2{margin:0;font-size:1.25rem}
-.commerce-price{font-size:2.6rem;font-weight:800;letter-spacing:-.04em;margin:16px 0 2px;line-height:1.1}
-.commerce-price>span{font-size:1rem;letter-spacing:0}
-.commerce-plan>p:not(.commerce-price){font-size:.93rem}
-.commerce-status{color:var(--accent);border-top:1px solid var(--line);padding-top:14px}
+.commerce-nav a[aria-current="page"]{color:var(--accent);font-weight:700}
 .commerce-review .section-card{scroll-margin-top:145px}
 .commerce-review p,.commerce-review li,.commerce-review a,.commerce-review h1,.commerce-review h2{overflow-wrap:anywhere}
 .commerce-review .section-card a{text-decoration:underline;text-underline-offset:3px}
@@ -20,4 +12,61 @@
 .commerce-review footer{padding-top:22px;padding-bottom:32px;font-size:.88rem;border-top:1px solid var(--line)}
 .commerce-skip{position:absolute;left:12px;top:-120px;padding:12px;background:var(--bg);z-index:100}
 .commerce-skip:focus{top:10px}
-@media(max-width:720px){.commerce-plans{grid-template-columns:1fr}.commerce-nav{gap:8px 16px}.commerce-review .hero h1{font-size:2rem}.commerce-price{font-size:2.8rem}.commerce-plan{padding:22px}.commerce-review .btn{margin:4px 0}}
+@media(max-width:720px){.commerce-nav{gap:8px 16px}.commerce-review .hero h1{font-size:2rem}.commerce-review .btn{margin:4px 0}}
+
+.commerce-review .catalog-free {
+  padding: clamp(20px, 4vw, 38px);
+  border-color: #45d995;
+  background: linear-gradient(118deg, #17465f, #0d5747);
+}
+.catalog-free h2 { margin: 0; font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1; }
+.catalog-free-price { margin: 12px 0 16px; color: #94ffc3; font-size: clamp(1.16rem, 3vw, 1.55rem); font-weight: 800; }
+.catalog-free-copy { max-width: 69ch; }
+.catalog-free-copy p + p { color: #d3e7e5; }
+.catalog-free .btn, .commerce-plan .btn { gap: 12px; min-height: 44px; }
+.catalog-paid, #store-prices { scroll-margin-top: 145px; }
+.catalog-paid { margin-top: 30px; }
+.catalog-paid > p { max-width: 78ch; color: var(--text-muted); }
+.commerce-plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 18px 0 12px; }
+.commerce-plan {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #3d6481;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #1b3f5d, #142f48);
+}
+.commerce-plan h3 { margin: 0; font-size: 1.45rem; }
+.commerce-plan p { margin: 8px 0; }
+.commerce-plan .commerce-price { font-size: 1.4rem; font-weight: 800; color: #80eafa; }
+.commerce-plan .btn { margin-top: auto; justify-content: space-between; }
+.commerce-plan .btn:focus-visible, .commerce-policies a:focus-visible, .refund-store .btn:focus-visible {
+  outline: 2px solid #82f6b4;
+  outline-offset: 3px;
+}
+.commerce-policies { margin: 0 0 22px; padding: 15px 17px; border: 1px solid #416280; border-radius: 14px; background: #14344e; }
+.commerce-policies p { margin: 0 0 8px; font-size: .88rem; color: #c1d8e8; }
+.commerce-policies div, .refund-store .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.commerce-policies a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 7px 13px;
+  border: 1px solid #6888a1;
+  border-radius: 9px;
+  background: #214767;
+  color: #f0f8ff;
+  text-decoration: none;
+  font-weight: 650;
+}
+.commerce-policies a:hover { border-color: #8fe9b5; background: #275372; }
+.commerce-policies a[aria-current="page"] { border-color: #61e6a1; background: #155344; color: #d7ffe9; }
+.commerce-policies a[aria-current="page"] [aria-hidden] { visibility: hidden; }
+.refund-stores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 16px 0; }
+.refund-store { margin: 0; }
+@media (max-width: 720px) {
+  .commerce-plans, .refund-stores { grid-template-columns: 1fr; }
+  .commerce-policies a { flex: 1 1 auto; justify-content: space-between; }
+}
