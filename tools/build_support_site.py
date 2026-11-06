@@ -57,7 +57,8 @@ def main(store_review=False, approved_store_edition=None, approved_free_edition=
         else:
             item.unlink()
     (OUT / 'assets').mkdir()
-    for name in ('styles.css', 'support-commerce.css', 'logo-jobhub.png'):
+    for name in ('styles.css', 'support-commerce.css', 'logo-jobhub.png',
+                 'download-on-app-store.svg', 'app-store-release.js'):
         shutil.copy2(ROOT / 'assets' / name, OUT / 'assets' / name)
     shutil.copy2(ROOT / 'favicon.ico', OUT / 'favicon.ico')
     # A small language switcher without analytics, advertisements or API calls.
@@ -106,17 +107,19 @@ setLanguage(lang);
     downloads += '<svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path fill="#f25022" d="M0 0h14v14H0z"/><path fill="#7fba00" d="M16 0h14v14H16z"/><path fill="#00a4ef" d="M0 16h14v14H0z"/><path fill="#ffb900" d="M16 16h14v14H16z"/></svg>'
     downloads += '<span class="play-store-copy"><span class="play-store-kicker">' + tr(
         'Скачать для Windows', 'Download for Windows', 'Pobierz na Windows', 'Завантажити для Windows')
-    downloads += '</span><span class="play-store-name">Microsoft Store</span></span></a></div>'
+    downloads += '</span><span class="play-store-name">Microsoft Store</span></span></a>'
+    downloads += '<a class="play-store-badge" href="https://play.google.com/store/apps/details?id=today.jobhub.app" target="_blank" rel="noopener noreferrer" data-no-lang>'
+    downloads += '<span class="play-store-mark" aria-hidden="true"></span><span class="play-store-copy"><span class="play-store-kicker">' + tr(
+        'Скачать для Android', 'Download for Android', 'Pobierz na Androida', 'Завантажити для Android')
+    downloads += '</span><span class="play-store-name">Google Play</span></span></a>'
+    downloads += '<template id="app-store-download"><a class="app-store-badge official-app-store-badge" target="_blank" rel="noopener noreferrer" data-no-lang>'
+    downloads += '<img src="/assets/download-on-app-store.svg" alt="Download on the App Store"></a></template></div>'
     downloads += paragraph((
         'Установка бесплатна. Доступ к рабочему пространству открывается после приглашения или подключения фирмы.',
         'Installation is free. Workspace access requires an invitation or company activation.',
         'Instalacja jest bezpłatna. Dostęp do przestrzeni roboczej wymaga zaproszenia lub podłączenia firmy.',
-        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.'))
-    downloads += paragraph((
-        'Ссылки на App Store и Google Play появятся здесь после выхода мобильных версий JobHub Support.',
-        'App Store and Google Play links will appear here after the JobHub Support mobile apps are released.',
-        'Linki do App Store i Google Play pojawią się tutaj po premierze aplikacji mobilnych JobHub Support.',
-        'Посилання на App Store і Google Play з’являться тут після виходу мобільних версій JobHub Support.')) + '</section>'
+        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.')) + '</section>'
+    downloads += '<script src="/assets/app-store-release.js" defer></script>'
     capabilities = section(('Работа своей команды', 'Your team’s work', 'Praca własnego zespołu', 'Робота своєї команди'), intro,
         ('Руководитель приглашает менеджеров и работников в их собственные аккаунты, назначает права и ответственных. Работник подтверждает приглашение. Данные ограничены своей организацией и назначенным доступом.',
          'The owner invites managers and workers into their own accounts and assigns permissions and contacts. The worker accepts the invitation. Access is limited to the organisation and assigned scope.',
@@ -174,6 +177,8 @@ setLanguage(lang);
     (OUT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join(f'<url><loc>https://jobhub.today/{"" if p=="index.html" else p}</loc></url>' for p in pages)+'</urlset>', encoding='utf-8')
     (OUT / 'robots.txt').write_text('User-agent: *\nAllow: /\nSitemap: https://jobhub.today/sitemap.xml\n', encoding='utf-8')
     (OUT / '_redirects').write_text('/demo https://jobhub-support-demo.onrender.com/?lang=ru 302\n/demo/ https://jobhub-support-demo.onrender.com/?lang=ru 302\n', encoding='utf-8')
+    (OUT / '_routes.json').write_text(
+        json.dumps({'version': 1, 'include': ['/api/app-store-release'], 'exclude': []}) + '\n', encoding='utf-8')
     (OUT / '_headers').write_text('/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  Content-Security-Policy: default-src \'self\'; img-src \'self\' data:; style-src \'self\'; script-src \'self\'; media-src \'self\' blob:; worker-src \'self\' blob:; connect-src \'self\'; frame-src \'none\'; object-src \'none\'; base-uri \'self\'; form-action \'none\'\n' + updates.media_headers(), encoding='utf-8')
     manifest = {'edition': store_terms.EDITION if store_review else EDITION,
                 'free_terms_version': free_terms.EDITION if store_review else None,
