@@ -41,7 +41,9 @@ assert all(f'/employer/plans/?package={seats}' in pricing for seats in (20, 50, 
 assert 'PLN' not in pricing and 'commerce-draft' not in pricing
 downloads = (OUT / 'index.html').read_text(encoding='utf-8').split('id="download"', 1)[1].split('</section>', 1)[0]
 assert 'apps.microsoft.com/detail/9P0Q581Q363X' in downloads
-assert 'apps.apple.com/' not in downloads and 'play.google.com/store/apps' not in downloads
+assert 'play.google.com/store/apps/details?id=today.jobhub.app' in downloads
+assert 'apps.apple.com/' not in downloads
+assert '<template id="app-store-download">' in downloads
 if (OUT / 'support-free-terms.html').exists():
     refunds = (OUT / 'support-refunds.html').read_text(encoding='utf-8')
     assert 'class="commerce-policies"' in refunds
