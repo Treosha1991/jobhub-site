@@ -180,12 +180,7 @@ if (copyContact && navigator.clipboard?.writeText) {
         'Скачать для Android', 'Download for Android', 'Pobierz na Androida', 'Завантажити для Android')
     downloads += '</span><span class="play-store-name">Google Play</span></span></a>'
     downloads += '<template id="app-store-download"><a class="app-store-badge official-app-store-badge" target="_blank" rel="noopener noreferrer" data-no-lang>'
-    downloads += '<img src="/assets/download-on-app-store.svg" alt="Download on the App Store"></a></template></div>'
-    downloads += paragraph((
-        'Установка бесплатна. Доступ к рабочему пространству открывается после приглашения или подключения фирмы.',
-        'Installation is free. Workspace access requires an invitation or company activation.',
-        'Instalacja jest bezpłatna. Dostęp do przestrzeni roboczej wymaga zaproszenia lub podłączenia firmy.',
-        'Встановлення безкоштовне. Доступ до робочого простору відкривається після запрошення або підключення компанії.')) + '</section>'
+    downloads += '<img src="/assets/download-on-app-store.svg" alt="Download on the App Store"></a></template></div></section>'
     downloads += '<script src="/assets/app-store-release.js" defer></script>'
     capabilities = section(('Работа своей команды', 'Your team’s work', 'Praca własnego zespołu', 'Робота своєї команди'), intro,
         ('Руководитель приглашает менеджеров и работников в их собственные аккаунты, назначает права и ответственных. Работник подтверждает приглашение. Данные ограничены своей организацией и назначенным доступом.',
