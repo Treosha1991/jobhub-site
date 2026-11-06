@@ -33,12 +33,19 @@
 }
 .developer-contact h2 { margin: 0 0 8px; }
 .developer-contact p { margin: 0 0 12px; max-width: 72ch; }
+.developer-contact-email { display: flex; align-items: center; gap: 7px; }
 .developer-contact-address { color: #a7ffdc; font-weight: 700; }
+.developer-contact .developer-contact-copy { flex: none; width: 30px; height: 30px; padding: 0; margin: 0; border-radius: 8px; cursor: pointer; }
+.developer-contact-copy[hidden] { display: none; }
+.developer-contact-copy:hover { background: #205f55; }
+.developer-contact-copy:focus-visible { outline: 2px solid #82f6b4; outline-offset: 3px; }
+.developer-contact-copy:not([data-copy-succeeded]) .copied-icon,
+.developer-contact-copy[data-copy-succeeded] .copy-icon { display: none; }
+.developer-contact-copy[data-copy-succeeded] { color: #a7ffdc; }
+.developer-contact-copy-label,
+.developer-contact-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .developer-contact-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .developer-contact-actions .btn { min-height: 44px; margin: 0; }
-.developer-contact-actions [hidden] { display: none; }
-.developer-contact .developer-contact-hint { margin: 10px 0 0; color: #c9e0e6; font-size: .9rem; }
-.developer-contact-status { color: #a7ffdc; font-size: .9rem; }
 
 .commerce-review .catalog-free {
   padding: clamp(20px, 4vw, 38px);

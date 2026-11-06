@@ -41,20 +41,23 @@ def developer_contact():
         'Плануєте підключити команду? Розкажіть, як ви працюєте, і поставте свої запитання. Допоможемо з’ясувати, чи підійде вам JobHub Support.'))
     copy_label = tr('Скопировать адрес', 'Copy email address', 'Skopiuj adres e-mail', 'Скопіювати адресу')
     copied = tr('Адрес скопирован', 'Email address copied', 'Adres e-mail skopiowany', 'Адресу скопійовано')
-    hint = tr('В веб-почте iCloud вставьте адрес в поле «Кому» нового письма.',
-              'In iCloud Mail on the web, paste the address into the To field of a new message.',
-              'W poczcie iCloud w przeglądarce wklej adres w polu „Do” nowej wiadomości.',
-              'У вебверсії Пошти iCloud вставте адресу в поле «Кому» нового листа.')
     return f'''<section id="developer-contact" class="section-card developer-contact" aria-labelledby="developer-contact-title">
 <h2 id="developer-contact-title">{title}</h2>{body}
-<p><a class="developer-contact-address" href="mailto:{email}?subject=JobHub%20Support">{email}</a></p>
+<p class="developer-contact-email">
+  <a class="developer-contact-address" href="mailto:{email}?subject=JobHub%20Support">{email}</a>
+  <button type="button" class="btn btn-secondary developer-contact-copy" data-copy-contact="{email}" hidden>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <g class="copy-icon"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></g>
+      <path class="copied-icon" d="m5 12 4 4L19 6"/>
+    </svg>
+    <span class="developer-contact-copy-label">{copy_label}</span>
+  </button>
+</p>
 <div class="developer-contact-actions">
 <a class="btn btn-secondary" href="https://mail.google.com/mail/?{gmail}">Gmail</a>
 <a class="btn btn-secondary" href="https://outlook.live.com/mail/0/deeplink/compose?{outlook}">Outlook.com</a>
 <a class="btn btn-secondary" href="https://www.icloud.com/mail/">iCloud Mail</a>
-<button type="button" class="btn btn-secondary" data-copy-contact="{email}" hidden>{copy_label}</button>
 </div>
-<p class="developer-contact-hint">{hint}</p>
 <div class="developer-contact-status" role="status"><span data-contact-copied hidden>{copied}</span></div>
 </section>'''
 
@@ -99,11 +102,14 @@ const supported = ['ru','en','pl','uk'];
 let lang = new URL(location.href).searchParams.get('lang');
 try { lang ||= localStorage.getItem('jobhub_lang'); } catch (_) {}
 if (!supported.includes(lang)) lang = 'en';
+const contact = document.querySelector('.developer-contact');
+const copyContact = contact?.querySelector('[data-copy-contact]');
 function setLanguage(code) {
   document.documentElement.dataset.lang = code;
   document.documentElement.lang = code;
   try { localStorage.setItem('jobhub_lang', code); } catch (_) {}
   document.querySelectorAll('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === code)));
+  if (copyContact) copyContact.title = copyContact.querySelector('.lang-' + code).textContent;
   document.querySelectorAll('a[href]').forEach(a => {
     const u = new URL(a.href, location.href);
     if ((u.origin === location.origin || a.hasAttribute('data-onboarding-link')) && !a.hasAttribute('data-no-lang')) {
@@ -114,7 +120,6 @@ function setLanguage(code) {
 }
 document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.setLang)));
 setLanguage(lang);
-const contact = document.querySelector('.developer-contact');
 if (contact) {
   const header = document.querySelector('.site-header');
   const updateContactOffset = () => {
@@ -123,7 +128,6 @@ if (contact) {
   updateContactOffset();
   new ResizeObserver(updateContactOffset).observe(header);
 }
-const copyContact = contact?.querySelector('[data-copy-contact]');
 if (copyContact && navigator.clipboard?.writeText) {
   const address = contact.querySelector('.developer-contact-address');
   const copied = contact.querySelector('[data-contact-copied]');
@@ -132,9 +136,13 @@ if (copyContact && navigator.clipboard?.writeText) {
   copyContact.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(copyContact.dataset.copyContact);
+      copyContact.setAttribute('data-copy-succeeded', '');
       copied.hidden = false;
       clearTimeout(resetCopyStatus);
-      resetCopyStatus = setTimeout(() => { copied.hidden = true; }, 3000);
+      resetCopyStatus = setTimeout(() => {
+        copyContact.removeAttribute('data-copy-succeeded');
+        copied.hidden = true;
+      }, 3000);
     } catch (_) {
       window.getSelection()?.selectAllChildren(address);
     }
