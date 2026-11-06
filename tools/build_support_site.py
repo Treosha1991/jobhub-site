@@ -6,7 +6,7 @@ Publication must use the generated directory, never the repository root.
 dist-support-store-review; the default preserves the previously approved site.
 """
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import urlencode, urlsplit
 import json
 import shutil
 import build_support_commerce as commerce
@@ -25,6 +25,38 @@ tr, section, paragraph = commerce.tr, commerce.section, commerce.paragraph
 
 def render(name, title, intro, content):
     commerce.render(name, title, intro, content)
+
+
+def developer_contact():
+    email = 'admin@jobhub.today'
+    subject = 'JobHub Support'
+    gmail = urlencode({'view': 'cm', 'fs': 1, 'to': email, 'su': subject}).replace('&', '&amp;')
+    outlook = urlencode({'to': email, 'subject': subject}).replace('&', '&amp;')
+    title = tr('Связаться с разработчиком', 'Contact the developer',
+               'Kontakt z twórcą', 'Зв’язатися з розробником')
+    body = paragraph((
+        'Думаете подключить команду? Расскажите, как вы работаете, и задайте любые вопросы. Поможем разобраться, подойдёт ли вам JobHub Support.',
+        'Thinking of getting your team started? Tell us how you work and ask us anything. We’ll help you decide if JobHub Support is a good fit.',
+        'Chcesz wdrożyć JobHub Support w swoim zespole? Opowiedz nam, jak pracujecie, i zadaj pytania. Pomożemy Ci ocenić, czy to rozwiązanie dla Was.',
+        'Плануєте підключити команду? Розкажіть, як ви працюєте, і поставте свої запитання. Допоможемо з’ясувати, чи підійде вам JobHub Support.'))
+    copy_label = tr('Скопировать адрес', 'Copy email address', 'Skopiuj adres e-mail', 'Скопіювати адресу')
+    copied = tr('Адрес скопирован', 'Email address copied', 'Adres e-mail skopiowany', 'Адресу скопійовано')
+    hint = tr('В веб-почте iCloud вставьте адрес в поле «Кому» нового письма.',
+              'In iCloud Mail on the web, paste the address into the To field of a new message.',
+              'W poczcie iCloud w przeglądarce wklej adres w polu „Do” nowej wiadomości.',
+              'У вебверсії Пошти iCloud вставте адресу в поле «Кому» нового листа.')
+    return f'''<section id="developer-contact" class="section-card developer-contact" aria-labelledby="developer-contact-title">
+<h2 id="developer-contact-title">{title}</h2>{body}
+<p><a class="developer-contact-address" href="mailto:{email}?subject=JobHub%20Support">{email}</a></p>
+<div class="developer-contact-actions">
+<a class="btn btn-secondary" href="https://mail.google.com/mail/?{gmail}">Gmail</a>
+<a class="btn btn-secondary" href="https://outlook.live.com/mail/0/deeplink/compose?{outlook}">Outlook.com</a>
+<a class="btn btn-secondary" href="https://www.icloud.com/mail/">iCloud Mail</a>
+<button type="button" class="btn btn-secondary" data-copy-contact="{email}" hidden>{copy_label}</button>
+</div>
+<p class="developer-contact-hint">{hint}</p>
+<div class="developer-contact-status" role="status"><span data-contact-copied hidden>{copied}</span></div>
+</section>'''
 
 
 def main(store_review=False, approved_store_edition=None, approved_free_edition=None, onboarding_origin=ONBOARDING_ORIGIN):
@@ -82,6 +114,32 @@ function setLanguage(code) {
 }
 document.querySelectorAll('[data-set-lang]').forEach(b => b.addEventListener('click', () => setLanguage(b.dataset.setLang)));
 setLanguage(lang);
+const contact = document.querySelector('.developer-contact');
+if (contact) {
+  const header = document.querySelector('.site-header');
+  const updateContactOffset = () => {
+    contact.style.setProperty('--contact-header-height', `${header.offsetHeight}px`);
+  };
+  updateContactOffset();
+  new ResizeObserver(updateContactOffset).observe(header);
+}
+const copyContact = contact?.querySelector('[data-copy-contact]');
+if (copyContact && navigator.clipboard?.writeText) {
+  const address = contact.querySelector('.developer-contact-address');
+  const copied = contact.querySelector('[data-contact-copied]');
+  let resetCopyStatus;
+  copyContact.hidden = false;
+  copyContact.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copyContact.dataset.copyContact);
+      copied.hidden = false;
+      clearTimeout(resetCopyStatus);
+      resetCopyStatus = setTimeout(() => { copied.hidden = true; }, 3000);
+    } catch (_) {
+      window.getSelection()?.selectAllChildren(address);
+    }
+  });
+}
 ''', encoding='utf-8')
     commerce.ROOT = OUT
     commerce.PUBLIC_INDEXABLE = bool(approved_store_edition and approved_free_edition)
@@ -89,6 +147,7 @@ setLanguage(lang);
         ('index.html#download', ('Скачать', 'Download', 'Pobierz', 'Завантажити')),
         ('support-presentation.html', ('Презентация', 'Presentation', 'Prezentacja', 'Презентація')),
         ('news.html', ('Новости', 'News', 'Aktualności', 'Новини')),
+        ('index.html#developer-contact', ('Связаться', 'Contact', 'Kontakt', 'Зв’язатися')),
     ]
     commerce.terms(); commerce.refunds(); commerce.privacy()
     commerce.pricing(onboarding_origin)
@@ -135,7 +194,8 @@ setLanguage(lang);
          'JobHub Support is independent software for managing an existing team. This site offers no job search, job board, recruitment, contact sales, advertising or credits. Transport and housing features record internal team assignments; they do not sell those services.',
          'JobHub Support to samodzielne oprogramowanie do zarządzania istniejącym zespołem. Ta strona nie oferuje szukania pracy, tablicy ofert, rekrutacji, sprzedaży kontaktów, reklam ani kredytów. Funkcje transportu i zakwaterowania ewidencjonują przydziały zespołu; nie sprzedają tych usług.',
          'JobHub Support — самостійне ПЗ для керування наявною командою. Сайт не пропонує пошук роботи, дошку вакансій, підбір персоналу, продаж контактів, рекламу чи кредити. Функції транспорту й житла обліковують призначення команди, а не продають ці послуги.'))
-    render('index.html', ('JobHub Support',)*4, intro, actions+downloads+player+capabilities+hours+scope)
+    contact = developer_contact()
+    render('index.html', ('JobHub Support',)*4, intro, actions+contact+downloads+player+capabilities+hours+scope)
     updates.add_player_assets(OUT / 'index.html')
     render('support-guide.html', ('Как работает Support', 'How Support works', 'Jak działa Support', 'Як працює Support'), intro, capabilities+hours+scope)
     render('help.html', ('Помощь JobHub Support', 'JobHub Support help', 'Pomoc JobHub Support', 'Допомога JobHub Support'), intro, capabilities+hours)
@@ -144,7 +204,7 @@ setLanguage(lang);
            ('Напишите на admin@jobhub.today. Не отправляйте пароль, код входа или документы личности.',
             'Email admin@jobhub.today. Do not send passwords, login codes or identity documents.',
             'Napisz na admin@jobhub.today. Nie wysyłaj haseł, kodów logowania ani dokumentów tożsamości.',
-            'Напишіть на admin@jobhub.today. Не надсилайте пароль, код входу чи документи особи.'), '')
+            'Напишіть на admin@jobhub.today. Не надсилайте пароль, код входу чи документи особи.'), contact)
     deletion = section(('Удаление аккаунта', 'Account deletion', 'Usunięcie konta', 'Видалення акаунта'),
         ('В приложении откройте «Мой аккаунт» → «Удалить аккаунт» и подтвердите запрос паролем или кодом. Можно также написать на admin@jobhub.today с адреса аккаунта: попросим безопасно подтвердить владение. Не присылайте пароль.',
          'In the app, open My account → Delete account and confirm with your password or a code. You can also email admin@jobhub.today from your account address; we ask you to verify ownership securely. Do not send a password.',
